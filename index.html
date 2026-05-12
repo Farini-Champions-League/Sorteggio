@@ -6,8 +6,30 @@
     <title>UCL Draw - Calcio Balilla</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: 'Montserrat', sans-serif; background-color: #000b2a; color: white; }
-        .ucl-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #001a4d 0%, #000514 100%); z-index: 1; }
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: 'Montserrat', sans-serif; background-color: #000; color: white; }
+        
+        /* SFONDO PERSONALIZZATO */
+        .ucl-bg { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: url('sfondo.png') center/cover no-repeat; 
+            z-index: 1; 
+        }
+        
+        /* VELO SCURO PER LEGGIBILITÀ */
+        .overlay { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0, 5, 20, 0.6); 
+            z-index: 2; 
+        }
+
         #click-master { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; cursor: pointer; display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; }
         
         /* Grafica Card Champions */
@@ -20,11 +42,9 @@
         .team-name { font-size: 22px; font-weight: 900; text-transform: uppercase; }
         .vs { font-size: 30px; color: #d4af37; font-weight: 900; margin: 0 15px; }
         
-        /* Info Turni e Riposo */
         .extra-info { margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; font-size: 16px; }
         .rest-tag { color: #00ffa3; font-weight: bold; margin-top: 5px; font-size: 18px; }
         
-        /* Urna Animata */
         .ball { width: 60px; height: 60px; background: radial-gradient(circle at 30% 30%, #fff, #999); border-radius: 50%; animation: bounce 0.6s infinite alternate ease-in-out; border: 2px solid #fff; margin: 10px; }
         @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
     </style>
@@ -32,6 +52,7 @@
 <body onclick="handleInteraction()">
 
 <div class="ucl-bg"></div>
+<div class="overlay"></div>
 
 <div id="click-master">
     <div id="intro-ui">
@@ -69,7 +90,6 @@
     let step = 0;
     const anthem = document.getElementById('anthem');
 
-    // Database Match Completo
     const drawData = [
         { turn: "GRUPPO 1 - TURNO 1", t1: "I MILANISTI", l1: "Milanisti.png", t2: "ASTON PINNA", l2: "Aston.png", m2: "Farini Fighter vs B.I.B.C.", rest: "Riposa: Berlusca Dortmund" },
         { turn: "GRUPPO 1 - TURNO 2", t1: "BERLUSCA DORTMUND", l1: "Dortmund.png", t2: "I MILANISTI", l2: "Milanisti.png", m2: "Aston Pinna vs Farini Fighter", rest: "Riposa: B.I.B.C." },
@@ -88,8 +108,7 @@
 
         if (step < drawData.length) {
             document.getElementById('intro-ui').style.display = 'none';
-            const card = document.getElementById('match-card');
-            card.style.display = 'block';
+            document.getElementById('match-card').style.display = 'block';
             
             const d = drawData[step];
             document.getElementById('turn-title').innerText = d.turn;
@@ -102,7 +121,7 @@
             
             step++;
         } else {
-            location.reload(); // Ricomincia da capo dopo l'ultimo turno
+            location.reload();
         }
     }
 </script>
