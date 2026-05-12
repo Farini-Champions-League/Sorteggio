@@ -61,18 +61,18 @@
 <script>
     let step = 0;
     
-    // Mappatura file (Assicurati che i nomi dei file caricati su GitHub siano identici)
+    // Nomi dei file aggiornati con le maiuscole come da tuo screenshot
     const files = {
-        milanisti: "image_e2c98c.png",
-        aston: "image_ed49f3.png",
-        dortmund: "image_ed49f8.png",
-        bibc: "image_ed4ca3.jpg",
-        farini: "image_ed4c9d.jpg",
-        attenti: "image_ed4cc3.jpg",
-        pelados: "image_ed4cbd.png",
-        armistizio: "image_ed4cdf.jpg",
-        barilla: "image_ed4cf9.jpg",
-        penny: "image_ed4cfe.png"
+        milanisti: "Milanisti.png",
+        aston: "Aston.png",
+        dortmund: "Dortmund.png",
+        bibc: "bibc.png",
+        farini: "Farini.png",
+        attenti: "Attenti.jpg",
+        pelados: "Pelados.png",
+        armistizio: "Armistizio.png",
+        barilla: "Barilla.jpg",
+        penny: "Penny.png"
     };
 
     const draw = [
@@ -90,7 +90,7 @@
 
     function nextStep() {
         const audio = document.getElementById('anthem');
-        if (audio.paused) audio.play().catch(e => console.log("Audio bloccato"));
+        if (audio.paused) audio.play().catch(e => console.log("Audio play blocked"));
 
         if (step < draw.length) {
             document.getElementById('intro-ui').style.display = 'none';
