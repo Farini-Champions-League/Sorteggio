@@ -10,18 +10,23 @@
         .ucl-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('sfondo.png') center/cover no-repeat; z-index: 1; }
         .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 5, 20, 0.7); z-index: 2; }
         #click-master { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; cursor: pointer; display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; }
+        
         #match-card { display: none; width: 90%; max-width: 800px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); padding: 30px; border-radius: 30px; border: 2px solid #0047e1; animation: pop 0.4s ease-out; box-shadow: 0 0 50px rgba(0,71,225,0.3); }
         #final-ui { display: none; animation: pop 0.6s ease-out; }
-        .trophy-img { width: 350px; height: auto; filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.6)); margin-bottom: 20px; }
-        .winner-text { font-size: 45px; font-weight: 900; color: #d4af37; text-transform: uppercase; text-shadow: 0 0 20px rgba(0,0,0,0.8); }
+        .trophy-img { width: 300px; height: auto; filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.6)); margin-bottom: 20px; }
+        
         @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
         .team-box { flex: 1; display: flex; flex-direction: column; align-items: center; }
         .team-logo { width: 140px; height: 140px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; border: 3px solid #d4af37; overflow: hidden; margin-bottom: 10px; }
         .team-logo img { width: 90%; height: 90%; object-fit: contain; }
         .team-name { font-size: 22px; font-weight: 900; text-transform: uppercase; }
         .vs { font-size: 30px; color: #d4af37; font-weight: 900; margin: 0 15px; }
-        .extra-info { margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; font-size: 16px; }
-        .rest-tag { color: #00ffa3; font-weight: bold; margin-top: 5px; font-size: 18px; }
+        
+        .info-footer { margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; }
+        .rest-tag { color: #00ffa3; font-weight: bold; font-size: 18px; }
+        .match-number { color: #d4af37; font-size: 14px; letter-spacing: 2px; margin-bottom: 10px; }
+        
         .ball { width: 60px; height: 60px; background: radial-gradient(circle at 30% 30%, #fff, #999); border-radius: 50%; animation: bounce 0.6s infinite alternate ease-in-out; border: 2px solid #fff; margin: 10px; }
         @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
     </style>
@@ -38,10 +43,11 @@
         <div style="display: flex; justify-content: center; margin: 30px 0;">
             <div class="ball"></div><div class="ball" style="animation-delay: 0.2s"></div>
         </div>
-        <p style="text-transform: uppercase; letter-spacing: 2px; opacity: 0.8;">Tocca per iniziare il sorteggio</p>
+        <p style="text-transform: uppercase; letter-spacing: 2px; opacity: 0.8;">Tocca per iniziare</p>
     </div>
 
     <div id="match-card">
+        <div id="m-num" class="match-number"></div>
         <h3 id="turn-title" style="color: #00aaff; margin-bottom: 20px; font-size: 20px;"></h3>
         <div style="display: flex; align-items: center; justify-content: space-between;">
             <div class="team-box">
@@ -54,38 +60,57 @@
                 <div class="team-name" id="t2"></div>
             </div>
         </div>
-        <div class="extra-info">
-            <div id="m2-box">Match 2: <span id="m2" style="font-weight: bold;"></span></div>
+        <div class="info-footer">
             <div id="rest" class="rest-tag"></div>
         </div>
     </div>
 
     <div id="final-ui">
-        <img src="coppa.png" class="trophy-img" alt="Coppa">
-        <h1 class="winner-text">Chi sarà il vincitore?</h1>
-        <p style="opacity: 0.6; margin-top: 20px;">Tocca per ricominciare</p>
+        <img src="coppa.png" class="trophy-img">
+        <h1 style="font-size: 40px; color: #d4af37;">CHI SARÀ IL VINCITORE?</h1>
+        <p style="opacity: 0.6;">Tocca per ricominciare</p>
     </div>
 </div>
 
 <audio id="anthem" src="inno.mp3" loop></audio>
 
 <script>
-    let step = 0;
+    let currentIdx = 0;
     const anthem = document.getElementById('anthem');
 
-    const drawData = [
+    // Database con Match 1 e Match 2 separati per ogni turno
+    const sequence = [
         // GRUPPO 1
-        { turn: "GRUPPO 1 - TURNO 1", t1: "I MILANISTI", l1: "Milanisti.png", t2: "ASTON PINNA", l2: "Aston.png", m2: "Farini Fighter vs B.I.B.C.", rest: "Riposa: Berlusca Dortmund" },
-        { turn: "GRUPPO 1 - TURNO 2", t1: "BERLUSCA DORTMUND", l1: "Dortmund.png", t2: "I MILANISTI", l2: "Milanisti.png", m2: "Aston Pinna vs Farini Fighter", rest: "Riposa: B.I.B.C." },
-        { turn: "GRUPPO 1 - TURNO 3", t1: "B.I.B.C.", l1: "bibc.png", t2: "BERLUSCA DORTMUND", l2: "Dortmund.png", m2: "I Milanisti vs Farini Fighter", rest: "Riposa: Aston Pinna" },
-        { turn: "GRUPPO 1 - TURNO 4", t1: "ASTON PINNA", l1: "Aston.png", t2: "B.I.B.C.", l2: "bibc.png", m2: "Farini Fighter vs Berlusca Dortmund", rest: "Riposa: I Milanisti" },
-        { turn: "GRUPPO 1 - TURNO 5", t1: "BERLUSCA DORTMUND", l1: "Dortmund.png", t2: "ASTON PINNA", l2: "Aston.png", m2: "B.I.B.C. vs I Milanisti", rest: "Riposa: Farini Fighter" },
+        { turn: "GRUPPO 1 - TURNO 1", m: "MATCH 1", t1: "I MILANISTI", l1: "Milanisti.png", t2: "ASTON PINNA", l2: "Aston.png", rest: "Riposa: Berlusca Dortmund" },
+        { turn: "GRUPPO 1 - TURNO 1", m: "MATCH 2", t1: "FARINI FIGHTER", l1: "Farini.png", t2: "B.I.B.C.", l2: "bibc.png", rest: "Riposa: Berlusca Dortmund" },
+        
+        { turn: "GRUPPO 1 - TURNO 2", m: "MATCH 1", t1: "BERLUSCA DORTMUND", l1: "Dortmund.png", t2: "I MILANISTI", l2: "Milanisti.png", rest: "Riposa: B.I.B.C." },
+        { turn: "GRUPPO 1 - TURNO 2", m: "MATCH 2", t1: "ASTON PINNA", l1: "Aston.png", t2: "FARINI FIGHTER", l2: "Farini.png", rest: "Riposa: B.I.B.C." },
+        
+        { turn: "GRUPPO 1 - TURNO 3", m: "MATCH 1", t1: "B.I.B.C.", l1: "bibc.png", t2: "BERLUSCA DORTMUND", l2: "Dortmund.png", rest: "Riposa: Aston Pinna" },
+        { turn: "GRUPPO 1 - TURNO 3", m: "MATCH 2", t1: "I MILANISTI", l1: "Milanisti.png", t2: "FARINI FIGHTER", l2: "Farini.png", rest: "Riposa: Aston Pinna" },
+        
+        { turn: "GRUPPO 1 - TURNO 4", m: "MATCH 1", t1: "ASTON PINNA", l1: "Aston.png", t2: "B.I.B.C.", l2: "bibc.png", rest: "Riposa: I Milanisti" },
+        { turn: "GRUPPO 1 - TURNO 4", m: "MATCH 2", t1: "FARINI FIGHTER", l1: "Farini.png", t2: "BERLUSCA DORTMUND", l2: "Dortmund.png", rest: "Riposa: I Milanisti" },
+        
+        { turn: "GRUPPO 1 - TURNO 5", m: "MATCH 1", t1: "BERLUSCA DORTMUND", l1: "Dortmund.png", t2: "ASTON PINNA", l2: "Aston.png", rest: "Riposa: Farini Fighter" },
+        { turn: "GRUPPO 1 - TURNO 5", m: "MATCH 2", t1: "B.I.B.C.", l1: "bibc.png", t2: "I MILANISTI", l2: "Milanisti.png", rest: "Riposa: Farini Fighter" },
+
         // GRUPPO 2
-        { turn: "GRUPPO 2 - TURNO 1", t1: "ATTENTI A QUEI DUE", l1: "Attenti.jpg", t2: "FC PELADOS", l2: "Pelados.png", m2: "Armistizio FC vs Calcio Barilla", rest: "Riposa: PennyChellas" },
-        { turn: "GRUPPO 2 - TURNO 2", t1: "PENNYCHELLAS", l1: "Penny.png", t2: "ATTENTI A QUEI DUE", l2: "Attenti.jpg", m2: "FC Pelados vs Armistizio FC", rest: "Riposa: Calcio Barilla" },
-        { turn: "GRUPPO 2 - TURNO 3", t1: "CALCIO BARILLA", l1: "Barilla.jpg", t2: "PENNYCHELLAS", l2: "Penny.png", m2: "Attenti a quei due vs Armistizio FC", rest: "Riposa: FC Pelados" },
-        { turn: "GRUPPO 2 - TURNO 4", t1: "FC PELADOS", l1: "Pelados.png", t2: "CALCIO BARILLA", l2: "Barilla.jpg", m2: "Armistizio FC vs PennyChellas", rest: "Riposa: Attenti a quei due" },
-        { turn: "GRUPPO 2 - TURNO 5", t1: "PENNYCHELLAS", l1: "Penny.png", t2: "FC PELADOS", l2: "Pelados.png", m2: "Calcio Barilla vs Attenti a quei due", rest: "Riposa: Armistizio FC" }
+        { turn: "GRUPPO 2 - TURNO 1", m: "MATCH 1", t1: "ATTENTI A QUEI DUE", l1: "Attenti.jpg", t2: "FC PELADOS", l2: "Pelados.png", rest: "Riposa: Penny.png" },
+        { turn: "GRUPPO 2 - TURNO 1", m: "MATCH 2", t1: "ARMISTIZIO FC", l1: "Armistizio.png", t2: "CALCIO BARILLA", l2: "Barilla.jpg", rest: "Riposa: Penny.png" },
+        
+        { turn: "GRUPPO 2 - TURNO 2", m: "MATCH 1", t1: "PENNY CHELLAS", l1: "Penny.png", t2: "ATTENTI A QUEI DUE", l2: "Attenti.jpg", rest: "Riposa: Calcio Barilla" },
+        { turn: "GRUPPO 2 - TURNO 2", m: "MATCH 2", t1: "FC PELADOS", l1: "Pelados.png", t2: "ARMISTIZIO FC", l2: "Armistizio.png", rest: "Riposa: Calcio Barilla" },
+        
+        { turn: "GRUPPO 2 - TURNO 3", m: "MATCH 1", t1: "CALCIO BARILLA", l1: "Barilla.jpg", t2: "PENNY CHELLAS", l2: "Penny.png", rest: "Riposa: FC Pelados" },
+        { turn: "GRUPPO 2 - TURNO 3", m: "MATCH 2", t1: "ATTENTI A QUEI DUE", l1: "Attenti.jpg", t2: "ARMISTIZIO FC", l2: "Armistizio.png", rest: "Riposa: FC Pelados" },
+        
+        { turn: "GRUPPO 2 - TURNO 4", m: "MATCH 1", t1: "FC PELADOS", l1: "Pelados.png", t2: "CALCIO BARILLA", l2: "Barilla.jpg", rest: "Riposa: Attenti a quei due" },
+        { turn: "GRUPPO 2 - TURNO 4", m: "MATCH 2", t1: "ARMISTIZIO FC", l1: "Armistizio.png", t2: "PENNY CHELLAS", l2: "Penny.png", rest: "Riposa: Attenti a quei due" },
+        
+        { turn: "GRUPPO 2 - TURNO 5", m: "MATCH 1", t1: "PENNY CHELLAS", l1: "Penny.png", t2: "FC PELADOS", l2: "Pelados.png", rest: "Riposa: Armistizio FC" },
+        { turn: "GRUPPO 2 - TURNO 5", m: "MATCH 2", t1: "CALCIO BARILLA", l1: "Barilla.jpg", t2: "ATTENTI A QUEI DUE", l2: "Attenti.jpg", rest: "Riposa: Armistizio FC" }
     ];
 
     function handleInteraction() {
@@ -95,32 +120,27 @@
         const card = document.getElementById('match-card');
         const final = document.getElementById('final-ui');
 
-        if (step === 0) {
+        if (currentIdx < sequence.length) {
             intro.style.display = 'none';
             card.style.display = 'block';
-            updateCard();
-            step++;
-        } else if (step < drawData.length) {
-            updateCard();
-            step++;
-        } else if (step === drawData.length) {
+            
+            const data = sequence[currentIdx];
+            document.getElementById('m-num').innerText = data.m;
+            document.getElementById('turn-title').innerText = data.turn;
+            document.getElementById('t1').innerText = data.t1;
+            document.getElementById('l1').src = data.l1;
+            document.getElementById('t2').innerText = data.t2;
+            document.getElementById('l2').src = data.l2;
+            document.getElementById('rest').innerText = data.rest;
+            
+            currentIdx++;
+        } else if (currentIdx === sequence.length) {
             card.style.display = 'none';
             final.style.display = 'block';
-            step++;
+            currentIdx++;
         } else {
             location.reload();
         }
-    }
-
-    function updateCard() {
-        const d = drawData[step];
-        document.getElementById('turn-title').innerText = d.turn;
-        document.getElementById('t1').innerText = d.t1;
-        document.getElementById('l1').src = d.l1;
-        document.getElementById('t2').innerText = d.t2;
-        document.getElementById('l2').src = d.l2;
-        document.getElementById('m2').innerText = d.m2;
-        document.getElementById('rest').innerText = d.rest;
     }
 </script>
 </body>
