@@ -14,11 +14,12 @@
         h1 { color: #d4af37; text-transform: uppercase; text-align: center; font-size: clamp(24px, 5vw, 40px); margin: 0; text-shadow: 0 0 20px rgba(212,175,55,0.5); }
         h2 { color: #00aaff; text-transform: uppercase; font-size: 22px; border-left: 5px solid #d4af37; padding-left: 15px; margin: 40px 0 20px 0; width: 100%; max-width: 1200px; }
 
-        /* TABELLONE A TRE COLONNE */
-        .bracket-grid { display: grid; grid-template-columns: 1fr 0.8fr 1fr; gap: 20px; width: 100%; max-width: 1400px; }
+        /* TABELLONE A CINQUE COLONNE (Gironi -> Semi -> Finale <- Semi <- Gironi) */
+        .bracket-grid { display: grid; grid-template-columns: 1.2fr 0.8fr 1.2fr 0.8fr 1.2fr; gap: 15px; width: 100%; max-width: 1600px; align-items: center; }
         
-        .side-column { display: flex; flex-direction: column; gap: 25px; }
-        .center-column { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 100px; }
+        .side-column { display: flex; flex-direction: column; gap: 20px; }
+        .semi-column { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }
+        .center-column { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
         /* BOX PARTITA */
         .match-card { background: rgba(255,255,255,0.07); border: 1px solid #333; border-radius: 8px; overflow: hidden; width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
@@ -26,27 +27,28 @@
         .match-header.riposo { background: #444; }
         .team-row { display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); align-items: center; }
         .team-row:last-child { border-bottom: none; }
-        .team-name { font-size: 13px; font-weight: 700; text-transform: uppercase; }
+        .team-name { font-size: 12px; font-weight: 700; text-transform: uppercase; }
         .score-box { background: #222; width: 35px; height: 30px; line-height: 30px; text-align: center; font-weight: 900; border-radius: 4px; border: 1px solid #555; }
         .winner { background: #d4af37 !important; color: #000; border-color: #d4af37; }
 
-        /* FINALE */
-        .final-area { position: sticky; top: 50px; text-align: center; }
-        .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 280px; border-radius: 20px; padding: 15px; margin-top: 20px; }
-        .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); margin-bottom: 10px; }
+        /* SEMIFINALI E FINALE */
+        .semi-box { border: 1px solid #00aaff; width: 200px; background: rgba(0, 170, 255, 0.05); }
+        .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 260px !important; border-radius: 20px; padding: 10px; }
+        .trophy { width: 90px; filter: drop-shadow(0 0 20px #d4af37); margin-bottom: 10px; }
 
         /* CLASSIFICHE */
-        .tables-section { width: 100%; max-width: 1200px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .tables-section { width: 100%; max-width: 1200px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 50px; }
         table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
         th { background: #111; color: #d4af37; padding: 15px; font-size: 12px; text-align: center; border-bottom: 2px solid #d4af37; }
         td { padding: 15px; text-align: center; border-bottom: 1px solid #222; font-size: 14px; font-weight: bold; }
         .t-name { text-align: left; color: #fff; }
 
-        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
+        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; }
 
-        @media (max-width: 1000px) {
+        @media (max-width: 1200px) {
             .bracket-grid { grid-template-columns: 1fr; }
-            .center-column { order: -1; padding-top: 0; }
+            .semi-column { height: auto; margin: 20px 0; }
+            .center-column { order: -1; }
             .tables-section { grid-template-columns: 1fr; }
         }
     </style>
@@ -64,148 +66,53 @@
     <div class="bracket-grid">
         <div class="side-column">
             <h2>GIRONE A</h2>
-            
-            <div class="match-card">
-                <div class="match-header riposo">TURNO 1 <span>RIPOSA: DORTMUND</span></div>
+            <div class="match-card"><div class="match-header riposo">TURNO 1 <span>RIPOSA: DORTMUND</span></div>
                 <div class="team-row"><span class="team-name">I Milanisti</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">Aston Pinna</span><span class="score-box">-</span></div>
-            </div>
-            <div class="match-card">
-                <div class="team-row"><span class="team-name">Farini Fighter</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">B.I.B.C.</span><span class="score-box">-</span></div>
-            </div>
-
-            <div class="match-card">
-                <div class="match-header riposo">TURNO 2 <span>RIPOSA: B.I.B.C.</span></div>
+                <div class="team-row"><span class="team-name">Aston Pinna</span><span class="score-box">-</span></div></div>
+            <div class="match-card"><div class="team-row"><span class="team-name">Farini Fighter</span><span class="score-box">-</span></div>
+                <div class="team-row"><span class="team-name">B.I.B.C.</span><span class="score-box">-</span></div></div>
+            <div class="match-card"><div class="match-header riposo">TURNO 2 <span>RIPOSA: B.I.B.C.</span></div>
                 <div class="team-row"><span class="team-name">B. Dortmund</span><span class="score-box winner">7</span></div>
-                <div class="team-row"><span class="team-name">I Milanisti</span><span class="score-box">5</span></div>
-            </div>
-            <div class="match-card">
-                <div class="team-row"><span class="team-name">Aston Pinna</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">Farini Fighter</span><span class="score-box">-</span></div>
+                <div class="team-row"><span class="team-name">I Milanisti</span><span class="score-box">5</span></div></div>
             </div>
 
-            <div class="match-card">
-                <div class="match-header riposo">TURNO 3 <span>RIPOSA: ASTON PINNA</span></div>
-                <div class="team-row"><span class="team-name">B.I.B.C.</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">B. Dortmund</span><span class="score-box">-</span></div>
-            </div>
-            <div class="match-card">
-                <div class="team-row"><span class="team-name">I Milanisti</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">Farini Fighter</span><span class="score-box">-</span></div>
-            </div>
-
-            <div class="match-card">
-                <div class="match-header riposo">TURNO 4 <span>RIPOSA: I MILANISTI</span></div>
-                <div class="team-row"><span class="team-name">Aston Pinna</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">B.I.B.C.</span><span class="score-box">-</span></div>
-            </div>
-            <div class="match-card">
-                <div class="team-row"><span class="team-name">Farini Fighter</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">B. Dortmund</span><span class="score-box">-</span></div>
-            </div>
-
-            <div class="match-card">
-                <div class="match-header riposo">TURNO 5 <span>RIPOSA: FARINI FIGHTER</span></div>
-                <div class="team-row"><span class="team-name">B. Dortmund</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">Aston Pinna</span><span class="score-box">-</span></div>
-            </div>
-            <div class="match-card">
-                <div class="team-row"><span class="team-name">B.I.B.C.</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">I Milanisti</span><span class="score-box">-</span></div>
+        <div class="semi-column">
+            <div class="match-card semi-box">
+                <div class="match-header" style="background:#00aaff">SEMIFINALE A</div>
+                <div class="team-row"><span class="team-name">1° Girone A</span><span class="score-box">-</span></div>
+                <div class="team-row"><span class="team-name">2° Girone A</span><span class="score-box">-</span></div>
             </div>
         </div>
 
         <div class="center-column">
-            <div class="final-area">
-                <img src="coppa.png" class="trophy">
-                <div class="final-box">
-                    <div class="match-header" style="background:#d4af37; color:black; justify-content:center;">FINALISSIMA</div>
-                    <div class="team-row"><span>FINALISTA A</span><span class="score-box">-</span></div>
-                    <div class="team-row"><span>FINALISTA B</span><span class="score-box">-</span></div>
-                </div>
+            <img src="coppa.png" class="trophy">
+            <div class="match-card final-box">
+                <div class="match-header" style="background:#d4af37; color:black; justify-content:center;">FINALISSIMA</div>
+                <div class="team-row"><span>VINCITORE SEMI A</span><span class="score-box">-</span></div>
+                <div class="team-row"><span>VINCITORE SEMI B</span><span class="score-box">-</span></div>
+            </div>
+        </div>
+
+        <div class="semi-column">
+            <div class="match-card semi-box">
+                <div class="match-header" style="background:#00aaff">SEMIFINALE B</div>
+                <div class="team-row"><span class="team-name">1° Girone B</span><span class="score-box">-</span></div>
+                <div class="team-row"><span class="team-name">2° Girone B</span><span class="score-box">-</span></div>
             </div>
         </div>
 
         <div class="side-column">
             <h2>GIRONE B</h2>
-            
-            <div class="match-card">
-                <div class="match-header riposo">TURNO 1 <span>RIPOSA: PENNYCHELLAS</span></div>
+            <div class="match-card"><div class="match-header riposo">TURNO 1 <span>RIPOSA: PENNYCHELLAS</span></div>
                 <div class="team-row"><span class="team-name">Attenti a quei due</span><span class="score-box winner">7</span></div>
-                <div class="team-row"><span class="team-name">FC Pelados</span><span class="score-box">3</span></div>
+                <div class="team-row"><span class="team-name">FC Pelados</span><span class="score-box">3</span></div></div>
+            <div class="match-card"><div class="team-row"><span class="team-name">Armistizio FC</span><span class="score-box">-</span></div>
+                <div class="team-row"><span class="team-name">Calcio Barilla</span><span class="score-box">-</span></div></div>
             </div>
-            <div class="match-card">
-                <div class="team-row"><span class="team-name">Armistizio FC</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">Calcio Barilla</span><span class="score-box">-</span></div>
-            </div>
-
-            <div class="match-card">
-                <div class="match-header riposo">TURNO 2 <span>RIPOSA: CALCIO BARILLA</span></div>
-                <div class="team-row"><span class="team-name">PennyChellas</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">Attenti a quei due</span><span class="score-box">-</span></div>
-            </div>
-            <div class="match-card">
-                <div class="team-row"><span class="team-name">FC Pelados</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">Armistizio FC</span><span class="score-box">-</span></div>
-            </div>
-
-            <div class="match-card">
-                <div class="match-header riposo">TURNO 3 <span>RIPOSA: FC PELADOS</span></div>
-                <div class="team-row"><span class="team-name">Calcio Barilla</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">PennyChellas</span><span class="score-box">-</span></div>
-            </div>
-            <div class="match-card">
-                <div class="team-row"><span class="team-name">Attenti a quei due</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">Armistizio FC</span><span class="score-box">-</span></div>
-            </div>
-
-            <div class="match-card">
-                <div class="match-header riposo">TURNO 4 <span>RIPOSA: ATTENTI A QUEI DUE</span></div>
-                <div class="team-row"><span class="team-name">FC Pelados</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">Calcio Barilla</span><span class="score-box">-</span></div>
-            </div>
-            <div class="match-card">
-                <div class="team-row"><span class="team-name">Armistizio FC</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">PennyChellas</span><span class="score-box">-</span></div>
-            </div>
-
-            <div class="match-card">
-                <div class="match-header riposo">TURNO 5 <span>RIPOSA: ARMISTIZIO FC</span></div>
-                <div class="team-row"><span class="team-name">PennyChellas</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">FC Pelados</span><span class="score-box">-</span></div>
-            </div>
-            <div class="match-card">
-                <div class="team-row"><span class="team-name">Calcio Barilla</span><span class="score-box">-</span></div>
-                <div class="team-row"><span class="team-name">Attenti a quei due</span><span class="score-box">-</span></div>
-            </div>
-        </div>
     </div>
 
     <div class="tables-section">
-        <div>
-            <h2>CLASSIFICA GIRONE A</h2>
-            <table>
-                <tr><th>SQUADRA</th><th>PT</th><th>G</th><th>V</th><th>GF</th><th>GS</th></tr>
-                <tr><td class="t-name">Berlusca Dortmund</td><td>3</td><td>1</td><td>1</td><td>7</td><td>5</td></tr>
-                <tr><td class="t-name">I Milanisti</td><td>0</td><td>1</td><td>0</td><td>5</td><td>7</td></tr>
-                <tr><td class="t-name">Aston Pinna</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-                <tr><td class="t-name">Farini Fighter</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-                <tr><td class="t-name">B.I.B.C.</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-            </table>
         </div>
-        <div>
-            <h2>CLASSIFICA GIRONE B</h2>
-            <table>
-                <tr><th>SQUADRA</th><th>PT</th><th>G</th><th>V</th><th>GF</th><th>GS</th></tr>
-                <tr><td class="t-name">Attenti a quei due</td><td>3</td><td>1</td><td>1</td><td>7</td><td>3</td></tr>
-                <tr><td class="t-name">FC Pelados</td><td>0</td><td>1</td><td>0</td><td>3</td><td>7</td></tr>
-                <tr><td class="t-name">PennyChellas</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-                <tr><td class="t-name">Calcio Barilla</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-                <tr><td class="t-name">Armistizio FC</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-            </table>
-        </div>
-    </div>
 </div>
 
 </body>
