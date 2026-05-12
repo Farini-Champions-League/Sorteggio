@@ -6,32 +6,41 @@
     <title>Tabellone Ufficiale - Farini CL</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        body, html { margin: 0; padding: 0; min-height: 100vh; font-family: 'Montserrat', sans-serif; background: #000; color: white; }
+        body, html { margin: 0; padding: 0; min-height: 100vh; font-family: 'Montserrat', sans-serif; background: #000; color: white; overflow-x: hidden; }
         .ucl-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('sfondo.png') center/cover no-repeat; z-index: 1; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 2; }
         
-        .main-container { position: relative; z-index: 10; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        h1 { color: #d4af37; text-transform: uppercase; margin-bottom: 40px; text-shadow: 0 0 15px rgba(212,175,55,0.6); }
+        .main-container { position: relative; z-index: 10; padding: 20px; display: flex; flex-direction: column; align-items: center; width: 100%; box-sizing: border-box; }
+        h1 { color: #d4af37; text-transform: uppercase; margin-bottom: 50px; text-shadow: 0 0 15px rgba(212,175,55,0.6); text-align: center; font-size: 28px; }
 
-        /* Layout Tabellone */
-        .bracket-wrapper { display: flex; align-items: center; justify-content: center; gap: 40px; width: 100%; max-width: 1400px; margin-top: 20px; }
+        /* Layout a tre colonne stile Coppa Italia */
+        .bracket-wrapper { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 1200px; gap: 20px; margin-top: 20px; }
         
-        .side { display: flex; flex-direction: column; gap: 80px; }
-        .center { display: flex; flex-direction: column; align-items: center; gap: 50px; }
+        .column { display: flex; flex-direction: column; justify-content: space-around; height: 500px; flex: 1; }
+        .center-column { flex: 1.2; align-items: center; justify-content: center; display: flex; flex-direction: column; gap: 40px; }
 
         /* Box Partita */
-        .match { background: #222; border-left: 5px solid #0047e1; width: 200px; padding: 0; border-radius: 4px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .team { display: flex; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #333; }
-        .team span:first-child { font-weight: 700; font-size: 13px; text-transform: uppercase; }
-        .score { background: #0047e1; width: 30px; text-align: center; font-weight: 900; }
-        .winner { background: #d4af37 !important; color: #000; }
+        .match { background: rgba(34, 34, 34, 0.9); border-left: 5px solid #0047e1; width: 100%; max-width: 220px; border-radius: 4px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.5); backdrop-filter: blur(5px); }
+        .match-label { font-size: 10px; background: #111; padding: 4px 10px; color: #00aaff; font-weight: 900; letter-spacing: 1px; }
+        .team { display: flex; justify-content: space-between; padding: 10px 12px; border-bottom: 1px solid #333; align-items: center; }
+        .team:last-child { border-bottom: none; }
+        .team span:first-child { font-weight: 700; font-size: 12px; text-transform: uppercase; }
+        .score { background: #0047e1; width: 30px; height: 25px; line-height: 25px; text-align: center; font-weight: 900; border-radius: 3px; }
+        .winner-score { background: #d4af37; color: #000; }
 
-        /* Finale */
-        .finale-box { border: 3px solid #d4af37; transform: scale(1.2); background: rgba(212, 175, 55, 0.1); }
-        .trophy { width: 100px; margin-bottom: 10px; filter: drop-shadow(0 0 10px #d4af37); }
+        /* Finale al Centro */
+        .finale-box { border: 2px solid #d4af37; transform: scale(1.1); background: rgba(212, 175, 55, 0.15); box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); }
+        .trophy { width: 80px; margin-bottom: 15px; filter: drop-shadow(0 0 10px #d4af37); }
         
-        #music-btn { position: fixed; bottom: 20px; left: 20px; background: #d4af37; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; font-weight: bold; z-index: 100; }
-        .back-btn { position: fixed; top: 20px; left: 20px; color: white; text-decoration: none; font-weight: bold; z-index: 100; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 5px; }
+        /* Navigazione e Musica */
+        .nav-btn { position: fixed; z-index: 100; background: #d4af37; color: black; border: none; padding: 10px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; text-decoration: none; font-size: 12px; }
+        .back-btn { top: 20px; left: 20px; }
+        .music-btn { bottom: 20px; right: 20px; }
+
+        @media (max-width: 800px) {
+            .bracket-wrapper { flex-direction: column; }
+            .column { height: auto; gap: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -39,53 +48,59 @@
 <div class="ucl-bg"></div>
 <div class="overlay"></div>
 
-<a href="index.html" class="back-btn">← TORNA AI SORTEGGI</a>
-<button id="music-btn" onclick="toggleMusic()">🔊 ATTIVA INNO</button>
+<a href="index.html" class="nav-btn back-btn">← SORTEGGI</a>
+<button class="nav-btn music-btn" onclick="toggleMusic()">🔊 INNO</button>
 <audio id="anthem" src="inno.mp3" loop></audio>
 
 <div class="main-container">
-    <h1>TABELLONE UFFICIALE FARINI CL</h1>
+    <h1>TABELLONE COPPA FARINI</h1>
 
     <div class="bracket-wrapper">
         
-        <div class="side">
+        <div class="column">
             <div class="match">
-                <div class="team"><span>B. Dortmund</span><span class="score winner">7</span></div>
+                <div class="match-label">QUARTI 1</div>
+                <div class="team"><span>B. Dortmund</span><span class="score winner-score">7</span></div>
                 <div class="team"><span>Aston Pinna</span><span class="score">5</span></div>
             </div>
             <div class="match">
+                <div class="match-label">QUARTI 2</div>
                 <div class="team"><span>I Milanisti</span><span class="score">-</span></div>
                 <div class="team"><span>B.I.B.C.</span><span class="score">-</span></div>
             </div>
         </div>
 
-        <div class="center">
-            <div class="match" style="margin-bottom: 100px;">
+        <div class="center-column">
+            <div class="match">
+                <div class="match-label">SEMIFINALE 1</div>
                 <div class="team"><span>B. Dortmund</span><span class="score">-</span></div>
                 <div class="team"><span>TBD</span><span class="score">-</span></div>
             </div>
-            
-            <div class="center">
+
+            <div style="display: flex; flex-direction: column; align-items: center; margin: 20px 0;">
                 <img src="coppa.png" class="trophy">
                 <div class="match finale-box">
-                    <div class="team"><span>FINALISTA 1</span><span class="score">-</span></div>
-                    <div class="team"><span>FINALISTA 2</span><span class="score">-</span></div>
+                    <div class="match-label" style="text-align: center; background: #d4af37; color: #000;">FINALISSIMA</div>
+                    <div class="team"><span>TBD</span><span class="score">-</span></div>
+                    <div class="team"><span>TBD</span><span class="score">-</span></div>
                 </div>
-                <h2 style="color: #d4af37; font-size: 14px; letter-spacing: 3px;">FINALISSIMA</h2>
             </div>
 
-            <div class="match" style="margin-top: 100px;">
+            <div class="match">
+                <div class="match-label">SEMIFINALE 2</div>
                 <div class="team"><span>Attenti a quei due</span><span class="score">-</span></div>
                 <div class="team"><span>TBD</span><span class="score">-</span></div>
             </div>
         </div>
 
-        <div class="side">
+        <div class="column">
             <div class="match">
-                <div class="team"><span>Attenti a quei due</span><span class="score winner">14</span></div>
+                <div class="match-label">QUARTI 3</div>
+                <div class="team"><span>Attenti a quei due</span><span class="score winner-score">14</span></div>
                 <div class="team"><span>Pennychellas</span><span class="score">10</span></div>
             </div>
             <div class="match">
+                <div class="match-label">QUARTI 4</div>
                 <div class="team"><span>Farini Fighter</span><span class="score">-</span></div>
                 <div class="team"><span>FC Pelados</span><span class="score">-</span></div>
             </div>
@@ -97,8 +112,8 @@
 <script>
     function toggleMusic() {
         const audio = document.getElementById('anthem');
-        if (audio.paused) { audio.play(); document.getElementById('music-btn').innerText = "⏸ PAUSA"; }
-        else { audio.pause(); document.getElementById('music-btn').innerText = "🔊 ATTIVA INNO"; }
+        if (audio.paused) { audio.play(); }
+        else { audio.pause(); }
     }
 </script>
 
