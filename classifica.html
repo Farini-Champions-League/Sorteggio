@@ -33,19 +33,24 @@
         .score-box { background: #222; width: 35px; height: 30px; line-height: 30px; text-align: center; font-weight: 900; border-radius: 4px; border: 1px solid #555; }
         .winner { background: #d4af37 !important; color: #000; border-color: #d4af37; }
         
-        .final-area { text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .semi-card { border: 1px solid #00aaff; background: rgba(0, 170, 255, 0.05); width: 240px; }
-        .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 280px; border-radius: 20px; padding: 15px; }
-        .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); }
+        .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 280px; border-radius: 20px; padding: 15px; text-align: center; }
+        .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); margin-bottom: 10px; }
         
-        .tables-section { width: 100%; max-width: 1200px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        /* LAYOUT CLASSIFICHE */
+        .tables-container { width: 100%; max-width: 1500px; display: grid; grid-template-columns: 1fr 1fr 0.7fr; gap: 30px; margin-top: 50px; }
         table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
         th { background: #111; color: #d4af37; padding: 15px; font-size: 11px; text-align: center; border-bottom: 2px solid #d4af37; }
         td { padding: 12px; text-align: center; border-bottom: 1px solid #222; font-size: 13px; font-weight: bold; }
         .t-name { text-align: left; color: #fff; padding-left: 15px; line-height: 1.3; }
         
+        /* CLASSIFICHE SPECIALI */
+        .special-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; border: 1px dashed #d4af37; height: fit-content; }
+        .special-title { color: #d4af37; font-size: 14px; text-transform: uppercase; margin: 0 0 15px 0; display: flex; align-items: center; gap: 10px; }
+        .special-table td { font-size: 11px; padding: 8px; }
+        .special-table .mini-logo { width: 22px; height: 22px; }
+
         .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
-        @media (max-width: 1000px) { .bracket-grid { grid-template-columns: 1fr; } .center-column { order: -1; } .tables-section { grid-template-columns: 1fr; } }
+        @media (max-width: 1100px) { .tables-container { grid-template-columns: 1fr; } .bracket-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -61,7 +66,6 @@
     <div class="bracket-grid">
         <div class="side-column">
             <h2>GIRONE A</h2>
-            
             <div class="match-card">
                 <div class="match-header riposo">TURNO 1 <span>RIPOSA: DORTMUND</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Aston.png" class="mini-logo"><span class="team-name">Aston Pinna <span class="members">(Simone Z.;Gabriele P.)</span></span></div><span class="score-box">2</span></div>
@@ -71,7 +75,6 @@
                 <div class="team-row"><div class="team-info-wrapper"><img src="Farini.png" class="mini-logo"><span class="team-name">Farini Fighter <span class="members">(Claudio C.;Stefano P.)</span></span></div><span class="score-box">-</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="bibc.png" class="mini-logo"><span class="team-name">B.I.B.C. <span class="members">(Davide N.;Stefano D.S.)</span></span></div><span class="score-box">-</span></div>
             </div>
-
             <div class="match-card">
                 <div class="match-header riposo">TURNO 2 <span>RIPOSA: B.I.B.C.</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Dortmund.png" class="mini-logo"><span class="team-name">Berlusca Dortmund <span class="members">(Samuele B.;Andrea M.)</span></span></div><span class="score-box winner">7</span></div>
@@ -81,7 +84,6 @@
                 <div class="team-row"><div class="team-info-wrapper"><img src="Aston.png" class="mini-logo"><span class="team-name">Aston Pinna <span class="members">(Simone Z.;Gabriele P.)</span></span></div><span class="score-box">-</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Farini.png" class="mini-logo"><span class="team-name">Farini Fighter <span class="members">(Claudio C.;Stefano P.)</span></span></div><span class="score-box">-</span></div>
             </div>
-
             <div class="match-card">
                 <div class="match-header riposo">TURNO 3 <span>RIPOSA: ASTON PINNA</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="bibc.png" class="mini-logo"><span class="team-name">B.I.B.C. <span class="members">(Davide N.;Stefano D.S.)</span></span></div><span class="score-box">-</span></div>
@@ -91,7 +93,6 @@
                 <div class="team-row"><div class="team-info-wrapper"><img src="Milanisti.png" class="mini-logo"><span class="team-name">I Milanisti <span class="members">(Filippo Z.;Roberto V.)</span></span></div><span class="score-box">-</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Farini.png" class="mini-logo"><span class="team-name">Farini Fighter <span class="members">(Claudio C.;Stefano P.)</span></span></div><span class="score-box">-</span></div>
             </div>
-
             <div class="match-card">
                 <div class="match-header riposo">TURNO 4 <span>RIPOSA: I MILANISTI</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Aston.png" class="mini-logo"><span class="team-name">Aston Pinna <span class="members">(Simone Z.;Gabriele P.)</span></span></div><span class="score-box">-</span></div>
@@ -101,7 +102,6 @@
                 <div class="team-row"><div class="team-info-wrapper"><img src="Farini.png" class="mini-logo"><span class="team-name">Farini Fighter <span class="members">(Claudio C.;Stefano P.)</span></span></div><span class="score-box">-</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Dortmund.png" class="mini-logo"><span class="team-name">Berlusca Dortmund <span class="members">(Samuele B.;Andrea M.)</span></span></div><span class="score-box">-</span></div>
             </div>
-
             <div class="match-card">
                 <div class="match-header riposo">TURNO 5 <span>RIPOSA: FARINI FIGHTER</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Dortmund.png" class="mini-logo"><span class="team-name">Berlusca Dortmund <span class="members">(Samuele B.;Andrea M.)</span></span></div><span class="score-box winner">7</span></div>
@@ -115,28 +115,17 @@
 
         <div class="center-column">
             <div class="final-area">
-                <div class="match-card semi-card">
-                    <div class="match-header" style="background:#00aaff; justify-content:center;">SEMIFINALE GR. A</div>
-                    <div class="team-row"><span>1° Classificato</span><span class="score-box">-</span></div>
-                    <div class="team-row"><span>2° Classificato</span><span class="score-box">-</span></div>
-                </div>
                 <img src="coppa.png" class="trophy">
-                <div class="match-card final-box">
+                <div class="final-box">
                     <div class="match-header" style="background:#d4af37; color:black; justify-content:center;">FINALISSIMA</div>
-                    <div class="team-row"><span>VINCITORE SEMI A</span><span class="score-box">-</span></div>
-                    <div class="team-row"><span>VINCITORE SEMI B</span><span class="score-box">-</span></div>
-                </div>
-                <div class="match-card semi-card">
-                    <div class="match-header" style="background:#00aaff; justify-content:center;">SEMIFINALE GR. B</div>
-                    <div class="team-row"><span>1° Classificato</span><span class="score-box">-</span></div>
-                    <div class="team-row"><span>2° Classificato</span><span class="score-box">-</span></div>
+                    <div class="team-row"><span>TBD</span><span class="score-box">-</span></div>
+                    <div class="team-row"><span>TBD</span><span class="score-box">-</span></div>
                 </div>
             </div>
         </div>
 
         <div class="side-column">
             <h2>GIRONE B</h2>
-            
             <div class="match-card">
                 <div class="match-header riposo">TURNO 1 <span>RIPOSA: PENNYCHELLAS</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Attenti.jpg" class="mini-logo"><span class="team-name">Attenti a Quei Due <span class="members">(Antonio F.;Alessandro L.)</span></span></div><span class="score-box">-</span></div>
@@ -146,7 +135,6 @@
                 <div class="team-row"><div class="team-info-wrapper"><img src="Armistizio.png" class="mini-logo"><span class="team-name">Armistizio FC <span class="members">(Alessio F.;Giovanni C.)</span></span></div><span class="score-box winner">7</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Penny.png" class="mini-logo"><span class="team-name">PennyChellas <span class="members">(Pierluigi P.;Fioravante E.)</span></span></div><span class="score-box">0</span></div>
             </div>
-
             <div class="match-card">
                 <div class="match-header riposo">TURNO 2 <span>RIPOSA: CALCIO BARILLA</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Penny.png" class="mini-logo"><span class="team-name">PennyChellas <span class="members">(Pierluigi P.;Fioravante E.)</span></span></div><span class="score-box">4</span></div>
@@ -156,7 +144,6 @@
                 <div class="team-row"><div class="team-info-wrapper"><img src="Pelados.png" class="mini-logo"><span class="team-name">FC Pelados <span class="members">(Edoardo A.;Josef F.)</span></span></div><span class="score-box">-</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Armistizio.png" class="mini-logo"><span class="team-name">Armistizio FC <span class="members">(Alessio F.;Giovanni C.)</span></span></div><span class="score-box">-</span></div>
             </div>
-
             <div class="match-card">
                 <div class="match-header riposo">TURNO 3 <span>RIPOSA: FC PELADOS</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Barilla.jpg" class="mini-logo"><span class="team-name">Calcio Barilla <span class="members">(Antonio C.;Matteo C.)</span></span></div><span class="score-box">-</span></div>
@@ -166,9 +153,8 @@
                 <div class="team-row"><div class="team-info-wrapper"><img src="Attenti.jpg" class="mini-logo"><span class="team-name">Attenti a Quei Due <span class="members">(Antonio F.;Alessandro L.)</span></span></div><span class="score-box winner">7</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Armistizio.png" class="mini-logo"><span class="team-name">Armistizio FC <span class="members">(Alessio F.;Giovanni C.)</span></span></div><span class="score-box">6</span></div>
             </div>
-
             <div class="match-card">
-                <div class="match-header riposo">TURNO 4 <span>RIPOSA: ATTENTI A QUEI DUE</span></div>
+                <div class="match-header riposo">TURNO 4 <span>RIPOSA: ATTENTI A DUE</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Pelados.png" class="mini-logo"><span class="team-name">FC Pelados <span class="members">(Edoardo A.;Josef F.)</span></span></div><span class="score-box">-</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Barilla.jpg" class="mini-logo"><span class="team-name">Calcio Barilla <span class="members">(Antonio C.;Matteo C.)</span></span></div><span class="score-box">-</span></div>
             </div>
@@ -176,7 +162,6 @@
                 <div class="team-row"><div class="team-info-wrapper"><img src="Armistizio.png" class="mini-logo"><span class="team-name">Armistizio FC <span class="members">(Alessio F.;Giovanni C.)</span></span></div><span class="score-box">-</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Penny.png" class="mini-logo"><span class="team-name">PennyChellas <span class="members">(Pierluigi P.;Fioravante E.)</span></span></div><span class="score-box">-</span></div>
             </div>
-
             <div class="match-card">
                 <div class="match-header riposo">TURNO 5 <span>RIPOSA: ARMISTIZIO FC</span></div>
                 <div class="team-row"><div class="team-info-wrapper"><img src="Penny.png" class="mini-logo"><span class="team-name">PennyChellas <span class="members">(Pierluigi P.;Fioravante E.)</span></span></div><span class="score-box">-</span></div>
@@ -189,27 +174,46 @@
         </div>
     </div>
 
-    <div class="tables-section">
+    <div class="tables-container">
         <div>
-            <h2>CLASSIFICA GIRONE A</h2>
+            <h2>GIRONE A</h2>
             <table>
-                <tr><th>SQUADRA</th><th>PT</th><th>P</th><th>V</th><th>GF</th><th>GS</th><th>DR</th></tr>
-                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Dortmund.png" class="mini-logo table-logo"><span>Berlusca Dortmund <br><span class="members">(Samuele B.;Andrea M.)</span></span></div></td><td>6</td><td>2</td><td>2</td><td>14</td><td>7</td><td>+7</td></tr>
-                <tr><td class="t-name"><div class="team-info-wrapper"><img src="bibc.png" class="mini-logo table-logo"><span>B.I.B.C. <br><span class="members">(Davide N.;Stefano D.S.)</span></span></div></td><td>3</td><td>1</td><td>1</td><td>7</td><td>1</td><td>+6</td></tr>
-                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Milanisti.png" class="mini-logo table-logo"><span>I Milanisti <br><span class="members">(Filippo Z.;Roberto V.)</span></span></div></td><td>3</td><td>3</td><td>1</td><td>10</td><td>16</td><td>-6</td></tr>
-                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Aston.png" class="mini-logo table-logo"><span>Aston Pinna <br><span class="members">(Simone Z.;Gabriele P.)</span></span></div></td><td>0</td><td>2</td><td>0</td><td>7</td><td>14</td><td>-7</td></tr>
-                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Farini.png" class="mini-logo table-logo"><span>Farini Fighter <br><span class="members">(Claudio C.;Stefano P.)</span></span></div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                <tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr>
+                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Dortmund.png" class="mini-logo"><span>Dortmund <span class="members">(Samuele B.;Andrea M.)</span></span></div></td><td>6</td><td>2</td><td>14</td><td>7</td></tr>
+                <tr><td class="t-name"><div class="team-info-wrapper"><img src="bibc.png" class="mini-logo"><span>B.I.B.C. <span class="members">(Davide N.;Stefano D.S.)</span></span></div></td><td>3</td><td>1</td><td>7</td><td>1</td></tr>
+                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Milanisti.png" class="mini-logo"><span>Milanisti <span class="members">(Filippo Z.;Roberto V.)</span></span></div></td><td>3</td><td>3</td><td>10</td><td>16</td></tr>
+                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Aston.png" class="mini-logo"><span>Aston Pinna <span class="members">(Simone Z.;Gabriele P.)</span></span></div></td><td>0</td><td>2</td><td>7</td><td>14</td></tr>
+                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Farini.png" class="mini-logo"><span>Farini <span class="members">(Claudio C.;Stefano P.)</span></span></div></td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
             </table>
         </div>
+
         <div>
-            <h2>CLASSIFICA GIRONE B</h2>
+            <h2>GIRONE B</h2>
             <table>
-                <tr><th>SQUADRA</th><th>PT</th><th>P</th><th>V</th><th>GF</th><th>GS</th><th>DR</th></tr>
-                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Attenti.jpg" class="mini-logo table-logo"><span>Attenti a Quei Due <br><span class="members">(Antonio F.;Alessandro L.)</span></span></div></td><td>6</td><td>2</td><td>2</td><td>14</td><td>10</td><td>+4</td></tr>
-                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Armistizio.png" class="mini-logo table-logo"><span>Armistizio FC <br><span class="members">(Alessio F.;Giovanni C.)</span></span></div></td><td>3</td><td>2</td><td>1</td><td>13</td><td>7</td><td>+6</td></tr>
-                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Penny.png" class="mini-logo table-logo"><span>PennyChellas <br><span class="members">(Pierluigi P.;Fioravante E.)</span></span></div></td><td>0</td><td>2</td><td>0</td><td>4</td><td>14</td><td>-10</td></tr>
-                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Barilla.jpg" class="mini-logo table-logo"><span>Calcio Barilla <br><span class="members">(Antonio C.;Matteo C.)</span></span></div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Pelados.png" class="mini-logo table-logo"><span>FC Pelados <br><span class="members">(Edoardo A.;Josef F.)</span></span></div></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                <tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr>
+                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Attenti.jpg" class="mini-logo"><span>Attenti 2 <span class="members">(Antonio F.;Alessandro L.)</span></span></div></td><td>6</td><td>2</td><td>14</td><td>10</td></tr>
+                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Armistizio.png" class="mini-logo"><span>Armistizio <span class="members">(Alessio F.;Giovanni C.)</span></span></div></td><td>3</td><td>2</td><td>13</td><td>7</td></tr>
+                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Penny.png" class="mini-logo"><span>Penny <span class="members">(Pierluigi P.;Fioravante E.)</span></span></div></td><td>0</td><td>2</td><td>4</td><td>14</td></tr>
+                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Barilla.jpg" class="mini-logo"><span>Barilla <span class="members">(Antonio C.;Matteo C.)</span></span></div></td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                <tr><td class="t-name"><div class="team-info-wrapper"><img src="Pelados.png" class="mini-logo"><span>Pelados <span class="members">(Edoardo A.;Josef F.)</span></span></div></td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            </table>
+        </div>
+
+        <div class="special-box">
+            <h3 class="special-title">🔥 Miglior Attacco</h3>
+            <table class="special-table">
+                <tr><td class="t-name"><img src="Dortmund.png" class="mini-logo"> Dortmund</td><td>14 GF</td></tr>
+                <tr><td class="t-name"><img src="Attenti.jpg" class="mini-logo"> Attenti 2</td><td>14 GF</td></tr>
+                <tr><td class="t-name"><img src="Armistizio.png" class="mini-logo"> Armistizio</td><td>13 GF</td></tr>
+                <tr><td class="t-name"><img src="Milanisti.png" class="mini-logo"> Milanisti</td><td>10 GF</td></tr>
+            </table>
+
+            <h3 class="special-title" style="margin-top:25px; color:#00aaff;">🛡️ Miglior Difesa</h3>
+            <table class="special-table">
+                <tr><td class="t-name"><img src="Dortmund.png" class="mini-logo"> Dortmund</td><td>7/2p</td></tr>
+                <tr><td class="t-name"><img src="Armistizio.png" class="mini-logo"> Armistizio</td><td>7/2p</td></tr>
+                <tr><td class="t-name"><img src="Attenti.jpg" class="mini-logo"> Attenti 2</td><td>10/2p</td></tr>
+                <tr><td class="t-name"><img src="bibc.png" class="mini-logo"> B.I.B.C.</td><td>1/1p</td></tr>
             </table>
         </div>
     </div>
