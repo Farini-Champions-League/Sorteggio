@@ -13,7 +13,7 @@
         h1 { color: #d4af37; text-transform: uppercase; text-align: center; font-size: clamp(24px, 5vw, 40px); margin: 0; text-shadow: 0 0 20px rgba(212,175,55,0.5); }
         h2 { color: #00aaff; text-transform: uppercase; font-size: 22px; border-left: 5px solid #d4af37; padding-left: 15px; margin: 40px 0 20px 0; width: 100%; max-width: 1200px; }
         
-        .bracket-grid { display: grid; grid-template-columns: 1fr 0.8fr 1fr; gap: 20px; width: 100%; max-width: 1400px; }
+        .bracket-grid { display: grid; grid-template-columns: 1fr 0.8fr 1fr; gap: 20px; width: 100%; max-width: 1500px; }
         .side-column { display: flex; flex-direction: column; gap: 25px; }
         .center-column { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 30px; }
         
@@ -24,13 +24,12 @@
         .team-row { display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); align-items: center; }
         .team-row:last-child { border-bottom: none; }
         
-        /* Stile per i Loghi */
         .team-info-wrapper { display: flex; align-items: center; gap: 12px; }
         .mini-logo { width: 30px; height: 30px; border-radius: 50%; background: white; object-fit: contain; border: 1px solid #d4af37; flex-shrink: 0; }
         .table-logo { width: 40px; height: 40px; }
         
-        .team-name { font-size: 13px; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
-        .members { font-size: 10px; font-weight: 400; text-transform: none; color: #aaa; display: block; }
+        .team-name { font-size: 12px; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
+        .members { font-size: 9px; font-weight: 400; text-transform: none; color: #aaa; display: block; }
         .score-box { background: #222; width: 35px; height: 30px; line-height: 30px; text-align: center; font-weight: 900; border-radius: 4px; border: 1px solid #555; }
         .winner { background: #d4af37 !important; color: #000; border-color: #d4af37; }
         
@@ -41,8 +40,8 @@
         
         .tables-section { width: 100%; max-width: 1200px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
-        th { background: #111; color: #d4af37; padding: 15px; font-size: 12px; text-align: center; border-bottom: 2px solid #d4af37; }
-        td { padding: 15px; text-align: center; border-bottom: 1px solid #222; font-size: 14px; font-weight: bold; }
+        th { background: #111; color: #d4af37; padding: 15px; font-size: 11px; text-align: center; border-bottom: 2px solid #d4af37; }
+        td { padding: 12px; text-align: center; border-bottom: 1px solid #222; font-size: 13px; font-weight: bold; }
         .t-name { text-align: left; color: #fff; padding-left: 15px; line-height: 1.3; }
         
         .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
@@ -65,174 +64,127 @@
             
             <div class="match-card">
                 <div class="match-header riposo">TURNO 1 <span>RIPOSA: DORTMUND</span></div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Aston.png" class="mini-logo">
-                        <span class="team-name">Aston Pinna <span class="members">(Simone Z.;Gabriele P.)</span></span>
-                    </div>
-                    <span class="score-box">2</span>
-                </div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Milanisti.png" class="mini-logo">
-                        <span class="team-name">I Milanisti <span class="members">(Filippo Z.;Roberto V.)</span></span>
-                    </div>
-                    <span class="score-box winner">7</span>
-                </div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Aston.png" class="mini-logo"><span class="team-name">Aston Pinna <span class="members">(Simone Z.;Gabriele P.)</span></span></div><span class="score-box">2</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Milanisti.png" class="mini-logo"><span class="team-name">I Milanisti <span class="members">(Filippo Z.;Roberto V.)</span></span></div><span class="score-box winner">7</span></div>
             </div>
-
             <div class="match-card">
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Farini.png" class="mini-logo">
-                        <span class="team-name">Farini Fighter <span class="members">(Claudio C.;Stefano P.)</span></span>
-                    </div>
-                    <span class="score-box">-</span>
-                </div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="bibc.png" class="mini-logo">
-                        <span class="team-name">B.I.B.C. <span class="members">(Davide N.;Stefano D.S.)</span></span>
-                    </div>
-                    <span class="score-box">-</span>
-                </div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Farini.png" class="mini-logo"><span class="team-name">Farini Fighter <span class="members">(Claudio C.;Stefano P.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="bibc.png" class="mini-logo"><span class="team-name">B.I.B.C. <span class="members">(Davide N.;Stefano D.S.)</span></span></div><span class="score-box">-</span></div>
             </div>
 
             <div class="match-card">
                 <div class="match-header riposo">TURNO 2 <span>RIPOSA: B.I.B.C.</span></div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Dortmund.png" class="mini-logo">
-                        <span class="team-name">Berlusca Dortmund <span class="members">(Samuele B.;Andrea M.)</span></span>
-                    </div>
-                    <span class="score-box winner">7</span>
-                </div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Milanisti.png" class="mini-logo">
-                        <span class="team-name">I Milanisti <span class="members">(Filippo Z.;Roberto V.)</span></span>
-                    </div>
-                    <span class="score-box">2</span>
-                </div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Dortmund.png" class="mini-logo"><span class="team-name">Berlusca Dortmund <span class="members">(Samuele B.;Andrea M.)</span></span></div><span class="score-box winner">7</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Milanisti.png" class="mini-logo"><span class="team-name">I Milanisti <span class="members">(Filippo Z.;Roberto V.)</span></span></div><span class="score-box">2</span></div>
+            </div>
+            <div class="match-card">
+                <div class="team-row"><div class="team-info-wrapper"><img src="Aston.png" class="mini-logo"><span class="team-name">Aston Pinna <span class="members">(Simone Z.;Gabriele P.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Farini.png" class="mini-logo"><span class="team-name">Farini Fighter <span class="members">(Claudio C.;Stefano P.)</span></span></div><span class="score-box">-</span></div>
+            </div>
+
+            <div class="match-card">
+                <div class="match-header riposo">TURNO 3 <span>RIPOSA: ASTON PINNA</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="bibc.png" class="mini-logo"><span class="team-name">B.I.B.C. <span class="members">(Davide N.;Stefano D.S.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Dortmund.png" class="mini-logo"><span class="team-name">Berlusca Dortmund <span class="members">(Samuele B.;Andrea M.)</span></span></div><span class="score-box">-</span></div>
+            </div>
+            <div class="match-card">
+                <div class="team-row"><div class="team-info-wrapper"><img src="Milanisti.png" class="mini-logo"><span class="team-name">I Milanisti <span class="members">(Filippo Z.;Roberto V.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Farini.png" class="mini-logo"><span class="team-name">Farini Fighter <span class="members">(Claudio C.;Stefano P.)</span></span></div><span class="score-box">-</span></div>
+            </div>
+
+            <div class="match-card">
+                <div class="match-header riposo">TURNO 4 <span>RIPOSA: I MILANISTI</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Aston.png" class="mini-logo"><span class="team-name">Aston Pinna <span class="members">(Simone Z.;Gabriele P.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="bibc.png" class="mini-logo"><span class="team-name">B.I.B.C. <span class="members">(Davide N.;Stefano D.S.)</span></span></div><span class="score-box">-</span></div>
+            </div>
+            <div class="match-card">
+                <div class="team-row"><div class="team-info-wrapper"><img src="Farini.png" class="mini-logo"><span class="team-name">Farini Fighter <span class="members">(Claudio C.;Stefano P.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Dortmund.png" class="mini-logo"><span class="team-name">Berlusca Dortmund <span class="members">(Samuele B.;Andrea M.)</span></span></div><span class="score-box">-</span></div>
             </div>
 
             <div class="match-card">
                 <div class="match-header riposo">TURNO 5 <span>RIPOSA: FARINI FIGHTER</span></div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Dortmund.png" class="mini-logo">
-                        <span class="team-name">Berlusca Dortmund <span class="members">(Samuele B.;Andrea M.)</span></span>
-                    </div>
-                    <span class="score-box winner">7</span>
-                </div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Aston.png" class="mini-logo">
-                        <span class="team-name">Aston Pinna <span class="members">(Simone Z.;Gabriele P.)</span></span>
-                    </div>
-                    <span class="score-box">5</span>
-                </div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Dortmund.png" class="mini-logo"><span class="team-name">Berlusca Dortmund <span class="members">(Samuele B.;Andrea M.)</span></span></div><span class="score-box winner">7</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Aston.png" class="mini-logo"><span class="team-name">Aston Pinna <span class="members">(Simone Z.;Gabriele P.)</span></span></div><span class="score-box">5</span></div>
             </div>
-
             <div class="match-card">
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Milanisti.png" class="mini-logo">
-                        <span class="team-name">I Milanisti <span class="members">(Filippo Z.;Roberto V.)</span></span>
-                    </div>
-                    <span class="score-box">1</span>
-                </div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="bibc.png" class="mini-logo">
-                        <span class="team-name">B.I.B.C. <span class="members">(Davide N.;Stefano D.S.)</span></span>
-                    </div>
-                    <span class="score-box winner">7</span>
-                </div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Milanisti.png" class="mini-logo"><span class="team-name">I Milanisti <span class="members">(Filippo Z.;Roberto V.)</span></span></div><span class="score-box">1</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="bibc.png" class="mini-logo"><span class="team-name">B.I.B.C. <span class="members">(Davide N.;Stefano D.S.)</span></span></div><span class="score-box winner">7</span></div>
             </div>
         </div>
 
         <div class="center-column">
             <div class="final-area">
+                <div class="match-card semi-card">
+                    <div class="match-header" style="background:#00aaff; justify-content:center;">SEMIFINALE GR. A</div>
+                    <div class="team-row"><span>1° Classificato</span><span class="score-box">-</span></div>
+                    <div class="team-row"><span>2° Classificato</span><span class="score-box">-</span></div>
+                </div>
                 <img src="coppa.png" class="trophy">
                 <div class="match-card final-box">
                     <div class="match-header" style="background:#d4af37; color:black; justify-content:center;">FINALISSIMA</div>
                     <div class="team-row"><span>VINCITORE SEMI A</span><span class="score-box">-</span></div>
                     <div class="team-row"><span>VINCITORE SEMI B</span><span class="score-box">-</span></div>
                 </div>
+                <div class="match-card semi-card">
+                    <div class="match-header" style="background:#00aaff; justify-content:center;">SEMIFINALE GR. B</div>
+                    <div class="team-row"><span>1° Classificato</span><span class="score-box">-</span></div>
+                    <div class="team-row"><span>2° Classificato</span><span class="score-box">-</span></div>
+                </div>
             </div>
         </div>
 
         <div class="side-column">
             <h2>GIRONE B</h2>
+            
             <div class="match-card">
                 <div class="match-header riposo">TURNO 1 <span>RIPOSA: PENNYCHELLAS</span></div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Attenti.jpg" class="mini-logo">
-                        <span class="team-name">Attenti a Quei Due <span class="members">(Antonio F.;Alessandro L.)</span></span>
-                    </div>
-                    <span class="score-box">-</span>
-                </div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Pelados.png" class="mini-logo">
-                        <span class="team-name">FC Pelados <span class="members">(Edoardo A.;Josef F.)</span></span>
-                    </div>
-                    <span class="score-box">-</span>
-                </div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Attenti.jpg" class="mini-logo"><span class="team-name">Attenti a Quei Due <span class="members">(Antonio F.;Alessandro L.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Pelados.png" class="mini-logo"><span class="team-name">FC Pelados <span class="members">(Edoardo A.;Josef F.)</span></span></div><span class="score-box">-</span></div>
             </div>
             <div class="match-card">
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Armistizio.png" class="mini-logo">
-                        <span class="team-name">Armistizio FC <span class="members">(Alessio F.;Giovanni C.)</span></span>
-                    </div>
-                    <span class="score-box winner">7</span>
-                </div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Penny.png" class="mini-logo">
-                        <span class="team-name">PennyChellas <span class="members">(Pierluigi P.;Fioravante E.)</span></span>
-                    </div>
-                    <span class="score-box">0</span>
-                </div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Armistizio.png" class="mini-logo"><span class="team-name">Armistizio FC <span class="members">(Alessio F.;Giovanni C.)</span></span></div><span class="score-box winner">7</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Penny.png" class="mini-logo"><span class="team-name">PennyChellas <span class="members">(Pierluigi P.;Fioravante E.)</span></span></div><span class="score-box">0</span></div>
             </div>
 
             <div class="match-card">
                 <div class="match-header riposo">TURNO 2 <span>RIPOSA: CALCIO BARILLA</span></div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Penny.png" class="mini-logo">
-                        <span class="team-name">PennyChellas <span class="members">(Pierluigi P.;Fioravante E.)</span></span>
-                    </div>
-                    <span class="score-box">4</span>
-                </div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Attenti.jpg" class="mini-logo">
-                        <span class="team-name">Attenti a Quei Due <span class="members">(Antonio F.;Alessandro L.)</span></span>
-                    </div>
-                    <span class="score-box winner">7</span>
-                </div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Penny.png" class="mini-logo"><span class="team-name">PennyChellas <span class="members">(Pierluigi P.;Fioravante E.)</span></span></div><span class="score-box">4</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Attenti.jpg" class="mini-logo"><span class="team-name">Attenti a Quei Due <span class="members">(Antonio F.;Alessandro L.)</span></span></div><span class="score-box winner">7</span></div>
+            </div>
+            <div class="match-card">
+                <div class="team-row"><div class="team-info-wrapper"><img src="Pelados.png" class="mini-logo"><span class="team-name">FC Pelados <span class="members">(Edoardo A.;Josef F.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Armistizio.png" class="mini-logo"><span class="team-name">Armistizio FC <span class="members">(Alessio F.;Giovanni C.)</span></span></div><span class="score-box">-</span></div>
             </div>
 
             <div class="match-card">
                 <div class="match-header riposo">TURNO 3 <span>RIPOSA: FC PELADOS</span></div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Attenti.jpg" class="mini-logo">
-                        <span class="team-name">Attenti a Quei Due <span class="members">(Antonio F.;Alessandro L.)</span></span>
-                    </div>
-                    <span class="score-box winner">7</span>
-                </div>
-                <div class="team-row">
-                    <div class="team-info-wrapper">
-                        <img src="Armistizio.png" class="mini-logo">
-                        <span class="team-name">Armistizio FC <span class="members">(Alessio F.;Giovanni C.)</span></span>
-                    </div>
-                    <span class="score-box">6</span>
-                </div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Barilla.jpg" class="mini-logo"><span class="team-name">Calcio Barilla <span class="members">(Antonio C.;Matteo C.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Penny.png" class="mini-logo"><span class="team-name">PennyChellas <span class="members">(Pierluigi P.;Fioravante E.)</span></span></div><span class="score-box">-</span></div>
+            </div>
+            <div class="match-card">
+                <div class="team-row"><div class="team-info-wrapper"><img src="Attenti.jpg" class="mini-logo"><span class="team-name">Attenti a Quei Due <span class="members">(Antonio F.;Alessandro L.)</span></span></div><span class="score-box winner">7</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Armistizio.png" class="mini-logo"><span class="team-name">Armistizio FC <span class="members">(Alessio F.;Giovanni C.)</span></span></div><span class="score-box">6</span></div>
+            </div>
+
+            <div class="match-card">
+                <div class="match-header riposo">TURNO 4 <span>RIPOSA: ATTENTI A QUEI DUE</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Pelados.png" class="mini-logo"><span class="team-name">FC Pelados <span class="members">(Edoardo A.;Josef F.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Barilla.jpg" class="mini-logo"><span class="team-name">Calcio Barilla <span class="members">(Antonio C.;Matteo C.)</span></span></div><span class="score-box">-</span></div>
+            </div>
+            <div class="match-card">
+                <div class="team-row"><div class="team-info-wrapper"><img src="Armistizio.png" class="mini-logo"><span class="team-name">Armistizio FC <span class="members">(Alessio F.;Giovanni C.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Penny.png" class="mini-logo"><span class="team-name">PennyChellas <span class="members">(Pierluigi P.;Fioravante E.)</span></span></div><span class="score-box">-</span></div>
+            </div>
+
+            <div class="match-card">
+                <div class="match-header riposo">TURNO 5 <span>RIPOSA: ARMISTIZIO FC</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Penny.png" class="mini-logo"><span class="team-name">PennyChellas <span class="members">(Pierluigi P.;Fioravante E.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Pelados.png" class="mini-logo"><span class="team-name">FC Pelados <span class="members">(Edoardo A.;Josef F.)</span></span></div><span class="score-box">-</span></div>
+            </div>
+            <div class="match-card">
+                <div class="team-row"><div class="team-info-wrapper"><img src="Barilla.jpg" class="mini-logo"><span class="team-name">Calcio Barilla <span class="members">(Antonio C.;Matteo C.)</span></span></div><span class="score-box">-</span></div>
+                <div class="team-row"><div class="team-info-wrapper"><img src="Attenti.jpg" class="mini-logo"><span class="team-name">Attenti a Quei Due <span class="members">(Antonio F.;Alessandro L.)</span></span></div><span class="score-box">-</span></div>
             </div>
         </div>
     </div>
