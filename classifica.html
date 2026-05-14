@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Tabellone - Farini CL</title>
+    <title>Tabellone Completo - Farini CL</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
         body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: #000; color: white; scroll-behavior: smooth; }
@@ -21,8 +21,11 @@
         .match-header { background: #0047e1; font-size: 10px; padding: 6px 12px; font-weight: 900; display: flex; justify-content: space-between; color: white; }
         
         .team-row { display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); align-items: center; }
+        .team-row:last-child { border-bottom: none; }
+        
         .team-info-wrapper { display: flex; align-items: center; gap: 12px; }
         .mini-logo { width: 30px; height: 30px; border-radius: 50%; background: white; object-fit: contain; border: 1px solid #d4af37; flex-shrink: 0; }
+        
         .team-name { font-size: 12px; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
         .members { font-size: 9px; font-weight: 400; text-transform: none; color: #aaa; display: block; }
         .score-box { background: #222; width: 35px; height: 30px; line-height: 30px; text-align: center; font-weight: 900; border-radius: 4px; border: 1px solid #555; }
@@ -33,24 +36,27 @@
         .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 280px; border-radius: 20px; padding: 15px; }
         .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); }
         
-        .tables-container { width: 100%; max-width: 1600px; display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 30px; }
+        .tables-container { width: 100%; max-width: 1600px; display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 30px; margin-top: 50px; }
         table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
-        th { background: #111; color: #d4af37; padding: 15px; font-size: 11px; border-bottom: 2px solid #d4af37; }
+        th { background: #111; color: #d4af37; padding: 15px; font-size: 11px; text-align: center; border-bottom: 2px solid #d4af37; }
         td { padding: 12px; text-align: center; border-bottom: 1px solid #222; font-size: 13px; font-weight: bold; }
-        .t-name { text-align: left; padding-left: 15px; }
-
+        .t-name { text-align: left; color: #fff; padding-left: 15px; line-height: 1.3; }
+        
         .special-container { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; border: 1px dashed #d4af37; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .special-column { display: flex; flex-direction: column; }
         .special-title { color: #d4af37; font-size: 12px; text-transform: uppercase; margin: 0 0 10px 0; border-bottom: 1px solid #333; padding-bottom: 5px; text-align: center;}
         .special-table td { font-size: 10px; padding: 6px; }
+        .special-table .mini-logo { width: 20px; height: 20px; }
 
-        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; }
-        @media (max-width: 1200px) { .bracket-grid, .tables-container, .special-container { grid-template-columns: 1fr; } }
+        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
+        @media (max-width: 1200px) { .tables-container { grid-template-columns: 1fr; } .bracket-grid { grid-template-columns: 1fr; } .special-container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <div class="ucl-bg"></div>
 <div class="overlay"></div>
+
 <a href="index.html" class="nav-link">← TORNA AI SORTEGGI</a>
 
 <div class="main-wrapper">
@@ -59,7 +65,7 @@
     <div class="bracket-grid">
         <div class="side-column" id="matches-A">
             <h2>GIRONE A</h2>
-            </div>
+        </div>
 
         <div class="center-column">
             <div class="final-area">
@@ -84,7 +90,7 @@
 
         <div class="side-column" id="matches-B">
             <h2>GIRONE B</h2>
-            </div>
+        </div>
     </div>
 
     <div class="tables-container">
@@ -97,8 +103,14 @@
             <table><thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr></thead><tbody id="body-B"></tbody></table>
         </div>
         <div class="special-container">
-            <div><h3 class="special-title">🔥 Miglior Attacco</h3><table class="special-table" id="special-attacco"></table></div>
-            <div><h3 class="special-title" style="color:#00aaff;">🛡️ Miglior Difesa</h3><table class="special-table" id="special-difesa"></table></div>
+            <div class="special-column">
+                <h3 class="special-title">🔥 Miglior Attacco</h3>
+                <table class="special-table" id="special-attacco"></table>
+            </div>
+            <div class="special-column">
+                <h3 class="special-title" style="color:#00aaff;">🛡️ Miglior Difesa</h3>
+                <table class="special-table" id="special-difesa"></table>
+            </div>
         </div>
     </div>
 </div>
@@ -107,16 +119,16 @@
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRHxOqEYcRx0m4UxNzXDm1UrmEJtue7wyBFR7IC4iEIH_2WqrITNuaPA8BJIzWSzN7XcZsspJZOFX3/pub?gid=0&single=true&output=csv';
 
 const TEAM_DATA = {
-    "Aston Pinna": { logo: "Aston.png", members: "(Simone Z.;Gabriele P.)" },
-    "I Milanisti": { logo: "Milanisti.png", members: "(Filippo Z.;Roberto V.)" },
-    "Berlusca Dortmund": { logo: "Dortmund.png", members: "(Samuele B.;Andrea M.)" },
-    "B.I.B.C.": { logo: "bibc.png", members: "(Davide N.;Stefano D.S.)" },
-    "Farini Fighter": { logo: "Farini.png", members: "(Claudio C.;Stefano P.)" },
-    "Armistizio FC": { logo: "Armistizio.png", members: "(Alessio F.;Giovanni C.)" },
-    "PennyChellas": { logo: "Penny.png", members: "(Pierluigi P.;Fioravante E.)" },
-    "Attenti a Quei Due": { logo: "Attenti.jpg", members: "(Antonio F.;Alessandro L.)" },
-    "Calcio Barilla": { logo: "Barilla.jpg", members: "(Antonio C.;Matteo C.)" },
-    "FC Pelados": { logo: "Pelados.png", members: "(Edoardo A.;Josef F.)" }
+    "Aston Pinna": { logo: "Aston.png", members: "(Simone Z.;Gabriele P.)", grp: "A" },
+    "I Milanisti": { logo: "Milanisti.png", members: "(Filippo Z.;Roberto V.)", grp: "A" },
+    "Berlusca Dortmund": { logo: "Dortmund.png", members: "(Samuele B.;Andrea M.)", grp: "A" },
+    "B.I.B.C.": { logo: "bibc.png", members: "(Davide N.;Stefano D.S.)", grp: "A" },
+    "Farini Fighter": { logo: "Farini.png", members: "(Claudio C.;Stefano P.)", grp: "A" },
+    "Armistizio FC": { logo: "Armistizio.png", members: "(Alessio F.;Giovanni C.)", grp: "B" },
+    "PennyChellas": { logo: "Penny.png", members: "(Pierluigi P.;Fioravante E.)", grp: "B" },
+    "Attenti a Quei Due": { logo: "Attenti.jpg", members: "(Antonio F.;Alessandro L.)", grp: "B" },
+    "Calcio Barilla": { logo: "Barilla.jpg", members: "(Antonio C.;Matteo C.)", grp: "B" },
+    "FC Pelados": { logo: "Pelados.png", members: "(Edoardo A.;Josef F.)", grp: "B" }
 };
 
 async function init() {
@@ -126,13 +138,12 @@ async function init() {
         const rows = csv.split('\n').slice(1);
         
         let stats = {};
-        // Inizializza tutte le squadre a zero per farle apparire in classifica
+        // Inizializzazione obbligatoria di tutte le squadre
         Object.keys(TEAM_DATA).forEach(name => {
-            stats[name] = { name: name, pts: 0, p: 0, gf: 0, gs: 0, grp: name.includes("Pinna") || name.includes("Milanisti") || name.includes("Dortmund") || name.includes("B.I.B.C.") || name.includes("Fighter") ? "A" : "B" };
+            stats[name] = { name: name, pts: 0, p: 0, gf: 0, gs: 0, grp: TEAM_DATA[name].grp };
         });
 
-        let matchesA = [];
-        let matchesB = [];
+        let matches = { A: [], B: [] };
 
         rows.forEach(row => {
             const c = row.split(',');
@@ -143,17 +154,14 @@ async function init() {
                 stats[t1].p++; stats[t1].gf += g1; stats[t1].gs += g2;
                 stats[t2].p++; stats[t2].gf += g2; stats[t2].gs += g1;
                 if (g1 > g2) stats[t1].pts += 3; else if (g1 < g2) stats[t2].pts += 3; else { stats[t1].pts++; stats[t2].pts++; }
-                
-                const matchObj = {t1, t2, g1, g2};
-                if (grp === "A") matchesA.push(matchObj); else matchesB.push(matchObj);
+                matches[grp].push({t1, t2, g1, g2});
             }
         });
 
-        renderMatches("A", matchesA);
-        renderMatches("B", matchesB);
+        ['A', 'B'].forEach(g => renderMatches(g, matches[g]));
         renderTables(stats);
 
-    } catch (e) { console.error("Errore Sheets:", e); }
+    } catch (e) { console.error(e); }
 }
 
 function renderMatches(grp, list) {
@@ -195,11 +203,22 @@ function renderTables(stats) {
         `).join('');
     });
 
-    const attacco = [...data].sort((a,b) => b.gf - a.gf);
-    document.getElementById('special-attacco').innerHTML = attacco.slice(0,10).map(t => `<tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo}" class="mini-logo" style="width:15px"> ${t.name}</td><td>${t.gf} GF</td></tr>`).join('');
+    // Miglior Attacco (tutte le 10 squadre)
+    const attacco = [...data].sort((a,b) => b.gf - a.gf || a.p - b.p);
+    document.getElementById('special-attacco').innerHTML = attacco.map(t => `
+        <tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo}" class="mini-logo"> ${t.name}</td><td>${t.gf} GF</td></tr>
+    `).join('');
     
-    const difesa = [...data].sort((a,b) => (a.p === 0 ? 99 : a.gs/a.p) - (b.p === 0 ? 99 : b.gs/b.p));
-    document.getElementById('special-difesa').innerHTML = difesa.slice(0,10).map(t => `<tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo}" class="mini-logo" style="width:15px"> ${t.name}</td><td>${t.p === 0 ? '-' : (t.gs/t.p).toFixed(1)} <small>med</small></td></tr>`).join('');
+    // Miglior Difesa (tutte le 10 squadre)
+    const difesa = [...data].sort((a,b) => {
+        if (a.p === 0 && b.p === 0) return 0;
+        if (a.p === 0) return 1;
+        if (b.p === 0) return -1;
+        return (a.gs/a.p) - (b.gs/b.p);
+    });
+    document.getElementById('special-difesa').innerHTML = difesa.map(t => `
+        <tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo}" class="mini-logo"> ${t.name}</td><td>${t.p === 0 ? '0 GS (0p)' : (t.gs/t.p).toFixed(1) + ' med'}</td></tr>
+    `).join('');
 }
 
 init();
