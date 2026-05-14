@@ -10,15 +10,12 @@
         .ucl-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('sfondo.png') center/cover no-repeat; z-index: 1; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 5, 20, 0.9); z-index: 2; }
         .main-wrapper { position: relative; z-index: 10; padding: 40px 10px; display: flex; flex-direction: column; align-items: center; gap: 50px; }
-        
         h1 { color: #d4af37; text-transform: uppercase; text-align: center; font-size: clamp(24px, 5vw, 40px); margin: 0; text-shadow: 0 0 20px rgba(212,175,55,0.5); }
         h2 { color: #00aaff; text-transform: uppercase; font-size: 22px; border-left: 5px solid #d4af37; padding-left: 15px; margin: 40px 0 20px 0; width: 100%; max-width: 1200px; }
         
-        .loading-status { color: #d4af37; font-style: italic; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
-
         .bracket-grid { display: grid; grid-template-columns: 1fr 0.8fr 1fr; gap: 20px; width: 100%; max-width: 1500px; }
         .side-column { display: flex; flex-direction: column; gap: 25px; }
+        .center-column { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 30px; }
         
         .match-card { background: rgba(255,255,255,0.07); border: 1px solid #333; border-radius: 8px; overflow: hidden; width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .match-header { background: #0047e1; font-size: 10px; padding: 6px 12px; font-weight: 900; display: flex; justify-content: space-between; color: white; }
@@ -26,19 +23,27 @@
         .team-row { display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); align-items: center; }
         .team-info-wrapper { display: flex; align-items: center; gap: 12px; }
         .mini-logo { width: 30px; height: 30px; border-radius: 50%; background: white; object-fit: contain; border: 1px solid #d4af37; flex-shrink: 0; }
-        .team-name { font-size: 12px; font-weight: 700; text-transform: uppercase; }
+        .team-name { font-size: 12px; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
+        .members { font-size: 9px; font-weight: 400; text-transform: none; color: #aaa; display: block; }
         .score-box { background: #222; width: 35px; height: 30px; line-height: 30px; text-align: center; font-weight: 900; border-radius: 4px; border: 1px solid #555; }
         .winner-score { background: #d4af37 !important; color: #000; border-color: #d4af37; }
-
+        
+        .final-area { text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .semi-card { border: 1px solid #00aaff; background: rgba(0, 170, 255, 0.05); width: 240px; }
+        .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 280px; border-radius: 20px; padding: 15px; }
+        .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); }
+        
         .tables-container { width: 100%; max-width: 1600px; display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 30px; }
         table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
         th { background: #111; color: #d4af37; padding: 15px; font-size: 11px; border-bottom: 2px solid #d4af37; }
-        td { padding: 12px; text-align: center; border-bottom: 1px solid #222; font-size: 13px; }
-        .t-left { text-align: left; padding-left: 15px; }
+        td { padding: 12px; text-align: center; border-bottom: 1px solid #222; font-size: 13px; font-weight: bold; }
+        .t-name { text-align: left; padding-left: 15px; }
 
         .special-container { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; border: 1px dashed #d4af37; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; }
-        
+        .special-title { color: #d4af37; font-size: 12px; text-transform: uppercase; margin: 0 0 10px 0; border-bottom: 1px solid #333; padding-bottom: 5px; text-align: center;}
+        .special-table td { font-size: 10px; padding: 6px; }
+
+        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; }
         @media (max-width: 1200px) { .bracket-grid, .tables-container, .special-container { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -46,147 +51,158 @@
 
 <div class="ucl-bg"></div>
 <div class="overlay"></div>
-<a href="index.html" class="nav-link">← HOME</a>
+<a href="index.html" class="nav-link">← TORNA AI SORTEGGI</a>
 
 <div class="main-wrapper">
-    <h1>🏆 LIVE TORNEO FARINI</h1>
-    <div id="status" class="loading-status">Sincronizzazione con Google Sheets...</div>
+    <h1>TABELLONE E CLASSIFICHE UFFICIALI</h1>
 
     <div class="bracket-grid">
-        <div class="side-column" id="matches-A"><h2>GIRONE A</h2></div>
-        <div class="side-column" style="align-items: center; justify-content: center;">
-            <img src="coppa.png" style="width:150px; filter: drop-shadow(0 0 20px #d4af37);">
-            <p style="text-align:center; color:#d4af37; font-weight:900;">IN ATTESA DELLE SEMIFINALI</p>
+        <div class="side-column" id="matches-A">
+            <h2>GIRONE A</h2>
+            </div>
+
+        <div class="center-column">
+            <div class="final-area">
+                <div class="match-card semi-card">
+                    <div class="match-header" style="background:#00aaff; justify-content:center;">SEMIFINALE GR. A</div>
+                    <div class="team-row"><span>1° Classificato</span><span class="score-box">-</span></div>
+                    <div class="team-row"><span>2° Classificato</span><span class="score-box">-</span></div>
+                </div>
+                <img src="coppa.png" class="trophy">
+                <div class="match-card final-box">
+                    <div class="match-header" style="background:#d4af37; color:black; justify-content:center;">FINALISSIMA</div>
+                    <div class="team-row"><span>FINALISTA A</span><span class="score-box">-</span></div>
+                    <div class="team-row"><span>FINALISTA B</span><span class="score-box">-</span></div>
+                </div>
+                <div class="match-card semi-card">
+                    <div class="match-header" style="background:#00aaff; justify-content:center;">SEMIFINALE GR. B</div>
+                    <div class="team-row"><span>1° Classificato</span><span class="score-box">-</span></div>
+                    <div class="team-row"><span>2° Classificato</span><span class="score-box">-</span></div>
+                </div>
+            </div>
         </div>
-        <div class="side-column" id="matches-B"><h2>GIRONE B</h2></div>
+
+        <div class="side-column" id="matches-B">
+            <h2>GIRONE B</h2>
+            </div>
     </div>
 
     <div class="tables-container">
-        <div id="table-A-wrapper"><h2>CLASSIFICA A</h2><table id="table-A"><thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr></thead><tbody id="body-A"></tbody></table></div>
-        <div id="table-B-wrapper"><h2>CLASSIFICA B</h2><table id="table-B"><thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr></thead><tbody id="body-B"></tbody></table></div>
+        <div>
+            <h2>GIRONE A</h2>
+            <table><thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr></thead><tbody id="body-A"></tbody></table>
+        </div>
+        <div>
+            <h2>GIRONE B</h2>
+            <table><thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr></thead><tbody id="body-B"></tbody></table>
+        </div>
         <div class="special-container">
-            <div><h3 style="color:#d4af37; text-align:center;">🔥 ATTACCO</h3><table id="special-attacco"></table></div>
-            <div><h3 style="color:#00aaff; text-align:center;">🛡️ DIFESA</h3><table id="special-difesa"></table></div>
+            <div><h3 class="special-title">🔥 Miglior Attacco</h3><table class="special-table" id="special-attacco"></table></div>
+            <div><h3 class="special-title" style="color:#00aaff;">🛡️ Miglior Difesa</h3><table class="special-table" id="special-difesa"></table></div>
         </div>
     </div>
 </div>
 
 <script>
-// CONFIGURAZIONE: Inserisci qui il tuo link CSV
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRHxOqEYcRx0m4UxNzXDm1UrmEJtue7wyBFR7IC4iEIH_2WqrITNuaPA8BJIzWSzN7XcZsspJZOFX3/pub?gid=0&single=true&output=csv';
 
-const LOGOS = {
-    "Aston Pinna": "Aston.png",
-    "I Milanisti": "Milanisti.png",
-    "Berlusca Dortmund": "Dortmund.png",
-    "B.I.B.C.": "bibc.png",
-    "Farini Fighter": "Farini.png",
-    "Armistizio FC": "Armistizio.png",
-    "PennyChellas": "Penny.png",
-    "Attenti a Quei Due": "Attenti.jpg",
-    "Calcio Barilla": "Barilla.jpg",
-    "FC Pelados": "Pelados.png"
+const TEAM_DATA = {
+    "Aston Pinna": { logo: "Aston.png", members: "(Simone Z.;Gabriele P.)" },
+    "I Milanisti": { logo: "Milanisti.png", members: "(Filippo Z.;Roberto V.)" },
+    "Berlusca Dortmund": { logo: "Dortmund.png", members: "(Samuele B.;Andrea M.)" },
+    "B.I.B.C.": { logo: "bibc.png", members: "(Davide N.;Stefano D.S.)" },
+    "Farini Fighter": { logo: "Farini.png", members: "(Claudio C.;Stefano P.)" },
+    "Armistizio FC": { logo: "Armistizio.png", members: "(Alessio F.;Giovanni C.)" },
+    "PennyChellas": { logo: "Penny.png", members: "(Pierluigi P.;Fioravante E.)" },
+    "Attenti a Quei Due": { logo: "Attenti.jpg", members: "(Antonio F.;Alessandro L.)" },
+    "Calcio Barilla": { logo: "Barilla.jpg", members: "(Antonio C.;Matteo C.)" },
+    "FC Pelados": { logo: "Pelados.png", members: "(Edoardo A.;Josef F.)" }
 };
 
-async function fetchData() {
+async function init() {
     try {
-        const response = await fetch(SHEET_URL);
-        const data = await response.text();
-        const rows = data.split('\n').slice(1); // Salta intestazione
+        const res = await fetch(SHEET_URL);
+        const csv = await res.text();
+        const rows = csv.split('\n').slice(1);
         
         let stats = {};
-        let matches = { A: [], B: [] };
+        // Inizializza tutte le squadre a zero per farle apparire in classifica
+        Object.keys(TEAM_DATA).forEach(name => {
+            stats[name] = { name: name, pts: 0, p: 0, gf: 0, gs: 0, grp: name.includes("Pinna") || name.includes("Milanisti") || name.includes("Dortmund") || name.includes("B.I.B.C.") || name.includes("Fighter") ? "A" : "B" };
+        });
+
+        let matchesA = [];
+        let matchesB = [];
 
         rows.forEach(row => {
-            const cols = row.split(',');
-            if (cols.length < 5) return;
+            const c = row.split(',');
+            if (c.length < 5) return;
+            const grp = c[0].trim(), t1 = c[1].trim(), t2 = c[2].trim(), g1 = parseInt(c[3]), g2 = parseInt(c[4]);
 
-            const grp = cols[0].trim();
-            const t1 = cols[1].trim();
-            const t2 = cols[2].trim();
-            const g1 = parseInt(cols[3]);
-            const g2 = parseInt(cols[4]);
-
-            // Inizializza statistiche se non esistono
-            [t1, t2].forEach(t => {
-                if (!stats[t]) stats[t] = { name: t, pts: 0, p: 0, gf: 0, gs: 0, grp: grp };
-            });
-
-            // Calcola solo se ci sono numeri validi
             if (!isNaN(g1) && !isNaN(g2)) {
-                stats[t1].p++; stats[t2].p++;
-                stats[t1].gf += g1; stats[t1].gs += g2;
-                stats[t2].gf += g2; stats[t2].gs += g1;
-                if (g1 > g2) stats[t1].pts += 3;
-                else if (g1 < g2) stats[t2].pts += 3;
-                else { stats[t1].pts += 1; stats[t2].pts += 1; }
+                stats[t1].p++; stats[t1].gf += g1; stats[t1].gs += g2;
+                stats[t2].p++; stats[t2].gf += g2; stats[t2].gs += g1;
+                if (g1 > g2) stats[t1].pts += 3; else if (g1 < g2) stats[t2].pts += 3; else { stats[t1].pts++; stats[t2].pts++; }
                 
-                matches[grp].push({t1, t2, g1, g2});
+                const matchObj = {t1, t2, g1, g2};
+                if (grp === "A") matchesA.push(matchObj); else matchesB.push(matchObj);
             }
         });
 
-        renderMatches(matches);
+        renderMatches("A", matchesA);
+        renderMatches("B", matchesB);
         renderTables(stats);
-        document.getElementById('status').innerHTML = "🟢 Dati aggiornati in tempo reale";
 
-    } catch (error) {
-        document.getElementById('status').innerHTML = "🔴 Errore nel caricamento dati";
-        console.error(error);
-    }
+    } catch (e) { console.error("Errore Sheets:", e); }
 }
 
-function renderMatches(matches) {
-    ['A', 'B'].forEach(grp => {
-        const container = document.getElementById(`matches-${grp}`);
-        matches[grp].forEach((m, index) => {
-            const card = document.createElement('div');
-            card.className = 'match-card';
-            card.style.marginBottom = "15px";
-            card.innerHTML = `
-                <div class="match-header">MATCH ${index + 1}</div>
-                <div class="team-row">
-                    <div class="team-info-wrapper"><img src="${LOGOS[m.t1] || 'default.png'}" class="mini-logo"><span class="team-name">${m.t1}</span></div>
-                    <span class="score-box ${m.g1 > m.g2 ? 'winner-score' : ''}">${m.g1}</span>
+function renderMatches(grp, list) {
+    const container = document.getElementById(`matches-${grp}`);
+    list.forEach((m, i) => {
+        const div = document.createElement('div');
+        div.className = 'match-card';
+        div.style.marginBottom = "15px";
+        div.innerHTML = `
+            <div class="match-header">PARTITA ${i+1}</div>
+            <div class="team-row">
+                <div class="team-info-wrapper">
+                    <img src="${TEAM_DATA[m.t1]?.logo}" class="mini-logo">
+                    <span class="team-name">${m.t1} <span class="members">${TEAM_DATA[m.t1]?.members}</span></span>
                 </div>
-                <div class="team-row">
-                    <div class="team-info-wrapper"><img src="${LOGOS[m.t2] || 'default.png'}" class="mini-logo"><span class="team-name">${m.t2}</span></div>
-                    <span class="score-box ${m.g2 > m.g1 ? 'winner-score' : ''}">${m.g2}</span>
+                <span class="score-box ${m.g1 > m.g2 ? 'winner-score' : ''}">${m.g1}</span>
+            </div>
+            <div class="team-row">
+                <div class="team-info-wrapper">
+                    <img src="${TEAM_DATA[m.t2]?.logo}" class="mini-logo">
+                    <span class="team-name">${m.t2} <span class="members">${TEAM_DATA[m.t2]?.members}</span></span>
                 </div>
-            `;
-            container.appendChild(card);
-        });
+                <span class="score-box ${m.g2 > m.g1 ? 'winner-score' : ''}">${m.g2}</span>
+            </div>
+        `;
+        container.appendChild(div);
     });
 }
 
 function renderTables(stats) {
-    const arr = Object.values(stats);
-    
-    ['A', 'B'].forEach(grp => {
-        const filtered = arr.filter(t => t.grp === grp)
-                            .sort((a, b) => b.pts - a.pts || (b.gf - b.gs) - (a.gf - a.gs) || b.gf - a.gf);
-        
-        const body = document.getElementById(`body-${grp}`);
-        body.innerHTML = filtered.map(t => `
+    const data = Object.values(stats);
+    ['A', 'B'].forEach(g => {
+        const sorted = data.filter(x => x.grp === g).sort((a,b) => b.pts - a.pts || (b.gf-b.gs) - (a.gf-a.gs) || b.gf - a.gf);
+        document.getElementById(`body-${g}`).innerHTML = sorted.map(t => `
             <tr>
-                <td class="t-left"><img src="${LOGOS[t.name] || 'default.png'}" class="mini-logo" style="width:20px; height:20px; vertical-align:middle; margin-right:8px;"> ${t.name}</td>
-                <td><strong>${t.pts}</strong></td>
-                <td>${t.p}</td>
-                <td>${t.gf}</td>
-                <td>${t.gs}</td>
+                <td class="t-name"><img src="${TEAM_DATA[t.name]?.logo}" class="mini-logo" style="width:20px;height:20px;vertical-align:middle;margin-right:8px;"> ${t.name}</td>
+                <td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td>
             </tr>
         `).join('');
     });
 
-    // Speciali
-    const allSortedAttacco = [...arr].sort((a,b) => b.gf - a.gf);
-    document.getElementById('special-attacco').innerHTML = allSortedAttacco.slice(0,5).map(t => `<tr><td class="t-left">${t.name}</td><td><strong>${t.gf}</strong></td></tr>`).join('');
+    const attacco = [...data].sort((a,b) => b.gf - a.gf);
+    document.getElementById('special-attacco').innerHTML = attacco.slice(0,10).map(t => `<tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo}" class="mini-logo" style="width:15px"> ${t.name}</td><td>${t.gf} GF</td></tr>`).join('');
     
-    const allSortedDifesa = [...arr].filter(t => t.p > 0).sort((a,b) => (a.gs/a.p) - (b.gs/b.p));
-    document.getElementById('special-difesa').innerHTML = allSortedDifesa.slice(0,5).map(t => `<tr><td class="t-left">${t.name}</td><td><strong>${(t.gs/t.p).toFixed(1)}</strong> <small>media</small></td></tr>`).join('');
+    const difesa = [...data].sort((a,b) => (a.p === 0 ? 99 : a.gs/a.p) - (b.p === 0 ? 99 : b.gs/b.p));
+    document.getElementById('special-difesa').innerHTML = difesa.slice(0,10).map(t => `<tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo}" class="mini-logo" style="width:15px"> ${t.name}</td><td>${t.p === 0 ? '-' : (t.gs/t.p).toFixed(1)} <small>med</small></td></tr>`).join('');
 }
 
-fetchData();
+init();
 </script>
-
 </body>
 </html>
