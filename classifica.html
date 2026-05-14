@@ -116,6 +116,7 @@
 </div>
 
 <script>
+// LINK AL TUO FOGLIO CSV
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRHxOqEYcRx0m4UxNzXDm1UrmEJtue7wyBFR7IC4iEIH_2WqrITNuaPA8BJIzWSzN7XcZsspJZOFX3/pub?gid=0&single=true&output=csv';
 
 const TEAM_DATA = {
@@ -138,7 +139,6 @@ async function init() {
         const rows = csv.split('\n').slice(1);
         
         let stats = {};
-        // Inizializzazione obbligatoria di tutte le squadre
         Object.keys(TEAM_DATA).forEach(name => {
             stats[name] = { name: name, pts: 0, p: 0, gf: 0, gs: 0, grp: TEAM_DATA[name].grp };
         });
@@ -147,13 +147,25 @@ async function init() {
 
         rows.forEach(row => {
             const c = row.split(',');
-            if (c.length < 5) return;
-            const grp = c[0].trim(), t1 = c[1].trim(), t2 = c[2].trim(), g1 = parseInt(c[3]), g2 = parseInt(c[4]);
+            if (c.length < 3) return; 
+            
+            const grp = c[0].trim();
+            const t1 = c[1].trim();
+            const t2 = c[2].trim();
+            const g1Str = c[3]?.trim();
+            const g2Str = c[4]?.trim();
 
-            if (!isNaN(g1) && !isNaN(g2)) {
+            const g1 = (g1Str === "" || isNaN(g1Str)) ? null : parseInt(g1Str);
+            const g2 = (g2Str === "" || isNaN(g2Str)) ? null : parseInt(g2Str);
+
+            // Se la partita è stata giocata (entrambi i gol presenti)
+            if (g1 !== null && g2 !== null) {
                 stats[t1].p++; stats[t1].gf += g1; stats[t1].gs += g2;
                 stats[t2].p++; stats[t2].gf += g2; stats[t2].gs += g1;
                 if (g1 > g2) stats[t1].pts += 3; else if (g1 < g2) stats[t2].pts += 3; else { stats[t1].pts++; stats[t2].pts++; }
+            }
+            
+            if (grp === "A" || grp === "B") {
                 matches[grp].push({t1, t2, g1, g2});
             }
         });
@@ -167,6 +179,11 @@ async function init() {
 function renderMatches(grp, list) {
     const container = document.getElementById(`matches-${grp}`);
     list.forEach((m, i) => {
+        const score1 = m.g1 === null ? "-" : m.g1;
+        const score2 = m.g2 === null ? "-" : m.g2;
+        const win1 = (m.g1 !== null && m.g1 > m.g2) ? 'winner-score' : '';
+        const win2 = (m.g2 !== null && m.g2 > m.g1) ? 'winner-score' : '';
+
         const div = document.createElement('div');
         div.className = 'match-card';
         div.style.marginBottom = "15px";
@@ -174,17 +191,17 @@ function renderMatches(grp, list) {
             <div class="match-header">PARTITA ${i+1}</div>
             <div class="team-row">
                 <div class="team-info-wrapper">
-                    <img src="${TEAM_DATA[m.t1]?.logo}" class="mini-logo">
-                    <span class="team-name">${m.t1} <span class="members">${TEAM_DATA[m.t1]?.members}</span></span>
+                    <img src="${TEAM_DATA[m.t1]?.logo || 'default.png'}" class="mini-logo">
+                    <span class="team-name">${m.t1} <span class="members">${TEAM_DATA[m.t1]?.members || ''}</span></span>
                 </div>
-                <span class="score-box ${m.g1 > m.g2 ? 'winner-score' : ''}">${m.g1}</span>
+                <span class="score-box ${win1}">${score1}</span>
             </div>
             <div class="team-row">
                 <div class="team-info-wrapper">
-                    <img src="${TEAM_DATA[m.t2]?.logo}" class="mini-logo">
-                    <span class="team-name">${m.t2} <span class="members">${TEAM_DATA[m.t2]?.members}</span></span>
+                    <img src="${TEAM_DATA[m.t2]?.logo || 'default.png'}" class="mini-logo">
+                    <span class="team-name">${m.t2} <span class="members">${TEAM_DATA[m.t2]?.members || ''}</span></span>
                 </div>
-                <span class="score-box ${m.g2 > m.g1 ? 'winner-score' : ''}">${m.g2}</span>
+                <span class="score-box ${win2}">${score2}</span>
             </div>
         `;
         container.appendChild(div);
@@ -197,19 +214,17 @@ function renderTables(stats) {
         const sorted = data.filter(x => x.grp === g).sort((a,b) => b.pts - a.pts || (b.gf-b.gs) - (a.gf-a.gs) || b.gf - a.gf);
         document.getElementById(`body-${g}`).innerHTML = sorted.map(t => `
             <tr>
-                <td class="t-name"><img src="${TEAM_DATA[t.name]?.logo}" class="mini-logo" style="width:20px;height:20px;vertical-align:middle;margin-right:8px;"> ${t.name}</td>
+                <td class="t-name"><img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo" style="width:20px;height:20px;vertical-align:middle;margin-right:8px;"> ${t.name}</td>
                 <td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td>
             </tr>
         `).join('');
     });
 
-    // Miglior Attacco (tutte le 10 squadre)
-    const attacco = [...data].sort((a,b) => b.gf - a.gf || a.p - b.p);
+    const attacco = [...data].sort((a,b) => b.gf - a.gf);
     document.getElementById('special-attacco').innerHTML = attacco.map(t => `
-        <tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo}" class="mini-logo"> ${t.name}</td><td>${t.gf} GF</td></tr>
+        <tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo"> ${t.name}</td><td>${t.gf} GF</td></tr>
     `).join('');
     
-    // Miglior Difesa (tutte le 10 squadre)
     const difesa = [...data].sort((a,b) => {
         if (a.p === 0 && b.p === 0) return 0;
         if (a.p === 0) return 1;
@@ -217,7 +232,7 @@ function renderTables(stats) {
         return (a.gs/a.p) - (b.gs/b.p);
     });
     document.getElementById('special-difesa').innerHTML = difesa.map(t => `
-        <tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo}" class="mini-logo"> ${t.name}</td><td>${t.p === 0 ? '0 GS (0p)' : (t.gs/t.p).toFixed(1) + ' med'}</td></tr>
+        <tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo"> ${t.name}</td><td>${t.p === 0 ? '0 GS (0p)' : (t.gs/t.p).toFixed(1) + ' med'}</td></tr>
     `).join('');
 }
 
