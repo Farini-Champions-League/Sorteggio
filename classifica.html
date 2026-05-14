@@ -134,7 +134,7 @@ const TEAM_DATA = {
 
 async function init() {
     try {
-        const res = await fetch(SHEET_URL);
+        const res = await fetch(SHEET_URL + '&t=' + new Date().getTime());
         const csv = await res.text();
         const rows = csv.split('\n').slice(1);
         
