@@ -36,7 +36,15 @@
         .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 280px; border-radius: 20px; padding: 15px; }
         .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); }
         
-        .tables-container { width: 100%; max-width: 1600px; display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 30px; margin-top: 50px; }
+        .tables-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.3fr; /* La terza colonna è un po' più larga */
+    gap: 20px;
+    width: 100%;
+    max-width: 1600px; /* Aumentalo a 1600px o 1800px */
+    margin-top: 50px;
+    align-items: start;
+}
         table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
         th { background: #111; color: #d4af37; padding: 15px; font-size: 11px; text-align: center; border-bottom: 2px solid #d4af37; }
         td { padding: 12px; text-align: center; border-bottom: 1px solid #222; font-size: 13px; font-weight: bold; }
@@ -96,11 +104,11 @@
     <div class="tables-container">
         <div>
             <h2>GIRONE A</h2>
-            <table><thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr></thead><tbody id="body-A"></tbody></table>
+            <table><thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr><th>DR</th></tr></thead><tbody id="body-A"></tbody></table>
         </div>
         <div>
             <h2>GIRONE B</h2>
-            <table><thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr></thead><tbody id="body-B"></tbody></table>
+            <table><thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr><th>DR</th></tr></thead><tbody id="body-B"></tbody></table>
         </div>
         <div class="special-container">
             <div class="special-column">
@@ -212,13 +220,24 @@ function renderTables(stats) {
     const data = Object.values(stats);
     ['A', 'B'].forEach(g => {
         const sorted = data.filter(x => x.grp === g).sort((a,b) => b.pts - a.pts || (b.gf-b.gs) - (a.gf-a.gs) || b.gf - a.gf);
-        document.getElementById(`body-${g}`).innerHTML = sorted.map(t => `
-            <tr>
-                <td class="t-name"><img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo" style="width:20px;height:20px;vertical-align:middle;margin-right:8px;"> ${t.name}</td>
-                <td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td>
-            </tr>
-        `).join('');
-    });
+        document.getElementById(`body-${g}`).innerHTML = sorted.map(t => {
+    const dr = t.gf - t.gs; // Calcolo automatico
+    const drDisplay = dr > 0 ? '+' + dr : dr; // Aggiunge il + se positivo
+
+    return `
+        <tr>
+            <td class="t-name">
+                <img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo" style="width:20px;height:20px;vertical-align:middle;margin-right:8px;"> 
+                ${t.name}
+            </td>
+            <td>${t.pts}</td>
+            <td>${t.p}</td>
+            <td>${t.gf}</td>
+            <td>${t.gs}</td>
+            <td>${drDisplay}</td>
+        </tr>
+    `;
+}).join('');
 
     const attacco = [...data].sort((a,b) => b.gf - a.gf);
     document.getElementById('special-attacco').innerHTML = attacco.map(t => `
