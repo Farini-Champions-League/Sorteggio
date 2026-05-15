@@ -36,7 +36,7 @@
         .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 280px; border-radius: 20px; padding: 15px; }
         .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); }
         
-        .tables-container { width: 100%; max-width: 1600px; display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 30px; margin-top: 50px; }
+        .tables-container { width: 100%; max-width: 1600px; display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 20px; margin-top: 50px; align-items: start; }
         table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
         th { background: #111; color: #d4af37; padding: 15px; font-size: 11px; text-align: center; border-bottom: 2px solid #d4af37; }
         td { padding: 12px; text-align: center; border-bottom: 1px solid #222; font-size: 13px; font-weight: bold; }
@@ -49,7 +49,20 @@
         .special-table .mini-logo { width: 20px; height: 20px; }
 
         .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
-        @media (max-width: 1200px) { .tables-container { grid-template-columns: 1fr; } .bracket-grid { grid-template-columns: 1fr; } .special-container { grid-template-columns: 1fr; } }
+        @media (max-width: 1200px) { 
+    /* Le tabelle dei gironi e quelle speciali si mettono una sotto l'altra */
+    .tables-container { 
+        grid-template-columns: 1fr; 
+    } 
+    /* Anche il tabellone dei match (Girone A - Finale - Girone B) si impila */
+    .bracket-grid { 
+        grid-template-columns: 1fr; 
+    } 
+    /* Le tabelle Attacco e Difesa si mettono una sotto l'altra per non uscire dallo schermo */
+    .special-container { 
+        grid-template-columns: 1fr; 
+    } 
+}
     </style>
 </head>
 <body>
