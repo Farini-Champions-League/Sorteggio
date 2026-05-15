@@ -81,6 +81,34 @@
             .tournament-container { grid-template-columns: 320px 1fr 320px !important; }
             .group-box { width: 320px; }
         }
+
+        /* Effetto Zoom per il Vincitore */
+    .winner-card.celebrate {
+    transform: scale(1.3); /* Ingrandisce il box del 30% */
+    background: linear-gradient(145deg, rgba(212,175,55,0.6), rgba(0,0,0,0.95)); /* Più oro */
+    box-shadow: 0 0 100px rgba(212,175,55,0.8), 0 0 200px rgba(212,175,55,0.2);
+    z-index: 999;
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Movimento elastico */
+    }
+
+    /* Ingrandisce il logo del team durante la celebrazione */
+    .celebrate .winner-logo-big {
+    transform: scale(1.2) rotate(5deg);
+    border-color: #fff;
+    box-shadow: 0 0 30px #fff;
+    transition: 1s;
+    }
+
+    /* Opzionale: scurisce tutto il resto quando si festeggia */
+    body.party-mode .group-box, 
+    body.party-mode .semis-row, 
+    body.party-mode .final-box {
+    filter: blur(4px) grayscale(0.5);
+    opacity: 0.3;
+    transition: 1s;
+    }
+
+        
     </style>
 </head>
 <body>
@@ -136,24 +164,52 @@
 <script>
 function celebrazione() {
     const audio = document.getElementById('anthem');
-    // Il catch serve per intercettare blocchi del browser
-    audio.play().catch(e => {
-        console.log("Errore audio:", e);
-        alert("Clicca sulla pagina prima di celebrare per abilitare l'audio!");
-    });
+    const winnerCard = document.querySelector('.winner-card');
+    const body = document.body;
 
-    var duration = 15 * 1000;
+    // 1. Attiva le animazioni visive
+    winnerCard.classList.add('celebrate');
+    body.classList.add('party-mode');
+
+    // 2. Parte la musica
+    audio.play().catch(e => console.log("Errore audio:", e));
+
+    // 3. Configurazione coriandoli "esplosivi"
+    var duration = 20 * 1000;
     var animationEnd = Date.now() + duration;
-    var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
+    var defaults = { startVelocity: 45, spread: 360, ticks: 100, zIndex: 1000 };
 
     function randomInRange(min, max) { return Math.random() * (max - min) + min; }
 
     var interval = setInterval(function() {
         var timeLeft = animationEnd - Date.now();
         if (timeLeft <= 0) return clearInterval(interval);
-        var particleCount = 50 * (timeLeft / duration);
-        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, colors: ['#d4af37', '#ffffff'] }));
-        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, colors: ['#d4af37', '#ffffff'] }));
+
+        var particleCount = 80 * (timeLeft / duration);
+        
+        // Coriandoli che piovono da varie posizioni
+        confetti(Object.assign({}, defaults, { 
+            particleCount, 
+            origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+            colors: ['#d4af37', '#ffffff', '#ffd700'] 
+        }));
+        confetti(Object.assign({}, defaults, { 
+            particleCount, 
+            origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+            colors: ['#d4af37', '#ffffff', '#ffd700'] 
+        }));
+        
+        // Esplosione centrale ogni tanto
+        if (timeLeft % 2 === 0) {
+            confetti({
+                ...defaults,
+                particleCount: 40,
+                origin: { x: 0.5, y: 0.5 },
+                gravity: 0.5,
+                scalar: 1.2,
+                colors: ['#ffffff', '#d4af37']
+            });
+        }
     }, 250);
 }
 
