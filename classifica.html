@@ -36,11 +36,11 @@
         .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 280px; border-radius: 20px; padding: 15px; }
         .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); }
         
-        .tables-container { width: 100%; max-width: 1600px; display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 30px; margin-top: 50px; }
-        table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
-        th { background: #111; color: #d4af37; padding: 15px; font-size: 11px; text-align: center; border-bottom: 2px solid #d4af37; }
-        td { padding: 12px; text-align: center; border-bottom: 1px solid #222; font-size: 13px; font-weight: bold; }
-        .t-name { text-align: left; color: #fff; padding-left: 15px; line-height: 1.3; }
+        .tables-container { width: 100%; max-width: 1600px; display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 20px; margin-top: 50px; }
+        table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; table-layout: fixed; }
+        th { background: #111; color: #d4af37; padding: 10px 5px; font-size: 11px; text-align: center; border-bottom: 2px solid #d4af37; }
+        td { padding: 10px 5px; text-align: center; border-bottom: 1px solid #222; font-size: 13px; font-weight: bold; }
+        .t-name { text-align: left; color: #fff; padding-left: 10px; line-height: 1.3; width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         .special-container { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; border: 1px dashed #d4af37; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .special-column { display: flex; flex-direction: column; }
@@ -211,15 +211,32 @@ function renderMatches(grp, list) {
 function renderTables(stats) {
     const data = Object.values(stats);
     ['A', 'B'].forEach(g => {
+        // Ordina per Punti, poi Differenza Reti, poi Gol Fatti
         const sorted = data.filter(x => x.grp === g).sort((a,b) => b.pts - a.pts || (b.gf-b.gs) - (a.gf-a.gs) || b.gf - a.gf);
-        document.getElementById(`body-${g}`).innerHTML = sorted.map(t => `
-            <tr>
-                <td class="t-name"><img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo" style="width:20px;height:20px;vertical-align:middle;margin-right:8px;"> ${t.name}</td>
-                <td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td>
-            </tr>
-        `).join('');
+        
+        document.getElementById(`body-${g}`).innerHTML = sorted.map(t => {
+            // Calcolo automatico Differenza Reti
+            const dr = t.gf - t.gs;
+            const drDisplay = dr > 0 ? '+' + dr : dr; // Aggiunge il + se positivo
+
+            // QUESTA È LA PARTE CHE MI HAI CHIESTO
+            return `
+                <tr>
+                    <td class="t-name">
+                        <img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo" style="width:20px;height:20px;vertical-align:middle;margin-right:8px;"> 
+                        ${t.name}
+                    </td>
+                    <td>${t.pts}</td>
+                    <td>${t.p}</td>
+                    <td>${t.gf}</td>
+                    <td>${t.gs}</td>
+                    <td>${drDisplay}</td>
+                </tr>
+            `;
+        }).join('');
     });
 
+    // Classifiche Speciali (Attacco e Difesa) - NON TOCCARE QUESTA PARTE
     const attacco = [...data].sort((a,b) => b.gf - a.gf);
     document.getElementById('special-attacco').innerHTML = attacco.map(t => `
         <tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo"> ${t.name}</td><td>${t.gf} GF</td></tr>
