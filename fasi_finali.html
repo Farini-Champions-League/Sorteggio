@@ -12,39 +12,54 @@
         
         .main-wrapper { position: relative; z-index: 10; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
         
-        .header-title { color: #d4af37; text-transform: uppercase; font-size: 28px; margin: 10px 0 40px 0; text-shadow: 0 0 15px rgba(212,175,55,0.4); }
+        .header-title { color: #d4af37; text-transform: uppercase; font-size: 36px; margin: 20px 0 60px 0; text-shadow: 0 0 20px rgba(212,175,55,0.6); letter-spacing: 3px; }
 
-        /* CONTENITORE PRINCIPALE ORIZZONTALE */
-        .tournament-container { display: flex; align-items: center; justify-content: center; gap: 0; width: 100%; max-width: 1300px; position: relative; }
+        /* CONTENITORE ORIZZONTALE - PIÙ LARGO */
+        .tournament-container { display: flex; align-items: flex-start; justify-content: center; gap: 20px; width: 98%; max-width: 1600px; }
 
-        /* COLONNE GIRONI */
-        .group-box { width: 320px; border: 2px solid #d4af37; border-radius: 8px; background: rgba(0,0,0,0.6); overflow: hidden; z-index: 5; }
-        .group-header { background: rgba(212,175,55,0.1); padding: 10px; text-align: center; color: #d4af37; font-size: 18px; border-bottom: 2px solid #d4af37; }
+        /* GIRONI PIÙ IMPONENTI */
+        .group-box { width: 380px; border: 2px solid #d4af37; border-radius: 12px; background: rgba(0,0,0,0.7); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .group-header { background: rgba(212,175,55,0.15); padding: 15px; text-align: center; color: #d4af37; font-size: 22px; font-weight: 900; border-bottom: 2px solid #d4af37; }
         
-        table { width: 100%; border-collapse: collapse; font-size: 11px; }
-        th { color: #aaa; padding: 8px 5px; border-bottom: 1px solid #333; }
-        td { padding: 8px 5px; text-align: center; border-bottom: 1px solid #222; }
-        .t-name { text-align: left; padding-left: 10px; }
-        .mini-logo { width: 20px; height: 20px; vertical-align: middle; margin-right: 6px; border-radius: 50%; background: white; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { color: #d4af37; padding: 12px 5px; border-bottom: 1px solid #333; font-size: 11px; }
+        td { padding: 12px 5px; text-align: center; border-bottom: 1px solid #222; font-weight: 700; }
+        .t-name { text-align: left; padding-left: 15px; font-size: 14px; }
+        .mini-logo { width: 24px; height: 24px; vertical-align: middle; margin-right: 8px; border-radius: 50%; background: white; object-fit: contain; border: 1px solid #d4af37; }
 
-        /* AREA CENTRALE TABELLONE */
-        .bracket-area { display: flex; flex-direction: column; align-items: center; flex-grow: 1; position: relative; padding: 0 40px; }
+        /* AREA CENTRALE */
+        .bracket-area { display: flex; flex-direction: column; align-items: center; flex-grow: 1; padding: 0 20px; gap: 40px; }
 
-        /* SEMIFINALI ORIZZONTALI */
-        .semis-row { display: flex; gap: 30px; margin-bottom: 60px; position: relative; }
-        .match-box { width: 180px; background: rgba(0,0,0,0.8); border: 1px dashed #00aaff; border-radius: 6px; padding: 10px; position: relative; }
-        .match-title { font-size: 9px; color: #00aaff; text-align: center; margin-bottom: 8px; font-weight: 900; }
-        .team-line { display: flex; justify-content: space-between; font-size: 11px; margin: 4px 0; }
+        /* SEMIFINALI PIÙ GRANDI */
+        .semis-row { display: flex; gap: 40px; justify-content: center; width: 100%; }
+        .match-box { width: 220px; background: rgba(0,10,30,0.9); border: 2px dashed #00aaff; border-radius: 10px; padding: 15px; box-shadow: 0 0 20px rgba(0,170,255,0.2); }
+        .match-title { font-size: 11px; color: #00aaff; text-align: center; margin-bottom: 12px; font-weight: 900; letter-spacing: 1px; }
+        .team-line { display: flex; justify-content: space-between; font-size: 13px; margin: 8px 0; font-weight: 900; }
         
-        /* FINALISSIMA IN BASSO */
-        .final-row { display: flex; flex-direction: column; align-items: center; margin-top: 20px; }
-        .final-box { width: 220px; border: 2px solid #d4af37; background: rgba(212,175,55,0.05); border-radius: 10px; padding: 15px; }
-        .final-box .match-title { color: #d4af37; font-size: 14px; }
-        .trophy-icon { width: 50px; margin-bottom: 10px; }
+        /* FINALISSIMA PIÙ GRANDE */
+        .final-box { width: 300px; border: 3px solid #d4af37; background: rgba(212,175,55,0.1); border-radius: 15px; padding: 20px; box-shadow: 0 0 30px rgba(212,175,55,0.3); }
+        .final-box .match-title { color: #d4af37; font-size: 18px; margin-bottom: 15px; }
+        .final-box .team-line { font-size: 16px; margin: 10px 0; }
 
-        /* LINEE DI COLLEGAMENTO (SVG) */
-        .connector-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-        line { stroke: #555; stroke-width: 2; }
+        /* BOX VINCITORE (SOTTO) */
+        .winner-section { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .winner-card { 
+            width: 350px; background: linear-gradient(145deg, rgba(212,175,55,0.2), rgba(0,0,0,0.8)); 
+            border: 4px double #d4af37; border-radius: 20px; padding: 25px; text-align: center;
+            box-shadow: 0 0 50px rgba(212,175,55,0.4);
+        }
+        .winner-text { font-size: 24px; color: #fff; font-weight: 900; text-transform: uppercase; letter-spacing: 4px; margin-top: 10px; }
+        .trophy-large { width: 120px; filter: drop-shadow(0 0 20px gold); animation: pulse 2s infinite; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 15px gold); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 30px gold); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 15px gold); }
+        }
+
+        .score-box { background: #d4af37; color: #000; padding: 2px 8px; border-radius: 4px; font-weight: 900; }
+
+        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 14px; box-shadow: 0 0 20px rgba(212,175,55,0.5); }
     </style>
 </head>
 <body>
@@ -52,8 +67,10 @@
 <div class="ucl-bg"></div>
 <div class="overlay"></div>
 
+<a href="classifica.html" class="nav-link">← TORNA ALLA CLASSIFICA</a>
+
 <div class="main-wrapper">
-    <div class="header-title">⚽ FASI FINALI - TORNEO ⚽</div>
+    <div class="header-title">FASI FINALI - TORNEO</div>
 
     <div class="tournament-container">
         <div class="group-box">
@@ -67,23 +84,28 @@
         <div class="bracket-area">
             <div class="semis-row">
                 <div class="match-box">
-                    <div class="match-title">SEMIFINALE 1: 1A vs 2B</div>
-                    <div class="team-line"><span>TBD</span><span>-</span></div>
-                    <div class="team-line"><span>TBD</span><span>-</span></div>
+                    <div class="match-title">SEMIFINALE 1 (1A vs 2B)</div>
+                    <div class="team-line"><span>TBD</span><span class="score-box">-</span></div>
+                    <div class="team-line"><span>TBD</span><span class="score-box">-</span></div>
                 </div>
                 <div class="match-box">
-                    <div class="match-title">SEMIFINALE 2: 1B vs 2A</div>
-                    <div class="team-line"><span>TBD</span><span>-</span></div>
-                    <div class="team-line"><span>TBD</span><span>-</span></div>
+                    <div class="match-title">SEMIFINALE 2 (1B vs 2A)</div>
+                    <div class="team-line"><span>TBD</span><span class="score-box">-</span></div>
+                    <div class="team-line"><span>TBD</span><span class="score-box">-</span></div>
                 </div>
             </div>
 
-            <div class="final-row">
-                <img src="coppa.png" class="trophy-icon">
-                <div class="final-box">
-                    <div class="match-title">FINALISSIMA</div>
-                    <div class="team-line"><span>WINNER S1</span><span>-</span></div>
-                    <div class="team-line"><span>WINNER S2</span><span>-</span></div>
+            <div class="final-box">
+                <div class="match-title">FINALISSIMA</div>
+                <div class="team-line"><span>WINNER S1</span><span class="score-box">-</span></div>
+                <div class="team-line"><span>WINNER S2</span><span class="score-box">-</span></div>
+            </div>
+
+            <div class="winner-section">
+                <img src="coppa.png" class="trophy-large">
+                <div class="winner-card">
+                    <div style="color: #d4af37; font-size: 14px; letter-spacing: 2px;">THE CHAMPION</div>
+                    <div class="winner-text">TEAM WINNER</div>
                 </div>
             </div>
         </div>
@@ -99,6 +121,7 @@
 </div>
 
 <script>
+// Script identico a prima per caricare i dati
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRHxOqEYcRx0m4UxNzXDm1UrmEJtue7wyBFR7IC4iEIH_2WqrITNuaPA8BJIzWSzN7XcZsspJZOFX3/pub?gid=0&single=true&output=csv';
 const TEAM_DATA = {
     "Aston Pinna": { logo: "Aston.png", grp: "A" },
@@ -122,7 +145,6 @@ async function init() {
         Object.keys(TEAM_DATA).forEach(name => {
             stats[name] = { name: name, pts: 0, p: 0, gf: 0, gs: 0, grp: TEAM_DATA[name].grp };
         });
-
         rows.forEach(row => {
             const c = row.split(',');
             if (c.length < 5) return;
