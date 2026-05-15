@@ -37,29 +37,44 @@
         .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); }
         
         .tables-container { 
-    width: 98%; /* Usa quasi tutta la larghezza disponibile */
-    max-width: 1800px; /* Aumentiamo il limite massimo */
-    display: grid; 
-    /* Dividiamo lo spazio: 30% Girone A, 30% Girone B, 38% Speciali */
-    grid-template-columns: 1fr 1fr 1.3fr; 
-    gap: 15px; /* Riduciamo leggermente il buco tra le tabelle */
+    width: 100%; 
+    max-width: 1600px; 
+    display: flex; /* Passiamo a flex per un controllo totale */
+    flex-wrap: nowrap; /* Impedisce categoricamente di andare a capo */
+    justify-content: space-between; 
+    gap: 15px; 
     margin: 50px auto; 
-    align-items: start;
+    padding: 0 10px;
+    align-items: flex-start;
 }
-        table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
-        th { background: #111; color: #d4af37; padding: 15px; font-size: 11px; text-align: center; border-bottom: 2px solid #d4af37; }
-        td { padding: 12px; text-align: center; border-bottom: 1px solid #222; font-size: 13px; font-weight: bold; }
-        .t-name { text-align: left; color: #fff; padding-left: 15px; line-height: 1.3; }
-        
-        .special-container { 
+
+/* Forziamo le tabelle dei gironi a non occupare tutto lo spazio */
+.tables-container > div {
+    flex: 1; /* Le due tabelle gironi prendono lo stesso spazio */
+    min-width: 0; /* Evita bug di overflow */
+}
+
+/* Il contenitore Attacco/Difesa deve avere una larghezza fissa o proporzionale */
+.special-container { 
+    flex: 1.2; /* Diamo un po' più di spazio alla sezione speciale */
     background: rgba(255,255,255,0.03); 
     padding: 15px; 
     border-radius: 15px; 
     border: 1px dashed #d4af37; 
     display: grid; 
-    grid-template-columns: 1fr 1fr; /* Mantiene Attacco e Difesa affiancati */
-    gap: 15px; 
-    width: 100%; /* Occupa tutto lo spazio della sua colonna */
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px;
+    min-width: 400px; /* Impedisce che diventi troppo stretta */
+}
+
+/* Rimpiccioliamo leggermente i testi per far stare tutto */
+table {
+    font-size: 11px !important;
+}
+
+.t-name {
+    font-size: 11px !important;
+    white-space: nowrap; /* Evita che i nomi vadano su due righe occupando spazio */
 }
         .special-column { display: flex; flex-direction: column; }
         .special-title { color: #d4af37; font-size: 12px; text-transform: uppercase; margin: 0 0 10px 0; border-bottom: 1px solid #333; padding-bottom: 5px; text-align: center;}
@@ -67,19 +82,16 @@
         .special-table .mini-logo { width: 20px; height: 20px; }
 
         .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
-        @media (max-width: 1200px) { 
-    /* Le tabelle dei gironi e quelle speciali si mettono una sotto l'altra */
+       @media (max-width: 1200px) { 
     .tables-container { 
-        grid-template-columns: 1fr; 
+        flex-direction: column; /* Su mobile tornano una sotto l'altra */
+        align-items: center;
     } 
-    /* Anche il tabellone dei match (Girone A - Finale - Girone B) si impila */
-    .bracket-grid { 
-        grid-template-columns: 1fr; 
-    } 
-    /* Le tabelle Attacco e Difesa si mettono una sotto l'altra per non uscire dallo schermo */
-    .special-container { 
-        grid-template-columns: 1fr; 
-    } 
+    .special-container {
+        grid-template-columns: 1fr;
+        width: 90%;
+        min-width: auto;
+    }
 }
     </style>
 </head>
