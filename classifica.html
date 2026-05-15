@@ -36,17 +36,17 @@
         .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 280px; border-radius: 20px; padding: 15px; }
         .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); }
         
-        .tables-container { width: 100%; max-width: 1600px; display: grid; grid-template-columns: auto auto 1.3fr; gap: 15px; margin-top: 50px; }
+        .tables-container { width: 100%; max-width: 1600px; display: grid; grid-template-columns: auto auto 1.1fr; gap: 15px; margin-top: 50px; }
         table { width: auto; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
         th, td:not(.t-name) { width: 35px; text-align: center; padding: 10px 5px; font-size: 11px; border-bottom: 2px solid #d4af37; }
         td { padding: 10px 5px; text-align: center; border-bottom: 1px solid #222; font-size: 13px; font-weight: bold; }
         .t-name { text-align: left; color: #fff; padding-left: 10px; line-height: 1.3; width: 180px; white-space: nowrap; overflow: visible; }
         
-        .special-container { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; border: 1px dashed #d4af37; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .special-container { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 15px; border: 1px dashed #d4af37; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; }
         .special-column { display: flex; flex-direction: column; }
         .special-title { color: #d4af37; font-size: 12px; text-transform: uppercase; margin: 0 0 10px 0; border-bottom: 1px solid #333; padding-bottom: 5px; text-align: center;}
-        .special-table td { font-size: 10px; padding: 6px; }
-        .special-table .mini-logo { width: 20px; height: 20px; }
+        .special-table td { padding: 6px 4px !important; font-size: 11px; }
+        .special-table .mini-logo { width: 18px; height: 18px; }
 
         .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
         @media (max-width: 1200px) { .tables-container { grid-template-columns: 1fr; } .bracket-grid { grid-template-columns: 1fr; } .special-container { grid-template-columns: 1fr; } }
