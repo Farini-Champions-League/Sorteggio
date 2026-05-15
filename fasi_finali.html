@@ -65,6 +65,9 @@
         .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 14px; box-shadow: 0 0 20px rgba(212,175,55,0.5); transition: 0.3s; }
         .nav-link:hover { transform: scale(1.1); background: #fff; }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
 </head>
 <body>
 
@@ -106,14 +109,17 @@
             </div>
 
             <div class="winner-section">
-                <img src="coppa.png" class="trophy-large">
-                <div class="winner-card">
-                    <div class="champion-label">CAMPIONE FARINI CL</div>
-                    <img src="placeholder-logo.png" class="winner-logo-big" id="winner-logo">
-                    <div class="winner-name" id="winner-name">NOME TEAM VINCITORE</div>
-                </div>
-            </div>
-        </div>
+    <img src="coppa.png" class="trophy-large">
+    <div class="winner-card">
+        <div class="champion-label">CAMPIONE FARINI CL</div>
+        <img src="placeholder-logo.png" class="winner-logo-big" id="winner-logo">
+        <div class="winner-name" id="winner-name">NOME TEAM VINCITORE</div>
+        
+        <button onclick="celebrazione()" style="margin-top:20px; background:#d4af37; border:none; padding:10px 20px; border-radius:20px; font-weight:bold; cursor:pointer; font-family:'Montserrat'; text-transform:uppercase;">🏆 Celebra la Vittoria!</button>
+        
+        <audio id="musica-vittoria" src="inno.mp3"></audio>
+    </div>
+</div>
 
         <div class="group-box">
             <div class="group-header">GIRONE B</div>
@@ -176,6 +182,35 @@ function render(stats) {
         `).join('');
     });
 }
+
+function celebrazione() {
+    // 1. Parte la musica
+    const audio = document.getElementById('musica-vittoria');
+    audio.play();
+
+    // 2. Partono i coriandoli oro
+    var duration = 15 * 1000; // I coriandoli scendono per 15 secondi
+    var animationEnd = Date.now() + duration;
+    var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
+
+    function randomInRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    var interval = setInterval(function() {
+      var timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      var particleCount = 50 * (timeLeft / duration);
+      // Lancio da due punti diversi per riempire lo schermo
+      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, colors: ['#d4af37', '#ffffff', '#aa8400'] }));
+      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, colors: ['#d4af37', '#ffffff', '#aa8400'] }));
+    }, 250);
+}
+    
 init();
 </script>
 </body>
