@@ -36,13 +36,31 @@
         .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 280px; border-radius: 20px; padding: 15px; }
         .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); }
         
-        .tables-container { width: 100%; max-width: 1600px; display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 20px; margin-top: 50px; align-items: start; }
+        .tables-container { 
+    width: 98%; /* Usa quasi tutta la larghezza disponibile */
+    max-width: 1800px; /* Aumentiamo il limite massimo */
+    display: grid; 
+    /* Dividiamo lo spazio: 30% Girone A, 30% Girone B, 38% Speciali */
+    grid-template-columns: 1fr 1fr 1.3fr; 
+    gap: 15px; /* Riduciamo leggermente il buco tra le tabelle */
+    margin: 50px auto; 
+    align-items: start;
+}
         table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
         th { background: #111; color: #d4af37; padding: 15px; font-size: 11px; text-align: center; border-bottom: 2px solid #d4af37; }
         td { padding: 12px; text-align: center; border-bottom: 1px solid #222; font-size: 13px; font-weight: bold; }
         .t-name { text-align: left; color: #fff; padding-left: 15px; line-height: 1.3; }
         
-        .special-container { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; border: 1px dashed #d4af37; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .special-container { 
+    background: rgba(255,255,255,0.03); 
+    padding: 15px; 
+    border-radius: 15px; 
+    border: 1px dashed #d4af37; 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* Mantiene Attacco e Difesa affiancati */
+    gap: 15px; 
+    width: 100%; /* Occupa tutto lo spazio della sua colonna */
+}
         .special-column { display: flex; flex-direction: column; }
         .special-title { color: #d4af37; font-size: 12px; text-transform: uppercase; margin: 0 0 10px 0; border-bottom: 1px solid #333; padding-bottom: 5px; text-align: center;}
         .special-table td { font-size: 10px; padding: 6px; }
