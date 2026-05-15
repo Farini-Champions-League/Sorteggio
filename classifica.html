@@ -6,94 +6,61 @@
     <title>Tabellone Completo - Farini CL</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: #000; color: white; scroll-behavior: smooth; }
-        .ucl-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('sfondo.png') center/cover no-repeat; z-index: 1; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 5, 20, 0.9); z-index: 2; }
-        .main-wrapper { position: relative; z-index: 10; padding: 40px 10px; display: flex; flex-direction: column; align-items: center; gap: 50px; }
-        h1 { color: #d4af37; text-transform: uppercase; text-align: center; font-size: clamp(24px, 5vw, 40px); margin: 0; text-shadow: 0 0 20px rgba(212,175,55,0.5); }
-        h2 { color: #00aaff; text-transform: uppercase; font-size: 22px; border-left: 5px solid #d4af37; padding-left: 15px; margin: 40px 0 20px 0; width: 100%; max-width: 1200px; }
-        
-        .bracket-grid { display: grid; grid-template-columns: 1fr 0.8fr 1fr; gap: 20px; width: 100%; max-width: 1500px; }
-        .side-column { display: flex; flex-direction: column; gap: 25px; }
-        .center-column { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 30px; }
-        
-        .match-card { background: rgba(255,255,255,0.07); border: 1px solid #333; border-radius: 8px; overflow: hidden; width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .match-header { background: #0047e1; font-size: 10px; padding: 6px 12px; font-weight: 900; display: flex; justify-content: space-between; color: white; }
-        
-        .team-row { display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); align-items: center; }
-        .team-row:last-child { border-bottom: none; }
-        
-        .team-info-wrapper { display: flex; align-items: center; gap: 12px; }
-        .mini-logo { width: 30px; height: 30px; border-radius: 50%; background: white; object-fit: contain; border: 1px solid #d4af37; flex-shrink: 0; }
-        
-        .team-name { font-size: 12px; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
-        .members { font-size: 9px; font-weight: 400; text-transform: none; color: #aaa; display: block; }
-        .score-box { background: #222; width: 35px; height: 30px; line-height: 30px; text-align: center; font-weight: 900; border-radius: 4px; border: 1px solid #555; }
-        .winner-score { background: #d4af37 !important; color: #000; border-color: #d4af37; }
-        
-        .final-area { text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .semi-card { border: 1px solid #00aaff; background: rgba(0, 170, 255, 0.05); width: 240px; }
-        .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 280px; border-radius: 20px; padding: 15px; }
-        .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); }
-        
-        .tables-container { 
-    width: 100%; 
-    max-width: 1600px; 
-    display: flex; /* Passiamo a flex per un controllo totale */
-    flex-wrap: nowrap; /* Impedisce categoricamente di andare a capo */
-    justify-content: space-between; 
-    gap: 15px; 
-    margin: 50px auto; 
-    padding: 0 10px;
-    align-items: flex-start;
-}
+    body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: #000; color: white; overflow-x: hidden; }
+    .ucl-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('sfondo.png') center/cover no-repeat; z-index: 1; }
+    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 5, 20, 0.9); z-index: 2; }
+    .main-wrapper { position: relative; z-index: 10; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+    
+    h1 { color: #d4af37; text-transform: uppercase; text-align: center; font-size: 32px; margin-bottom: 40px; }
+    h2 { color: #00aaff; text-transform: uppercase; font-size: 18px; border-left: 4px solid #d4af37; padding-left: 10px; margin: 20px 0; }
 
-/* Forziamo le tabelle dei gironi a non occupare tutto lo spazio */
-.tables-container > div {
-    flex: 1; /* Le due tabelle gironi prendono lo stesso spazio */
-    min-width: 0; /* Evita bug di overflow */
-}
-
-/* Il contenitore Attacco/Difesa deve avere una larghezza fissa o proporzionale */
-.special-container { 
-    flex: 1.2; /* Diamo un po' più di spazio alla sezione speciale */
-    background: rgba(255,255,255,0.03); 
-    padding: 15px; 
-    border-radius: 15px; 
-    border: 1px dashed #d4af37; 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 10px;
-    min-width: 400px; /* Impedisce che diventi troppo stretta */
-}
-
-/* Rimpiccioliamo leggermente i testi per far stare tutto */
-table {
-    font-size: 11px !important;
-}
-
-.t-name {
-    font-size: 11px !important;
-    white-space: nowrap; /* Evita che i nomi vadano su due righe occupando spazio */
-}
-        .special-column { display: flex; flex-direction: column; }
-        .special-title { color: #d4af37; font-size: 12px; text-transform: uppercase; margin: 0 0 10px 0; border-bottom: 1px solid #333; padding-bottom: 5px; text-align: center;}
-        .special-table td { font-size: 10px; padding: 6px; }
-        .special-table .mini-logo { width: 20px; height: 20px; }
-
-        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
-       @media (max-width: 1200px) { 
+    /* CONTENITORE PRINCIPALE TABELLE */
     .tables-container { 
-        flex-direction: column; /* Su mobile tornano una sotto l'altra */
-        align-items: center;
-    } 
-    .special-container {
-        grid-template-columns: 1fr;
-        width: 90%;
-        min-width: auto;
+        display: flex; 
+        flex-direction: row; 
+        justify-content: center; 
+        align-items: flex-start;
+        gap: 15px; 
+        width: 100%;
+        max-width: 1400px;
     }
-}
-    </style>
+
+    /* GIRONI A E B */
+    .tables-container > div { 
+        width: 300px; /* Larghezza fissa per i gironi per non farli stringere */
+        flex-shrink: 0; 
+    }
+
+    table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.6); border: 1px solid #333; border-radius: 8px; overflow: hidden; table-layout: fixed; }
+    th { background: #111; color: #d4af37; padding: 10px 5px; font-size: 10px; text-transform: uppercase; border-bottom: 2px solid #d4af37; }
+    td { padding: 8px 4px; text-align: center; border-bottom: 1px solid #222; font-size: 11px; font-weight: bold; overflow: hidden; }
+    .t-name { text-align: left; padding-left: 8px; width: 45%; font-size: 10px; white-space: nowrap; }
+
+    /* CONTENITORE SPECIALI (ATTACCO/DIFESA) */
+    .special-container { 
+        width: 550px; /* Larghezza fissa per le speciali */
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 10px; 
+        background: rgba(255,255,255,0.03); 
+        padding: 15px; 
+        border-radius: 12px; 
+        border: 1px dashed #d4af37;
+        flex-shrink: 0;
+    }
+
+    .special-title { color: #d4af37; font-size: 11px; text-transform: uppercase; text-align: center; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 5px; }
+    .mini-logo { width: 22px; height: 22px; vertical-align: middle; margin-right: 5px; }
+
+    .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 8px 15px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 11px; }
+
+    /* LAYOUT PER CELLULARE */
+    @media (max-width: 1200px) {
+        .tables-container { flex-direction: column; align-items: center; }
+        .tables-container > div, .special-container { width: 95%; max-width: 400px; }
+        .special-container { grid-template-columns: 1fr; }
+    }
+</style>
 </head>
 <body>
 
