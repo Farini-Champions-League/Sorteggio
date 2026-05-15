@@ -45,9 +45,9 @@
         .special-container { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 15px; border: 1px dashed #d4af37; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; }
         .special-column { display: flex; flex-direction: column; }
         .special-title { color: #d4af37; font-size: 12px; text-transform: uppercase; margin: 0 0 10px 0; border-bottom: 1px solid #333; padding-bottom: 5px; text-align: center;}
-        .special-table { width: 100%; border-collapse: collapse; table-layout: auto; }
-        .special-table td:first-child { width: auto; text-align: left; padding: 6px 15px 6px 4px !important; font-size: 13px; }
-        .special-table td:last-child { width: 1%; text-align: right; white-space: nowrap; font-weight: 900; color: #d4af37; padding: 6px 4px !important; font-size: 13px; }
+        .special-table { width: auto !important; margin-left: 0; margin-right: auto; border-collapse: collapse; table-layout: auto; }
+        .special-table td:first-child { width: auto !important; white-space: nowrap; text-align: left; padding: 6px 10px 6px 4px !important; font-size: 13px; }
+        .special-table td:last-child { width: auto !important; white-space: nowrap; text-align: right; font-weight: 900; color: #d4af37; padding: 6px 4px !important; font-size: 13px; }
         .special-table .mini-logo { width: 18px; height: 18px; vertical-align: middle; margin-right: 5px; }
         .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
         @media (max-width: 1200px) { .tables-container { grid-template-columns: 1fr; } .bracket-grid { grid-template-columns: 1fr; } .special-container { grid-template-columns: 1fr; } }
