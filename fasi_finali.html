@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fasi Finali - Torneo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://www.psdmockups.com/wp-content/uploads/2017/07/UEFA-Champions-League-Background-Morphed.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            text-shadow: 0 0 20px rgba(212,175,55,0.5);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3em;
+            color: #d4af37;
+            margin: 0;
+            letter-spacing: 5px;
+        }
+
+        .nav-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #d4af37;
+            color: black;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 12px;
+            z-index: 100;
+        }
+
+        /* STRUTTURA A TRE COLONNE */
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 30px;
+            width: 95%;
+            max-width: 1600px;
+            align-items: center; /* Centra verticalmente gli elementi tra loro */
+            margin-top: 20px;
+        }
+
+        /* STILE BOX MATCH */
+        .bracket-box {
+            background: rgba(0,0,0,0.6);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .semi-box {
+            border: 2px dashed #00aaff;
+            box-shadow: 0 0 15px rgba(0,170,255,0.2);
+        }
+
+        .final-box {
+            border: 3px solid #d4af37;
+            box-shadow: 0 0 25px rgba(212,175,55,0.3);
+            transform: scale(1.1); /* Rende la finale leggermente più grande */
+        }
+
+        .box-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .semi-box .box-title { color: #00aaff; }
+        .final-box .box-title { color: #d4af37; font-size: 18px; }
+
+        .match-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            margin: 5px 0;
+            border-radius: 8px;
+        }
+
+        .team-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .team-logo {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .score {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            color: #d4af37;
+            min-width: 30px;
+        }
+
+        .vs {
+            margin: 10px 0;
+            font-style: italic;
+            color: #777;
+        }
+
+        .trophy-img {
+            width: 100px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px gold);
+        }
+
+        /* COLUMN ALIGNMENT */
+        .side-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .center-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (max-width: 1100px) {
+            .main-container { grid-template-columns: 1fr; }
+            .final-box { transform: scale(1); order: -1; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="classifica.html" class="nav-link">⬅ Torna alla Classifica</a>
+
+    <div class="header">
+        <h1>FASI FINALI</h1>
+    </div>
+
+    <div class="main-container">
+        
+        <div class="side-column">
+            <div class="bracket-box semi-box">
+                <div class="box-title">Semifinale 1</div>
+                <div class="match-row">
+                    <div class="team-info">
+                        <img src="URL_LOGO_MILAN" class="team-logo">
+                        <span>1ª Gr. A</span>
+                    </div>
+                    <div class="score">-</div>
+                </div>
+                <div class="vs">vs</div>
+                <div class="match-row">
+                    <div class="team-info">
+                        <img src="URL_LOGO_ROMA" class="team-logo">
+                        <span>2ª Gr. B</span>
+                    </div>
+                    <div class="score">-</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="center-column">
+            <img src="https://pngimg.com/uploads/champions_league/champions_league_PNG22.png" class="trophy-img" alt="Trophy">
+            <div class="bracket-box final-box">
+                <div class="box-title">Finalissima</div>
+                <div class="match-row">
+                    <div class="team-info">
+                        <img src="URL_LOGO_MILAN" class="team-logo">
+                        <span>Vincitore S1</span>
+                    </div>
+                    <div class="score">-</div>
+                </div>
+                <div class="vs">vs</div>
+                <div class="match-row">
+                    <div class="team-info">
+                        <img src="URL_LOGO_NAPOLI" class="team-logo">
+                        <span>Vincitore S2</span>
+                    </div>
+                    <div class="score">-</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="side-column">
+            <div class="bracket-box semi-box">
+                <div class="box-title">Semifinale 2</div>
+                <div class="match-row">
+                    <div class="team-info">
+                        <img src="URL_LOGO_NAPOLI" class="team-logo">
+                        <span>1ª Gr. B</span>
+                    </div>
+                    <div class="score">-</div>
+                </div>
+                <div class="vs">vs</div>
+                <div class="match-row">
+                    <div class="team-info">
+                        <img src="URL_LOGO_INTER" class="team-logo">
+                        <span>2ª Gr. A</span>
+                    </div>
+                    <div class="score">-</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
