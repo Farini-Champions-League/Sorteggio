@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fasi Finali - Torneo</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: #000; color: white; overflow-x: hidden; }
         .ucl-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('sfondo.png') center/cover no-repeat; z-index: 1; }
@@ -14,49 +15,42 @@
         
         .header-title { color: #d4af37; text-transform: uppercase; font-size: 36px; margin: 20px 0 60px 0; text-shadow: 0 0 20px rgba(212,175,55,0.6); letter-spacing: 3px; font-weight: 900; }
 
-        /* LAYOUT ORIZZONTALE */
+        /* STRUTTURA GRID BLINDATA CON AREE NOMINATE */
         .tournament-container { 
-    display: grid; 
-    grid-template-columns: 380px 1fr 380px; /* Tre colonne fisse */
-    gap: 20px; 
-    width: 98%; 
-    max-width: 1600px; 
-    align-items: start; 
-}
+            display: grid !important; 
+            grid-template-columns: 380px 1fr 380px !important; 
+            grid-template-areas: "col-A col-center col-B" !important;
+            gap: 20px; 
+            width: 98%; 
+            max-width: 1600px; 
+            align-items: start; 
+        }
 
-/* Forza la colonna centrale a non allargarsi troppo */
-.bracket-area { 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    gap: 30px; 
-    min-width: 0; 
-}
+        /* Assegnazione aree */
+        .box-A { grid-area: col-A; }
+        .bracket-area { grid-area: col-center; display: flex; flex-direction: column; align-items: center; gap: 40px; min-width: 0; }
+        .box-B { grid-area: col-B; }
+
         /* GIRONI */
-        .group-box { width: 380px; border: 2px solid #d4af37; border-radius: 12px; background: rgba(0,0,0,0.7); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .group-box { width: 100%; border: 2px solid #d4af37; border-radius: 12px; background: rgba(0,0,0,0.7); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .group-header { background: rgba(212,175,55,0.15); padding: 15px; text-align: center; color: #d4af37; font-size: 22px; font-weight: 900; border-bottom: 2px solid #d4af37; }
         
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; } /* Layout fisso per non spingere i margini */
         th { color: #d4af37; padding: 12px 5px; border-bottom: 1px solid #333; font-size: 11px; text-transform: uppercase; }
-        td { padding: 12px 5px; text-align: center; border-bottom: 1px solid #222; font-weight: 700; }
-        .t-name { text-align: left; padding-left: 15px; font-size: 14px; }
+        td { padding: 12px 5px; text-align: center; border-bottom: 1px solid #222; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .t-name { text-align: left; padding-left: 15px; font-size: 14px; width: 180px; }
         .mini-logo { width: 24px; height: 24px; vertical-align: middle; margin-right: 8px; border-radius: 50%; background: white; object-fit: contain; border: 1px solid #d4af37; }
 
         /* TABELLONE CENTRALE */
-        .bracket-area { display: flex; flex-direction: column; align-items: center; flex-grow: 1; gap: 40px; }
-
-        /* SEMIFINALI */
         .semis-row { display: flex; gap: 40px; justify-content: center; width: 100%; }
         .match-box { width: 220px; background: rgba(0,10,30,0.9); border: 2px dashed #00aaff; border-radius: 10px; padding: 15px; box-shadow: 0 0 20px rgba(0,170,255,0.2); }
         .match-title { font-size: 11px; color: #00aaff; text-align: center; margin-bottom: 12px; font-weight: 900; letter-spacing: 1px; }
         .team-line { display: flex; justify-content: space-between; font-size: 13px; margin: 8px 0; font-weight: 900; text-transform: uppercase; }
         
-        /* FINALE */
         .final-box { width: 320px; border: 3px solid #d4af37; background: rgba(212,175,55,0.1); border-radius: 15px; padding: 20px; box-shadow: 0 0 30px rgba(212,175,55,0.3); }
         .final-box .match-title { color: #d4af37; font-size: 18px; margin-bottom: 15px; text-transform: uppercase; }
-        .final-box .team-line { font-size: 16px; margin: 10px 0; }
 
-        /* BOX VINCITORE FINALE */
+        /* BOX VINCITORE */
         .winner-section { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .winner-card { 
             width: 400px; background: linear-gradient(145deg, rgba(212,175,55,0.25), rgba(0,0,0,0.9)); 
@@ -65,24 +59,29 @@
         }
         .champion-label { color: #d4af37; font-size: 14px; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; margin-bottom: 15px; }
         .winner-logo-big { width: 80px; height: 80px; background: white; border-radius: 50%; border: 3px solid #d4af37; object-fit: contain; margin-bottom: 15px; display: inline-block; }
-        .winner-name { font-size: 28px; color: #fff; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        .winner-name { font-size: 28px; color: #fff; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
         
         .trophy-large { width: 130px; filter: drop-shadow(0 0 25px gold); animation: pulse 2s infinite; }
 
+        .btn-celebra { margin-top:20px; background:#d4af37; border:none; padding:12px 25px; border-radius:50px; font-weight:900; cursor:pointer; font-family:'Montserrat'; text-transform:uppercase; transition: 0.3s; box-shadow: 0 0 15px rgba(212,175,55,0.4); }
+        .btn-celebra:hover { transform: scale(1.1); background: #fff; }
+
         @keyframes pulse {
-            0% { transform: scale(1); filter: drop-shadow(0 0 15px gold); }
-            50% { transform: scale(1.08); filter: drop-shadow(0 0 35px gold); }
-            100% { transform: scale(1); filter: drop-shadow(0 0 15px gold); }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
         }
 
         .score-box { background: #d4af37; color: #000; min-width: 25px; padding: 2px 6px; border-radius: 4px; font-weight: 900; text-align: center; }
 
-        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 14px; box-shadow: 0 0 20px rgba(212,175,55,0.5); transition: 0.3s; }
-        .nav-link:hover { transform: scale(1.1); background: #fff; }
-    </style>
+        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 14px; }
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
+        /* Impedisce il salto riga anche su schermi intermedi */
+        @media (max-width: 1400px) {
+            .tournament-container { grid-template-columns: 320px 1fr 320px !important; }
+            .group-box { width: 320px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -95,119 +94,54 @@
     <div class="header-title">FASI FINALI</div>
 
     <div class="tournament-container">
-        <div class="group-box">
+        <div class="group-box box-A">
             <div class="group-header">GIRONE A</div>
             <table>
-                <thead><tr><th>Team</th><th>PTS</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead>
+                <thead><tr><th style="width:50%">Team</th><th>PTS</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead>
                 <tbody id="body-A"></tbody>
             </table>
         </div>
 
         <div class="bracket-area">
             <div class="semis-row">
-                <div class="match-box">
-                    <div class="match-title">SEMIFINALE 1 (1A vs 2B)</div>
-                    <div class="team-line"><span>TBD</span><span class="score-box">-</span></div>
-                    <div class="team-line"><span>TBD</span><span class="score-box">-</span></div>
-                </div>
-                <div class="match-box">
-                    <div class="match-title">SEMIFINALE 2 (1B vs 2A)</div>
-                    <div class="team-line"><span>TBD</span><span class="score-box">-</span></div>
-                    <div class="team-line"><span>TBD</span><span class="score-box">-</span></div>
-                </div>
+                <div class="match-box"><div class="match-title">SEMIFINALE 1</div><div class="team-line"><span>TBD</span><span class="score-box">-</span></div><div class="team-line"><span>TBD</span><span class="score-box">-</span></div></div>
+                <div class="match-box"><div class="match-title">SEMIFINALE 2</div><div class="team-line"><span>TBD</span><span class="score-box">-</span></div><div class="team-line"><span>TBD</span><span class="score-box">-</span></div></div>
             </div>
 
-            <div class="final-box">
-                <div class="match-title">FINALISSIMA</div>
-                <div class="team-line"><span>Finalista A</span><span class="score-box">-</span></div>
-                <div class="team-line"><span>Finalista B</span><span class="score-box">-</span></div>
-            </div>
+            <div class="final-box"><div class="match-title">FINALISSIMA</div><div class="team-line"><span>Finalista A</span><span class="score-box">-</span></div><div class="team-line"><span>Finalista B</span><span class="score-box">-</span></div></div>
 
             <div class="winner-section">
-    <img src="coppa.png" class="trophy-large">
-    <div class="winner-card">
-        <div class="champion-label">CAMPIONE FARINI CL</div>
-        <img src="placeholder-logo.png" class="winner-logo-big" id="winner-logo">
-        <div class="winner-name" id="winner-name">NOME TEAM VINCITORE</div>
-        
-        <button onclick="celebrazione()" style="margin-top:20px; background:#d4af37; border:none; padding:10px 20px; border-radius:20px; font-weight:bold; cursor:pointer; font-family:'Montserrat'; text-transform:uppercase;">🏆 Celebra la Vittoria!</button>
-        
-        <audio id="musica-vittoria" src="inno.mp3"></audio>
-    </div>
-</div>
+                <img src="coppa.png" class="trophy-large">
+                <div class="winner-card">
+                    <div class="champion-label">CAMPIONE FARINI CL</div>
+                    <img src="placeholder-logo.png" class="winner-logo-big" id="winner-logo">
+                    <div class="winner-name" id="winner-name">NOME TEAM VINCITORE</div>
+                    <button class="btn-celebra" onclick="celebrazione()">🏆 Celebra la Vittoria!</button>
+                </div>
+            </div>
+        </div>
 
-        <div class="group-box">
+        <div class="group-box box-B">
             <div class="group-header">GIRONE B</div>
             <table>
-                <thead><tr><th>Team</th><th>PTS</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead>
+                <thead><tr><th style="width:50%">Team</th><th>PTS</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead>
                 <tbody id="body-B"></tbody>
             </table>
         </div>
     </div>
 </div>
 
+<audio id="anthem" src="inno.mp3" preload="auto" loop></audio>
+
 <script>
-const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRHxOqEYcRx0m4UxNzXDm1UrmEJtue7wyBFR7IC4iEIH_2WqrITNuaPA8BJIzWSzN7XcZsspJZOFX3/pub?gid=0&single=true&output=csv';
-const TEAM_DATA = {
-    "Aston Pinna": { logo: "Aston.png", grp: "A" },
-    "I Milanisti": { logo: "Milanisti.png", grp: "A" },
-    "Berlusca Dortmund": { logo: "Dortmund.png", grp: "A" },
-    "B.I.B.C.": { logo: "bibc.png", grp: "A" },
-    "Farini Fighter": { logo: "Farini.png", grp: "A" },
-    "Armistizio FC": { logo: "Armistizio.png", grp: "B" },
-    "PennyChellas": { logo: "Penny.png", grp: "B" },
-    "Attenti a Quei Due": { logo: "Attenti.jpg", grp: "B" },
-    "Calcio Barilla": { logo: "Barilla.jpg", grp: "B" },
-    "FC Pelados": { logo: "Pelados.png", grp: "B" }
-};
-
-async function init() {
-    try {
-        const res = await fetch(SHEET_URL + '&t=' + new Date().getTime());
-        const csv = await res.text();
-        const rows = csv.split('\n').slice(1);
-        let stats = {};
-        Object.keys(TEAM_DATA).forEach(name => {
-            stats[name] = { name: name, pts: 0, p: 0, gf: 0, gs: 0, grp: TEAM_DATA[name].grp };
-        });
-        rows.forEach(row => {
-            const c = row.split(',');
-            if (c.length < 5) return;
-            const t1 = c[1]?.trim(); const t2 = c[2]?.trim();
-            const g1 = parseInt(c[3]); const g2 = parseInt(c[4]);
-            if (!isNaN(g1) && !isNaN(g2)) {
-                stats[t1].p++; stats[t1].gf += g1; stats[t1].gs += g2;
-                stats[t2].p++; stats[t2].gf += g2; stats[t2].gs += g1;
-                if (g1 > g2) stats[t1].pts += 3; else if (g1 < g2) stats[t2].pts += 3; else { stats[t1].pts++; stats[t2].pts++; }
-            }
-        });
-        render(stats);
-    } catch (e) { console.error(e); }
-}
-
-function render(stats) {
-    const data = Object.values(stats);
-    ['A', 'B'].forEach(g => {
-        const sorted = data.filter(x => x.grp === g).sort((a,b) => b.pts - a.pts || (b.gf-b.gs) - (a.gf-a.gs));
-        document.getElementById(`body-${g}`).innerHTML = sorted.map(t => `
-            <tr>
-                <td class="t-name"><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td>
-                <td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td><td>${t.gf-t.gs}</td>
-            </tr>
-        `).join('');
-    });
-}
-
 function celebrazione() {
-    const audio = document.getElementById('musica-vittoria');
-    
-    // Prova a far partire l'audio
-    audio.play().catch(error => {
-        console.error("Errore audio: Assicurati che inno.mp3 sia nella cartella del sito", error);
-        alert("Audio non trovato! Controlla che il file inno.mp3 sia presente.");
+    const audio = document.getElementById('anthem');
+    // Il catch serve per intercettare blocchi del browser
+    audio.play().catch(e => {
+        console.log("Errore audio:", e);
+        alert("Clicca sulla pagina prima di celebrare per abilitare l'audio!");
     });
 
-    // Coriandoli (codice invariato ma richiamato qui)
     var duration = 15 * 1000;
     var animationEnd = Date.now() + duration;
     var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
@@ -222,7 +156,34 @@ function celebrazione() {
         confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, colors: ['#d4af37', '#ffffff'] }));
     }, 250);
 }
-    
+
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRHxOqEYcRx0m4UxNzXDm1UrmEJtue7wyBFR7IC4iEIH_2WqrITNuaPA8BJIzWSzN7XcZsspJZOFX3/pub?gid=0&single=true&output=csv';
+const TEAM_DATA = { "Aston Pinna": { logo: "Aston.png", grp: "A" }, "I Milanisti": { logo: "Milanisti.png", grp: "A" }, "Berlusca Dortmund": { logo: "Dortmund.png", grp: "A" }, "B.I.B.C.": { logo: "bibc.png", grp: "A" }, "Farini Fighter": { logo: "Farini.png", grp: "A" }, "Armistizio FC": { logo: "Armistizio.png", grp: "B" }, "PennyChellas": { logo: "Penny.png", grp: "B" }, "Attenti a Quei Due": { logo: "Attenti.jpg", grp: "B" }, "Calcio Barilla": { logo: "Barilla.jpg", grp: "B" }, "FC Pelados": { logo: "Pelados.png", grp: "B" } };
+
+async function init() {
+    try {
+        const res = await fetch(SHEET_URL + '&t=' + new Date().getTime());
+        const csv = await res.text();
+        const rows = csv.split('\n').slice(1);
+        let stats = {};
+        Object.keys(TEAM_DATA).forEach(name => { stats[name] = { name: name, pts: 0, p: 0, gf: 0, gs: 0, grp: TEAM_DATA[name].grp }; });
+        rows.forEach(row => {
+            const c = row.split(',');
+            if (c.length < 5) return;
+            const t1 = c[1]?.trim(); const t2 = c[2]?.trim();
+            const g1 = parseInt(c[3]); const g2 = parseInt(c[4]);
+            if (!isNaN(g1) && !isNaN(g2)) {
+                stats[t1].p++; stats[t1].gf += g1; stats[t1].gs += g2;
+                stats[t2].p++; stats[t2].gf += g2; stats[t2].gs += g1;
+                if (g1 > g2) stats[t1].pts += 3; else if (g1 < g2) stats[t2].pts += 3; else { stats[t1].pts++; stats[t2].pts++; }
+            }
+        });
+        ['A', 'B'].forEach(g => {
+            const sorted = Object.values(stats).filter(x => x.grp === g).sort((a,b) => b.pts - a.pts || (b.gf-b.gs) - (a.gf-a.gs));
+            document.getElementById(`body-${g}`).innerHTML = sorted.map(t => `<tr><td class="t-name"><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td><td>${t.gf-t.gs}</td></tr>`).join('');
+        });
+    } catch (e) { console.error(e); }
+}
 init();
 </script>
 </body>
