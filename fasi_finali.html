@@ -6,56 +6,41 @@
     <title>Fasi Finali - Farini CL</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        /* Eredità stili da classifica.html */
         body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: #000; color: white; scroll-behavior: smooth; }
         .ucl-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('sfondo.png') center/cover no-repeat; z-index: 1; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 5, 20, 0.9); z-index: 2; }
         .main-wrapper { position: relative; z-index: 10; padding: 40px 10px; display: flex; flex-direction: column; align-items: center; gap: 30px; }
         
         h1 { color: #d4af37; text-transform: uppercase; text-align: center; font-size: clamp(24px, 5vw, 40px); margin: 0; text-shadow: 0 0 20px rgba(212,175,55,0.5); }
-        h2 { color: #00aaff; text-transform: uppercase; font-size: 18px; border-left: 5px solid #d4af37; padding-left: 15px; margin: 20px 0; }
+        h2 { color: #00aaff; text-transform: uppercase; font-size: 22px; border-left: 5px solid #d4af37; padding-left: 15px; margin: 20px 0; }
 
-        /* NUOVO LAYOUT SIMMETRICO */
-        .tournament-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr 1.2fr;
-            gap: 30px;
-            width: 100%;
-            max-width: 1600px;
-            align-items: center;
-            margin-top: 20px;
-        }
+        /* STRUTTURA A TRE COLONNE PERFETTA */
+        .bracket-grid { display: grid; grid-template-columns: 1fr 0.8fr 1fr; gap: 20px; width: 100%; max-width: 1500px; align-items: start; }
+        .side-column { display: flex; flex-direction: column; }
+        .center-column { display: flex; flex-direction: column; align-items: center; gap: 30px; }
 
-        /* Tabelle Gironi (Più grandi come richiesto) */
+        /* TABELLE GIRONI */
         table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
-        th { background: #111; color: #d4af37; padding: 12px 8px; font-size: 13px; text-align: center; border-bottom: 2px solid #d4af37; }
+        th { background: #111; color: #d4af37; padding: 12px 8px; font-size: 13px; border-bottom: 2px solid #d4af37; }
         td { padding: 12px 8px; text-align: center; border-bottom: 1px solid #222; font-size: 15px; font-weight: bold; }
-        .t-name { text-align: left; color: #fff; padding-left: 15px; font-size: 14px; width: 180px; }
-        .mini-logo { width: 25px; height: 25px; vertical-align: middle; margin-right: 8px; border-radius: 50%; background: white; object-fit: contain; }
+        .t-name { text-align: left; color: #fff; padding-left: 15px; width: 220px; }
+        .mini-logo { width: 25px; height: 25px; vertical-align: middle; margin-right: 8px; border-radius: 50%; background: white; object-fit: contain; border: 1px solid #d4af37; }
 
-        /* Centro: Semifinali e Finale */
-        .bracket-center { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .match-card { background: rgba(255,255,255,0.07); border-radius: 8px; overflow: hidden; width: 100%; max-width: 300px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .match-header { font-size: 11px; padding: 6px; font-weight: 900; text-align: center; color: white; text-transform: uppercase; }
+        /* BLOCCHI MATCH (COPIATI DA SCREENSHOT) */
+        .match-card { background: rgba(255,255,255,0.07); border: 1px solid #333; border-radius: 8px; overflow: hidden; width: 100%; max-width: 300px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .match-header { font-size: 10px; padding: 6px 12px; font-weight: 900; display: flex; justify-content: center; color: white; text-transform: uppercase; }
         
-        .semi-card { border: 1px dashed #00aaff; background: rgba(0, 170, 255, 0.05); }
-        .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.15); transform: scale(1.05); }
+        .team-row { display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); align-items: center; }
+        .score-box { background: #222; width: 35px; height: 30px; line-height: 30px; text-align: center; font-weight: 900; border-radius: 4px; border: 1px solid #555; }
         
-        .team-row { display: flex; justify-content: space-between; padding: 10px 15px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .score-box { background: #222; width: 30px; height: 25px; line-height: 25px; text-align: center; font-weight: 900; border-radius: 4px; border: 1px solid #555; }
-        
-        .trophy { width: 80px; filter: drop-shadow(0 0 20px #d4af37); margin: 10px 0; }
-
-        /* Classifiche Speciali in basso */
-        .special-container { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; border: 1px dashed #d4af37; display: flex; justify-content: center; gap: 40px; width: fit-content; margin: 40px auto 0 auto; }
-        .special-table td { font-size: 13px; padding: 5px; }
+        /* SEMIFINALI E FINALE */
+        .semi-card { border: 1px solid #00aaff; background: rgba(0, 170, 255, 0.05); }
+        .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.1); width: 320px; padding: 10px; border-radius: 15px; }
+        .trophy { width: 100px; filter: drop-shadow(0 0 20px #d4af37); }
 
         .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; }
 
-        @media (max-width: 1200px) {
-            .tournament-grid { grid-template-columns: 1fr; }
-            .bracket-center { order: -1; }
-        }
+        @media (max-width: 1200px) { .bracket-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -68,8 +53,8 @@
 <div class="main-wrapper">
     <h1>FASI FINALI</h1>
 
-    <div class="tournament-grid">
-        <div>
+    <div class="bracket-grid">
+        <div class="side-column">
             <h2>GIRONE A</h2>
             <table>
                 <thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead>
@@ -77,9 +62,9 @@
             </table>
         </div>
 
-        <div class="bracket-center">
+        <div class="center-column">
             <div class="match-card semi-card">
-                <div class="match-header" style="background:#00aaff;">SEMIFINALE 1 (A)</div>
+                <div class="match-header" style="background:#00aaff;">SEMIFINALE GR. A</div>
                 <div class="team-row"><span>1° Classificato</span><span class="score-box">-</span></div>
                 <div class="team-row"><span>2° Classificato</span><span class="score-box">-</span></div>
             </div>
@@ -93,29 +78,18 @@
             </div>
 
             <div class="match-card semi-card">
-                <div class="match-header" style="background:#00aaff;">SEMIFINALE 2 (B)</div>
+                <div class="match-header" style="background:#00aaff;">SEMIFINALE GR. B</div>
                 <div class="team-row"><span>1° Classificato</span><span class="score-box">-</span></div>
                 <div class="team-row"><span>2° Classificato</span><span class="score-box">-</span></div>
             </div>
         </div>
 
-        <div>
+        <div class="side-column">
             <h2>GIRONE B</h2>
             <table>
                 <thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead>
                 <tbody id="body-B"></tbody>
             </table>
-        </div>
-    </div>
-
-    <div class="special-container">
-        <div class="special-column">
-            <h3 style="color:#d4af37; font-size:14px; margin-bottom:10px; text-align:center;">🔥 Miglior Attacco</h3>
-            <table class="special-table" id="special-attacco"></table>
-        </div>
-        <div class="special-column">
-            <h3 style="color:#00aaff; font-size:14px; margin-bottom:10px; text-align:center;">🛡️ Miglior Difesa</h3>
-            <table class="special-table" id="special-difesa"></table>
         </div>
     </div>
 </div>
@@ -148,7 +122,7 @@ async function init() {
 
         rows.forEach(row => {
             const c = row.split(',');
-            if (c.length < 5) return; 
+            if (c.length < 5) return;
             const t1 = c[1]?.trim(); const t2 = c[2]?.trim();
             const g1 = parseInt(c[3]); const g2 = parseInt(c[4]);
             if (!isNaN(g1) && !isNaN(g2)) {
@@ -170,11 +144,6 @@ function renderTables(stats) {
             return `<tr><td class="t-name"><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td><td>${dr > 0 ? '+'+dr : dr}</td></tr>`;
         }).join('');
     });
-
-    const attacco = [...data].sort((a,b) => b.gf - a.gf);
-    document.getElementById('special-attacco').innerHTML = attacco.map(t => `<tr><td><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.gf} GF</td></tr>`).join('');
-    const difesa = [...data].sort((a,b) => { let mA = a.p > 0 ? a.gs/a.p : 99; let mB = b.p > 0 ? b.gs/b.p : 99; return mA - mB || b.p - a.p; });
-    document.getElementById('special-difesa').innerHTML = difesa.map(t => `<tr><td><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.p > 0 ? (t.gs/t.p).toFixed(1) : '0'} med</td></tr>`).join('');
 }
 init();
 </script>
