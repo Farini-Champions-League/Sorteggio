@@ -93,15 +93,22 @@
         </div>
     </div>
 
-    <div class="tables-container">
-        <div>
-            <h2>GIRONE A</h2>
-            <table><thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr></thead><tbody id="body-A"></tbody></table>
-        </div>
-        <div>
-            <h2>GIRONE B</h2>
-            <table><thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th></tr></thead><tbody id="body-B"></tbody></table>
-        </div>
+   <div class="tables-container">
+    <div>
+        <h2>GIRONE A</h2>
+        <table>
+            <thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead>
+            <tbody id="body-A"></tbody>
+        </table>
+    </div>
+    <div>
+        <h2>GIRONE B</h2>
+        <table>
+            <thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead>
+            <tbody id="body-B"></tbody>
+        </table>
+    </div>
+</div>
         <div class="special-container">
             <div class="special-column">
                 <h3 class="special-title">🔥 Miglior Attacco</h3>
@@ -211,15 +218,31 @@ function renderMatches(grp, list) {
 function renderTables(stats) {
     const data = Object.values(stats);
     ['A', 'B'].forEach(g => {
+        // Ordina per Punti, poi Differenza Reti, poi Gol Fatti
         const sorted = data.filter(x => x.grp === g).sort((a,b) => b.pts - a.pts || (b.gf-b.gs) - (a.gf-a.gs) || b.gf - a.gf);
-        document.getElementById(`body-${g}`).innerHTML = sorted.map(t => `
-            <tr>
-                <td class="t-name"><img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo" style="width:20px;height:20px;vertical-align:middle;margin-right:8px;"> ${t.name}</td>
-                <td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td>
-            </tr>
-        `).join('');
+        
+        document.getElementById(`body-${g}`).innerHTML = sorted.map(t => {
+            // Calcolo automatico Differenza Reti
+            const dr = t.gf - t.gs;
+            const drDisplay = dr > 0 ? '+' + dr : dr; // Aggiunge il + davanti ai numeri positivi
+
+            return `
+                <tr>
+                    <td class="t-name">
+                        <img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo" style="width:20px;height:20px;vertical-align:middle;margin-right:8px;"> 
+                        ${t.name}
+                    </td>
+                    <td>${t.pts}</td>
+                    <td>${t.p}</td>
+                    <td>${t.gf}</td>
+                    <td>${t.gs}</td>
+                    <td>${drDisplay}</td>
+                </tr>
+            `;
+        }).join('');
     });
 
+    // Classifiche Speciali (Attacco e Difesa)
     const attacco = [...data].sort((a,b) => b.gf - a.gf);
     document.getElementById('special-attacco').innerHTML = attacco.map(t => `
         <tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo"> ${t.name}</td><td>${t.gf} GF</td></tr>
