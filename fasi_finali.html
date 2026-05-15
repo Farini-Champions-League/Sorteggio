@@ -3,124 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fasi Finali - Torneo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <title>Fasi Finali - Farini CL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            margin: 0; padding: 0; font-family: 'Rajdhani', sans-serif;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://www.psdmockups.com/wp-content/uploads/2017/07/UEFA-Champions-League-Background-Morphed.jpg');
-            background-size: cover; background-attachment: fixed; color: white;
-            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
-        }
-
-        .nav-link { position: fixed; top: 20px; left: 20px; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; z-index: 100; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
-
-        h1 { font-family: 'Orbitron', sans-serif; color: #d4af37; margin: 40px 0; letter-spacing: 5px; text-shadow: 0 0 20px rgba(212,175,55,0.5); }
-
-        /* GRIGLIA PRINCIPALE */
-        .main-container {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr 1fr;
-            gap: 40px; width: 95%; max-width: 1400px;
-            align-items: center; margin-top: 20px;
-        }
-
-        .column { display: flex; flex-direction: column; gap: 30px; align-items: center; }
-
-        /* BOX PARTITA */
-        .match-card {
-            background: rgba(0,0,0,0.6); border-radius: 15px; padding: 20px;
-            width: 100%; box-sizing: border-box; text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .semi { border: 2px dashed #00aaff; box-shadow: 0 0 15px rgba(0,170,255,0.1); }
-        .final { border: 3px solid #d4af37; box-shadow: 0 0 30px rgba(212,175,55,0.2); transform: scale(1.05); }
-
-        .label { font-family: 'Orbitron', sans-serif; font-size: 12px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
-        .semi .label { color: #00aaff; }
-        .final .label { color: #d4af37; font-size: 16px; }
-
-        .team-row {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 12px; background: rgba(255,255,255,0.05);
-            margin: 8px 0; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .team-box { display: flex; align-items: center; gap: 15px; font-size: 18px; font-weight: 700; }
-        .logo { width: 35px; height: 35px; object-fit: contain; }
+        /* Eredità stili da classifica.html */
+        body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: #000; color: white; scroll-behavior: smooth; }
+        .ucl-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('sfondo.png') center/cover no-repeat; z-index: 1; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 5, 20, 0.9); z-index: 2; }
+        .main-wrapper { position: relative; z-index: 10; padding: 40px 10px; display: flex; flex-direction: column; align-items: center; gap: 30px; }
         
-        .score-input {
-            width: 40px; background: #111; border: 1px solid #444;
-            color: #d4af37; text-align: center; font-family: 'Orbitron', sans-serif;
-            font-size: 18px; padding: 5px; border-radius: 5px;
+        h1 { color: #d4af37; text-transform: uppercase; text-align: center; font-size: clamp(24px, 5vw, 40px); margin: 0; text-shadow: 0 0 20px rgba(212,175,55,0.5); }
+        h2 { color: #00aaff; text-transform: uppercase; font-size: 18px; border-left: 5px solid #d4af37; padding-left: 15px; margin: 20px 0; }
+
+        /* NUOVO LAYOUT SIMMETRICO */
+        .tournament-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1.2fr;
+            gap: 30px;
+            width: 100%;
+            max-width: 1600px;
+            align-items: center;
+            margin-top: 20px;
         }
 
-        .vs { color: #555; font-style: italic; margin: 5px 0; font-size: 14px; }
-        .trophy { width: 120px; margin-bottom: 10px; filter: drop-shadow(0 0 15px gold); }
+        /* Tabelle Gironi (Più grandi come richiesto) */
+        table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 10px; overflow: hidden; }
+        th { background: #111; color: #d4af37; padding: 12px 8px; font-size: 13px; text-align: center; border-bottom: 2px solid #d4af37; }
+        td { padding: 12px 8px; text-align: center; border-bottom: 1px solid #222; font-size: 15px; font-weight: bold; }
+        .t-name { text-align: left; color: #fff; padding-left: 15px; font-size: 14px; width: 180px; }
+        .mini-logo { width: 25px; height: 25px; vertical-align: middle; margin-right: 8px; border-radius: 50%; background: white; object-fit: contain; }
 
-        /* REGOLE MOBILE */
-        @media (max-width: 1000px) {
-            .main-container { grid-template-columns: 1fr; }
-            .final { order: -1; margin-bottom: 40px; }
+        /* Centro: Semifinali e Finale */
+        .bracket-center { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .match-card { background: rgba(255,255,255,0.07); border-radius: 8px; overflow: hidden; width: 100%; max-width: 300px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .match-header { font-size: 11px; padding: 6px; font-weight: 900; text-align: center; color: white; text-transform: uppercase; }
+        
+        .semi-card { border: 1px dashed #00aaff; background: rgba(0, 170, 255, 0.05); }
+        .final-box { border: 3px solid #d4af37; background: rgba(212,175,55,0.15); transform: scale(1.05); }
+        
+        .team-row { display: flex; justify-content: space-between; padding: 10px 15px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .score-box { background: #222; width: 30px; height: 25px; line-height: 25px; text-align: center; font-weight: 900; border-radius: 4px; border: 1px solid #555; }
+        
+        .trophy { width: 80px; filter: drop-shadow(0 0 20px #d4af37); margin: 10px 0; }
+
+        /* Classifiche Speciali in basso */
+        .special-container { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 15px; border: 1px dashed #d4af37; display: flex; justify-content: center; gap: 40px; width: fit-content; margin: 40px auto 0 auto; }
+        .special-table td { font-size: 13px; padding: 5px; }
+
+        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 12px; }
+
+        @media (max-width: 1200px) {
+            .tournament-grid { grid-template-columns: 1fr; }
+            .bracket-center { order: -1; }
         }
     </style>
 </head>
 <body>
 
-    <a href="classifica.html" class="nav-link">⬅ TORNA ALLA CLASSIFICA</a>
+<div class="ucl-bg"></div>
+<div class="overlay"></div>
 
+<a href="classifica.html" class="nav-link">← TORNA ALLA CLASSIFICA</a>
+
+<div class="main-wrapper">
     <h1>FASI FINALI</h1>
 
-    <div class="main-container">
-        
-        <div class="column">
-            <div class="match-card semi">
-                <div class="label">Semifinale 1</div>
-                <div class="team-row">
-                    <div class="team-box"><img src="logo_milan.png" class="logo"><span>MILAN</span></div>
-                    <input type="text" class="score-input" placeholder="-">
-                </div>
-                <div class="vs">vs</div>
-                <div class="match-row team-row">
-                    <div class="team-box"><img src="logo_roma.png" class="logo"><span>ROMA</span></div>
-                    <input type="text" class="score-input" placeholder="-">
-                </div>
+    <div class="tournament-grid">
+        <div>
+            <h2>GIRONE A</h2>
+            <table>
+                <thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead>
+                <tbody id="body-A"></tbody>
+            </table>
+        </div>
+
+        <div class="bracket-center">
+            <div class="match-card semi-card">
+                <div class="match-header" style="background:#00aaff;">SEMIFINALE 1 (A)</div>
+                <div class="team-row"><span>1° Classificato</span><span class="score-box">-</span></div>
+                <div class="team-row"><span>2° Classificato</span><span class="score-box">-</span></div>
+            </div>
+
+            <img src="coppa.png" class="trophy">
+
+            <div class="match-card final-box">
+                <div class="match-header" style="background:#d4af37; color:black;">FINALISSIMA</div>
+                <div class="team-row"><span>FINALISTA A</span><span class="score-box">-</span></div>
+                <div class="team-row"><span>FINALISTA B</span><span class="score-box">-</span></div>
+            </div>
+
+            <div class="match-card semi-card">
+                <div class="match-header" style="background:#00aaff;">SEMIFINALE 2 (B)</div>
+                <div class="team-row"><span>1° Classificato</span><span class="score-box">-</span></div>
+                <div class="team-row"><span>2° Classificato</span><span class="score-box">-</span></div>
             </div>
         </div>
 
-        <div class="column">
-            <img src="https://pngimg.com/uploads/champions_league/champions_league_PNG22.png" class="trophy">
-            <div class="match-card final">
-                <div class="label">Finalissima</div>
-                <div class="team-row">
-                    <div class="team-box"><img src="logo_milan.png" class="logo"><span>MILAN</span></div>
-                    <input type="text" class="score-input" placeholder="-">
-                </div>
-                <div class="vs">vs</div>
-                <div class="team-row">
-                    <div class="team-box"><img src="logo_napoli.png" class="logo"><span>NAPOLI</span></div>
-                    <input type="text" class="score-input" placeholder="-">
-                </div>
-            </div>
+        <div>
+            <h2>GIRONE B</h2>
+            <table>
+                <thead><tr><th>SQUADRA</th><th>PT</th><th>P</th><th>GF</th><th>GS</th><th>DR</th></tr></thead>
+                <tbody id="body-B"></tbody>
+            </table>
         </div>
-
-        <div class="column">
-            <div class="match-card semi">
-                <div class="label">Semifinale 2</div>
-                <div class="team-row">
-                    <div class="team-box"><img src="logo_napoli.png" class="logo"><span>NAPOLI</span></div>
-                    <input type="text" class="score-input" placeholder="-">
-                </div>
-                <div class="vs">vs</div>
-                <div class="match-row team-row">
-                    <div class="team-box"><img src="logo_inter.png" class="logo"><span>INTER</span></div>
-                    <input type="text" class="score-input" placeholder="-">
-                </div>
-            </div>
-        </div>
-
     </div>
 
+    <div class="special-container">
+        <div class="special-column">
+            <h3 style="color:#d4af37; font-size:14px; margin-bottom:10px; text-align:center;">🔥 Miglior Attacco</h3>
+            <table class="special-table" id="special-attacco"></table>
+        </div>
+        <div class="special-column">
+            <h3 style="color:#00aaff; font-size:14px; margin-bottom:10px; text-align:center;">🛡️ Miglior Difesa</h3>
+            <table class="special-table" id="special-difesa"></table>
+        </div>
+    </div>
+</div>
+
+<script>
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRHxOqEYcRx0m4UxNzXDm1UrmEJtue7wyBFR7IC4iEIH_2WqrITNuaPA8BJIzWSzN7XcZsspJZOFX3/pub?gid=0&single=true&output=csv';
+
+const TEAM_DATA = {
+    "Aston Pinna": { logo: "Aston.png", grp: "A" },
+    "I Milanisti": { logo: "Milanisti.png", grp: "A" },
+    "Berlusca Dortmund": { logo: "Dortmund.png", grp: "A" },
+    "B.I.B.C.": { logo: "bibc.png", grp: "A" },
+    "Farini Fighter": { logo: "Farini.png", grp: "A" },
+    "Armistizio FC": { logo: "Armistizio.png", grp: "B" },
+    "PennyChellas": { logo: "Penny.png", grp: "B" },
+    "Attenti a Quei Due": { logo: "Attenti.jpg", grp: "B" },
+    "Calcio Barilla": { logo: "Barilla.jpg", grp: "B" },
+    "FC Pelados": { logo: "Pelados.png", grp: "B" }
+};
+
+async function init() {
+    try {
+        const res = await fetch(SHEET_URL + '&t=' + new Date().getTime());
+        const csv = await res.text();
+        const rows = csv.split('\n').slice(1);
+        let stats = {};
+        Object.keys(TEAM_DATA).forEach(name => {
+            stats[name] = { name: name, pts: 0, p: 0, gf: 0, gs: 0, grp: TEAM_DATA[name].grp };
+        });
+
+        rows.forEach(row => {
+            const c = row.split(',');
+            if (c.length < 5) return; 
+            const t1 = c[1]?.trim(); const t2 = c[2]?.trim();
+            const g1 = parseInt(c[3]); const g2 = parseInt(c[4]);
+            if (!isNaN(g1) && !isNaN(g2)) {
+                stats[t1].p++; stats[t1].gf += g1; stats[t1].gs += g2;
+                stats[t2].p++; stats[t2].gf += g2; stats[t2].gs += g1;
+                if (g1 > g2) stats[t1].pts += 3; else if (g1 < g2) stats[t2].pts += 3; else { stats[t1].pts++; stats[t2].pts++; }
+            }
+        });
+        renderTables(stats);
+    } catch (e) { console.error(e); }
+}
+
+function renderTables(stats) {
+    const data = Object.values(stats);
+    ['A', 'B'].forEach(g => {
+        const sorted = data.filter(x => x.grp === g).sort((a,b) => b.pts - a.pts || (b.gf-b.gs) - (a.gf-a.gs) || b.gf - a.gf);
+        document.getElementById(`body-${g}`).innerHTML = sorted.map(t => {
+            const dr = t.gf - t.gs;
+            return `<tr><td class="t-name"><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td><td>${dr > 0 ? '+'+dr : dr}</td></tr>`;
+        }).join('');
+    });
+
+    const attacco = [...data].sort((a,b) => b.gf - a.gf);
+    document.getElementById('special-attacco').innerHTML = attacco.map(t => `<tr><td><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.gf} GF</td></tr>`).join('');
+    const difesa = [...data].sort((a,b) => { let mA = a.p > 0 ? a.gs/a.p : 99; let mB = b.p > 0 ? b.gs/b.p : 99; return mA - mB || b.p - a.p; });
+    document.getElementById('special-difesa').innerHTML = difesa.map(t => `<tr><td><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.p > 0 ? (t.gs/t.p).toFixed(1) : '0'} med</td></tr>`).join('');
+}
+init();
+</script>
 </body>
 </html>
