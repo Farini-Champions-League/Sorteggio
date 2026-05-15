@@ -12,54 +12,58 @@
         
         .main-wrapper { position: relative; z-index: 10; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
         
-        .header-title { color: #d4af37; text-transform: uppercase; font-size: 36px; margin: 20px 0 60px 0; text-shadow: 0 0 20px rgba(212,175,55,0.6); letter-spacing: 3px; }
+        .header-title { color: #d4af37; text-transform: uppercase; font-size: 36px; margin: 20px 0 60px 0; text-shadow: 0 0 20px rgba(212,175,55,0.6); letter-spacing: 3px; font-weight: 900; }
 
-        /* CONTENITORE ORIZZONTALE - PIÙ LARGO */
-        .tournament-container { display: flex; align-items: flex-start; justify-content: center; gap: 20px; width: 98%; max-width: 1600px; }
+        /* LAYOUT ORIZZONTALE */
+        .tournament-container { display: flex; align-items: flex-start; justify-content: center; gap: 30px; width: 98%; max-width: 1600px; }
 
-        /* GIRONI PIÙ IMPONENTI */
+        /* GIRONI */
         .group-box { width: 380px; border: 2px solid #d4af37; border-radius: 12px; background: rgba(0,0,0,0.7); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .group-header { background: rgba(212,175,55,0.15); padding: 15px; text-align: center; color: #d4af37; font-size: 22px; font-weight: 900; border-bottom: 2px solid #d4af37; }
         
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { color: #d4af37; padding: 12px 5px; border-bottom: 1px solid #333; font-size: 11px; }
+        th { color: #d4af37; padding: 12px 5px; border-bottom: 1px solid #333; font-size: 11px; text-transform: uppercase; }
         td { padding: 12px 5px; text-align: center; border-bottom: 1px solid #222; font-weight: 700; }
         .t-name { text-align: left; padding-left: 15px; font-size: 14px; }
         .mini-logo { width: 24px; height: 24px; vertical-align: middle; margin-right: 8px; border-radius: 50%; background: white; object-fit: contain; border: 1px solid #d4af37; }
 
-        /* AREA CENTRALE */
-        .bracket-area { display: flex; flex-direction: column; align-items: center; flex-grow: 1; padding: 0 20px; gap: 40px; }
+        /* TABELLONE CENTRALE */
+        .bracket-area { display: flex; flex-direction: column; align-items: center; flex-grow: 1; gap: 40px; }
 
-        /* SEMIFINALI PIÙ GRANDI */
+        /* SEMIFINALI */
         .semis-row { display: flex; gap: 40px; justify-content: center; width: 100%; }
         .match-box { width: 220px; background: rgba(0,10,30,0.9); border: 2px dashed #00aaff; border-radius: 10px; padding: 15px; box-shadow: 0 0 20px rgba(0,170,255,0.2); }
         .match-title { font-size: 11px; color: #00aaff; text-align: center; margin-bottom: 12px; font-weight: 900; letter-spacing: 1px; }
-        .team-line { display: flex; justify-content: space-between; font-size: 13px; margin: 8px 0; font-weight: 900; }
+        .team-line { display: flex; justify-content: space-between; font-size: 13px; margin: 8px 0; font-weight: 900; text-transform: uppercase; }
         
-        /* FINALISSIMA PIÙ GRANDE */
-        .final-box { width: 300px; border: 3px solid #d4af37; background: rgba(212,175,55,0.1); border-radius: 15px; padding: 20px; box-shadow: 0 0 30px rgba(212,175,55,0.3); }
-        .final-box .match-title { color: #d4af37; font-size: 18px; margin-bottom: 15px; }
+        /* FINALE */
+        .final-box { width: 320px; border: 3px solid #d4af37; background: rgba(212,175,55,0.1); border-radius: 15px; padding: 20px; box-shadow: 0 0 30px rgba(212,175,55,0.3); }
+        .final-box .match-title { color: #d4af37; font-size: 18px; margin-bottom: 15px; text-transform: uppercase; }
         .final-box .team-line { font-size: 16px; margin: 10px 0; }
 
-        /* BOX VINCITORE (SOTTO) */
-        .winner-section { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        /* BOX VINCITORE FINALE */
+        .winner-section { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .winner-card { 
-            width: 350px; background: linear-gradient(145deg, rgba(212,175,55,0.2), rgba(0,0,0,0.8)); 
-            border: 4px double #d4af37; border-radius: 20px; padding: 25px; text-align: center;
-            box-shadow: 0 0 50px rgba(212,175,55,0.4);
+            width: 400px; background: linear-gradient(145deg, rgba(212,175,55,0.25), rgba(0,0,0,0.9)); 
+            border: 4px double #d4af37; border-radius: 20px; padding: 30px; text-align: center;
+            box-shadow: 0 0 60px rgba(212,175,55,0.5);
         }
-        .winner-text { font-size: 24px; color: #fff; font-weight: 900; text-transform: uppercase; letter-spacing: 4px; margin-top: 10px; }
-        .trophy-large { width: 120px; filter: drop-shadow(0 0 20px gold); animation: pulse 2s infinite; }
+        .champion-label { color: #d4af37; font-size: 14px; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; margin-bottom: 15px; }
+        .winner-logo-big { width: 80px; height: 80px; background: white; border-radius: 50%; border: 3px solid #d4af37; object-fit: contain; margin-bottom: 15px; display: inline-block; }
+        .winner-name { font-size: 28px; color: #fff; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        
+        .trophy-large { width: 130px; filter: drop-shadow(0 0 25px gold); animation: pulse 2s infinite; }
 
         @keyframes pulse {
             0% { transform: scale(1); filter: drop-shadow(0 0 15px gold); }
-            50% { transform: scale(1.05); filter: drop-shadow(0 0 30px gold); }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 35px gold); }
             100% { transform: scale(1); filter: drop-shadow(0 0 15px gold); }
         }
 
-        .score-box { background: #d4af37; color: #000; padding: 2px 8px; border-radius: 4px; font-weight: 900; }
+        .score-box { background: #d4af37; color: #000; min-width: 25px; padding: 2px 6px; border-radius: 4px; font-weight: 900; text-align: center; }
 
-        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 14px; box-shadow: 0 0 20px rgba(212,175,55,0.5); }
+        .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 14px; box-shadow: 0 0 20px rgba(212,175,55,0.5); transition: 0.3s; }
+        .nav-link:hover { transform: scale(1.1); background: #fff; }
     </style>
 </head>
 <body>
@@ -70,7 +74,7 @@
 <a href="classifica.html" class="nav-link">← TORNA ALLA CLASSIFICA</a>
 
 <div class="main-wrapper">
-    <div class="header-title">FASI FINALI - TORNEO</div>
+    <div class="header-title">FASI FINALI</div>
 
     <div class="tournament-container">
         <div class="group-box">
@@ -97,15 +101,16 @@
 
             <div class="final-box">
                 <div class="match-title">FINALISSIMA</div>
-                <div class="team-line"><span>WINNER S1</span><span class="score-box">-</span></div>
-                <div class="team-line"><span>WINNER S2</span><span class="score-box">-</span></div>
+                <div class="team-line"><span>Finalista A</span><span class="score-box">-</span></div>
+                <div class="team-line"><span>Finalista B</span><span class="score-box">-</span></div>
             </div>
 
             <div class="winner-section">
                 <img src="coppa.png" class="trophy-large">
                 <div class="winner-card">
-                    <div style="color: #d4af37; font-size: 14px; letter-spacing: 2px;">THE CHAMPION</div>
-                    <div class="winner-text">TEAM WINNER</div>
+                    <div class="champion-label">CAMPIONE FARINI CL</div>
+                    <img src="placeholder-logo.png" class="winner-logo-big" id="winner-logo">
+                    <div class="winner-name" id="winner-name">NOME TEAM VINCITORE</div>
                 </div>
             </div>
         </div>
@@ -121,7 +126,6 @@
 </div>
 
 <script>
-// Script identico a prima per caricare i dati
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRHxOqEYcRx0m4UxNzXDm1UrmEJtue7wyBFR7IC4iEIH_2WqrITNuaPA8BJIzWSzN7XcZsspJZOFX3/pub?gid=0&single=true&output=csv';
 const TEAM_DATA = {
     "Aston Pinna": { logo: "Aston.png", grp: "A" },
