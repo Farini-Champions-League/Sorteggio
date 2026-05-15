@@ -244,9 +244,9 @@ function renderTables(stats) {
         <tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo"> ${t.name}</td><td>${t.gf} GF</td></tr>
     `).join('');
 
-    const difesa = [...data].sort((a,b) => { let mA = a.p > 0 ? a.gs/a.p : 99; let mB = b.p > 0 ? b.gs/b.p : 99; if(mA !== mB) return mA - mB; return b.p - a.p; }); document.getElementById('special-difesa').innerHTML = difesa.map(t => `<tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo"> ${t.name}</td><td>${t.p > 0 ? (t.gs/t.p).toFixed(1) + ' med' : '0 GS (0p)'}</td></tr>`).join('');
+    const difesa = [...data].sort((a,b) => { let mA = a.p > 0 ? a.gs/a.p : 99; let mB = b.p > 0 ? b.gs/b.p : 99; if(mA !== mB) return mA - mB; return b.p - a.p; }); document.getElementById('special-difesa').innerHTML = difesa.map(t => `<tr><td class="t-name"><img src="${TEAM_DATA[t.name]?.logo || 'default.png'}" class="mini-logo"> ${t.name}</td><td>${t.p > 0 ? (t.gs/t.p).toFixed(1) + ' med' : '0 GS (0p)'}</td></tr>`).join(''); } 
     
-init();
+    init();
 </script>
 </body>
 </html>
