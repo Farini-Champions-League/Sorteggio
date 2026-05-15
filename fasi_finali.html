@@ -15,8 +15,23 @@
         .header-title { color: #d4af37; text-transform: uppercase; font-size: 36px; margin: 20px 0 60px 0; text-shadow: 0 0 20px rgba(212,175,55,0.6); letter-spacing: 3px; font-weight: 900; }
 
         /* LAYOUT ORIZZONTALE */
-        .tournament-container { display: flex; align-items: flex-start; justify-content: center; gap: 30px; width: 98%; max-width: 1600px; }
+        .tournament-container { 
+    display: grid; 
+    grid-template-columns: 380px 1fr 380px; /* Tre colonne fisse */
+    gap: 20px; 
+    width: 98%; 
+    max-width: 1600px; 
+    align-items: start; 
+}
 
+/* Forza la colonna centrale a non allargarsi troppo */
+.bracket-area { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 30px; 
+    min-width: 0; 
+}
         /* GIRONI */
         .group-box { width: 380px; border: 2px solid #d4af37; border-radius: 12px; background: rgba(0,0,0,0.7); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .group-header { background: rgba(212,175,55,0.15); padding: 15px; text-align: center; color: #d4af37; font-size: 22px; font-weight: 900; border-bottom: 2px solid #d4af37; }
@@ -184,30 +199,27 @@ function render(stats) {
 }
 
 function celebrazione() {
-    // 1. Parte la musica
     const audio = document.getElementById('musica-vittoria');
-    audio.play();
+    
+    // Prova a far partire l'audio
+    audio.play().catch(error => {
+        console.error("Errore audio: Assicurati che inno.mp3 sia nella cartella del sito", error);
+        alert("Audio non trovato! Controlla che il file inno.mp3 sia presente.");
+    });
 
-    // 2. Partono i coriandoli oro
-    var duration = 15 * 1000; // I coriandoli scendono per 15 secondi
+    // Coriandoli (codice invariato ma richiamato qui)
+    var duration = 15 * 1000;
     var animationEnd = Date.now() + duration;
     var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
 
-    function randomInRange(min, max) {
-      return Math.random() * (max - min) + min;
-    }
+    function randomInRange(min, max) { return Math.random() * (max - min) + min; }
 
     var interval = setInterval(function() {
-      var timeLeft = animationEnd - Date.now();
-
-      if (timeLeft <= 0) {
-        return clearInterval(interval);
-      }
-
-      var particleCount = 50 * (timeLeft / duration);
-      // Lancio da due punti diversi per riempire lo schermo
-      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, colors: ['#d4af37', '#ffffff', '#aa8400'] }));
-      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, colors: ['#d4af37', '#ffffff', '#aa8400'] }));
+        var timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) return clearInterval(interval);
+        var particleCount = 50 * (timeLeft / duration);
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, colors: ['#d4af37', '#ffffff'] }));
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, colors: ['#d4af37', '#ffffff'] }));
     }, 250);
 }
     
