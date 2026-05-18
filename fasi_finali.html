@@ -108,7 +108,7 @@
                     <img src="coppa.png" class="trophy-large">
                     <div class="champion-label">TEAM CAMPIONE FARINI CHAMPIONS LEAGUE</div>
                     <img src="placeholder-logo.png" class="winner-logo-big" id="winner-logo">
-                    <div class="winner-name" id="winner-name">TEAM VINCITORE</div>
+                    <div class="winner-name" id="winner-name">NOME TEAM VINCITORE</div>
                     <button class="btn-celebra" id="btn-celebra" onclick="celebrazione()">🏆 Celebra la Vittoria!</button>
                 </div>
             </div>
@@ -175,22 +175,11 @@ async function init() {
             }
         });
         ['A', 'B'].forEach(g => {
-            // Estraiamo i valori dall'oggetto 'stats' convertendoli in un array reale
-            const sorted = Object.values(stats).filter(x => x.grp === g).sort((a, b) => {
-                // Se una squadra ha 0 partite e l'altra ha giocato, quella che ha giocato va sopra
-                if (a.p === 0 && b.p > 0) return 1;
-                if (a.p > 0 && b.p === 0) return -1;
-                
-                // Se entrambe hanno lo stesso stato di attivazione, ordina con i criteri classici
-                return b.pts - a.pts || (b.gf - b.gs) - (a.gf - a.gs) || b.gf - a.gf;
-            });
-            
-            document.getElementById(`body-${g}`).innerHTML = sorted.map(t => {
-                const dr = t.gf - t.gs;
-                const drDisplay = dr > 0 ? '+' + dr : dr;
-                return `<tr><td class="t-name"><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td><td>${drDisplay}</td></tr>`;
-            }).join('');
+            const sorted = Object.values(stats).filter(x => x.grp === g).sort((a,b) => b.pts - a.pts || (b.gf-b.gs) - (a.gf-a.gs));
+            document.getElementById(`body-${g}`).innerHTML = sorted.map(t => `<tr><td class="t-name"><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td><td>${t.gf-t.gs}</td></tr>`).join('');
         });
+    } catch (e) { console.error(e); }
+}
 init();
 </script>
 </body>
