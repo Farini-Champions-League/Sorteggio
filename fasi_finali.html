@@ -175,7 +175,14 @@ async function init() {
             }
         });
         ['A', 'B'].forEach(g => {
-            const sorted = Object.values(stats).filter(x => x.grp === g).sort((a,b) => b.pts - a.pts || (b.gf-b.gs) - (a.gf-a.gs));
+            const sorted = data.filter(x => x.grp === g).sort((a, b) => {
+    // Se una squadra ha 0 partite e l'altra ha giocato, quella che ha giocato va sopra
+    if (a.p === 0 && b.p > 0) return 1;
+    if (a.p > 0 && b.p === 0) return -1;
+    
+    // Se entrambe hanno giocato (o entrambe sono a 0), ordina normalmente
+    return b.pts - a.pts || (b.gf - b.gs) - (a.gf - a.gs) || b.gf - a.gf;
+});
             document.getElementById(`body-${g}`).innerHTML = sorted.map(t => `<tr><td class="t-name"><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td><td>${t.gf-t.gs}</td></tr>`).join('');
         });
     } catch (e) { console.error(e); }
