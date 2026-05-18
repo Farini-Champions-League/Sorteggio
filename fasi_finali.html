@@ -108,7 +108,7 @@
                     <img src="coppa.png" class="trophy-large">
                     <div class="champion-label">TEAM CAMPIONE FARINI CHAMPIONS LEAGUE</div>
                     <img src="placeholder-logo.png" class="winner-logo-big" id="winner-logo">
-                    <div class="winner-name" id="winner-name">TEAM VINCITORE</div>
+                    <div class="winner-name" id="winner-name">NOME TEAM VINCITORE</div>
                     <button class="btn-celebra" id="btn-celebra" onclick="celebrazione()">🏆 Celebra la Vittoria!</button>
                 </div>
             </div>
@@ -174,9 +174,20 @@ async function init() {
                 if (g1 > g2) stats[t1].pts += 3; else if (g1 < g2) stats[t2].pts += 3; else { stats[t1].pts++; stats[t2].pts++; }
             }
         });
+        
         ['A', 'B'].forEach(g => {
-            const sorted = Object.values(stats).filter(x => x.grp === g).sort((a,b) => b.pts - a.pts || (b.gf-b.gs) - (a.gf-a.gs));
-            document.getElementById(`body-${g}`).innerHTML = sorted.map(t => `<tr><td class="t-name"><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td><td>${t.gf-t.gs}</td></tr>`).join('');
+            // Ordina mettendo in fondo chi ha 0 partite, poi usa Punti, Differenza reti e Gol fatti
+            const sorted = Object.values(stats).filter(x => x.grp === g).sort((a, b) => {
+                if (a.p === 0 && b.p > 0) return 1;
+                if (a.p > 0 && b.p === 0) return -1;
+                return b.pts - a.pts || (b.gf - b.gs) - (a.gf - a.gs) || b.gf - a.gf;
+            });
+            
+            document.getElementById(`body-${g}`).innerHTML = sorted.map(t => {
+                const dr = t.gf - t.gs;
+                const drDisplay = dr > 0 ? '+' + dr : dr;
+                return `<tr><td class="t-name"><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td><td>${drDisplay}</td></tr>`;
+            }).join('');
         });
     } catch (e) { console.error(e); }
 }
