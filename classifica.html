@@ -237,8 +237,14 @@ function renderMatches(grp, list) {
 function renderTables(stats) {
     const data = Object.values(stats);
     ['A', 'B'].forEach(g => {
-        // Ordina per Punti, poi Differenza Reti, poi Gol Fatti
-        const sorted = data.filter(x => x.grp === g).sort((a,b) => b.pts - a.pts || (b.gf-b.gs) - (a.gf-a.gs) || b.gf - a.gf);
+        const sorted = data.filter(x => x.grp === g).sort((a, b) => {
+    // Se una squadra ha 0 partite e l'altra ha giocato, quella che ha giocato va sopra
+    if (a.p === 0 && b.p > 0) return 1;
+    if (a.p > 0 && b.p === 0) return -1;
+    
+    // Se entrambe hanno giocato (o entrambe sono a 0), ordina normalmente
+    return b.pts - a.pts || (b.gf - b.gs) - (a.gf - a.gs) || b.gf - a.gf;
+});
         
         document.getElementById(`body-${g}`).innerHTML = sorted.map(t => {
             // Calcolo automatico Differenza Reti
