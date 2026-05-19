@@ -35,9 +35,16 @@
         .mini-logo { width: 24px; height: 24px; vertical-align: middle; margin-right: 8px; border-radius: 50%; background: white; object-fit: contain; border: 1px solid #d4af37; }
 
         .semis-row { display: flex; gap: 40px; justify-content: center; width: 100%; }
-        .match-box { width: 220px; background: rgba(0,10,30,0.9); border: 2px dashed #00aaff; border-radius: 10px; padding: 15px; box-shadow: 0 0 20px rgba(0,170,255,0.2); }
+        .match-box { width: 260px; background: rgba(0,10,30,0.9); border: 2px dashed #00aaff; border-radius: 10px; padding: 15px; box-shadow: 0 0 20px rgba(0,170,255,0.2); }
         .match-title { font-size: 11px; color: #00aaff; text-align: center; margin-bottom: 12px; font-weight: 900; letter-spacing: 1px; }
-        .team-line { display: flex; justify-content: space-between; font-size: 13px; margin: 8px 0; font-weight: 900; text-transform: uppercase; }
+        
+        /* NUOVO STILE SUB-INFO PER ROSTER GIOCATORI */
+        .team-slot { margin-bottom: 12px; }
+        .team-slot:last-child { margin-bottom: 0; }
+        .team-line { display: flex; justify-content: space-between; font-size: 12px; font-weight: 900; text-transform: uppercase; align-items: center; }
+        .t-info-wrapper { display: flex; align-items: center; gap: 8px; overflow: hidden; }
+        .t-name-bracket { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
+        .members-bracket { font-size: 9px; font-weight: 400; text-transform: none; color: #aaa; display: block; line-height: 1.1; }
         
         .final-box { width: 320px; border: 3px solid #d4af37; background: rgba(212,175,55,0.1); border-radius: 15px; padding: 20px; box-shadow: 0 0 30px rgba(212,175,55,0.3); }
         .final-box .match-title { color: #d4af37; font-size: 18px; margin-bottom: 15px; text-transform: uppercase; }
@@ -97,17 +104,62 @@
 
         <div class="bracket-area">
             <div class="semis-row">
-                <div class="match-box"><div class="match-title">SEMIFINALE 1</div><div class="team-line"><span>TBD</span><span class="score-box">-</span></div><div class="team-line"><span>TBD</span><span class="score-box">-</span></div></div>
-                <div class="match-box"><div class="match-title">SEMIFINALE 2</div><div class="team-line"><span>TBD</span><span class="score-box">-</span></div><div class="team-line"><span>TBD</span><span class="score-box">-</span></div></div>
+                <div class="match-box" id="sf1">
+                    <div class="match-title">SEMIFINALE 1</div>
+                    <div class="team-slot" id="sf1-t1">
+                        <div class="team-line">
+                            <div class="t-info-wrapper">
+                                <img src="placeholder-logo.png" class="mini-logo">
+                                <span class="t-name-bracket">1° CLAS. GR A</span>
+                            </div>
+                            <span class="score-box">-</span>
+                        </div>
+                    </div>
+                    <div class="team-slot" id="sf1-t2">
+                        <div class="team-line">
+                            <div class="t-info-wrapper">
+                                <img src="placeholder-logo.png" class="mini-logo">
+                                <span class="t-name-bracket">2° CLAS. GR B</span>
+                            </div>
+                            <span class="score-box">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="match-box" id="sf2">
+                    <div class="match-title">SEMIFINALE 2</div>
+                    <div class="team-slot" id="sf2-t1">
+                        <div class="team-line">
+                            <div class="t-info-wrapper">
+                                <img src="placeholder-logo.png" class="mini-logo">
+                                <span class="t-name-bracket">1° CLAS. GR B</span>
+                            </div>
+                            <span class="score-box">-</span>
+                        </div>
+                    </div>
+                    <div class="team-slot" id="sf2-t2">
+                        <div class="team-line">
+                            <div class="t-info-wrapper">
+                                <img src="placeholder-logo.png" class="mini-logo">
+                                <span class="t-name-bracket">2° CLAS. GR A</span>
+                            </div>
+                            <span class="score-box">-</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="final-box"><div class="match-title">FINALISSIMA</div><div class="team-line"><span>Finalista A</span><span class="score-box">-</span></div><div class="team-line"><span>Finalista B</span><span class="score-box">-</span></div></div>
+            <div class="final-box">
+                <div class="match-title">FINALISSIMA</div>
+                <div class="team-line"><span>Finalista A</span><span class="score-box">-</span></div>
+                <div class="team-line"><span>Finalista B</span><span class="score-box">-</span></div>
+            </div>
 
             <div class="winner-section">
                 <div class="winner-card" id="winner-card">
                     <img src="coppa.png" class="trophy-large">
                     <div class="champion-label">TEAM CAMPIONE FARINI CHAMPIONS LEAGUE</div>
-                    <img src="finalist.png" class="winner-logo-big" id="winner-logo">
+                    <img src="placeholder-logo.png" class="winner-logo-big" id="winner-logo">
                     <div class="winner-name" id="winner-name">TEAM VINCITORE</div>
                     <button class="btn-celebra" id="btn-celebra" onclick="celebrazione()">🏆 Celebra la Vittoria!</button>
                 </div>
@@ -130,7 +182,6 @@ function celebrazione() {
     const btn = document.getElementById('btn-celebra');
     const wrapper = document.body;
 
-    // Sparisce il pulsante, parte lo zoom
     btn.style.display = 'none';
     card.classList.add('celebrate');
     wrapper.classList.add('party-mode');
@@ -152,9 +203,21 @@ function celebrazione() {
     }, 250);
 }
 
-// DATI SHEET (Invariati)
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRHxOqEYcRx0m4UxNzXDm1UrmEJtue7wyBFR7IC4iEIH_2WqrITNuaPA8BJIzWSzN7XcZsspJZOFX3/pub?gid=0&single=true&output=csv';
-const TEAM_DATA = { "Aston Pinna": { logo: "Aston.png", grp: "A" }, "I Milanisti": { logo: "Milanisti.png", grp: "A" }, "Berlusca Dortmund": { logo: "Dortmund.png", grp: "A" }, "B.I.B.C.": { logo: "bibc.png", grp: "A" }, "Farini Fighter": { logo: "Farini.png", grp: "A" }, "Armistizio FC": { logo: "Armistizio.png", grp: "B" }, "PennyChellas": { logo: "Penny.png", grp: "B" }, "Attenti a Quei Due": { logo: "Attenti.jpg", grp: "B" }, "Calcio Barilla": { logo: "Barilla.jpg", grp: "B" }, "FC Pelados": { logo: "Pelados.png", grp: "B" } };
+
+// INSERITI MEMBRI DEL GRUPPO PER IL RENDERING SUL TABELLONE
+const TEAM_DATA = { 
+    "Aston Pinna": { logo: "Aston.png", members: "(Simone Z.;Andrea M.)", grp: "A" }, 
+    "I Milanisti": { logo: "Milanisti.png", members: "(Filippo Z.;Roberto V.)", grp: "A" }, 
+    "Berlusca Dortmund": { logo: "Dortmund.png", members: "(Samuele B.;Andrea M.)", grp: "A" }, 
+    "B.I.B.C.": { logo: "bibc.png", members: "(Davide N.;Stefano D.S.)", grp: "A" }, 
+    "Farini Fighter": { logo: "Farini.png", members: "(Claudio C.;Stefano P.)", grp: "A" }, 
+    "Armistizio FC": { logo: "Armistizio.png", members: "(Alessio F.;Giovanni C.)", grp: "B" }, 
+    "PennyChellas": { logo: "Penny.png", members: "(Pierluigi P.;Fioravante E.)", grp: "B" }, 
+    "Attenti a Quei Due": { logo: "Attenti.jpg", members: "(Antonio F.;Alessandro L.)", grp: "B" }, 
+    "Calcio Barilla": { logo: "Barilla.jpg", members: "(Antonio C.;Matteo C.)", grp: "B" }, 
+    "FC Pelados": { logo: "Pelados.png", members: "(Edoardo A.;Josef F.)", grp: "B" } 
+};
 
 async function init() {
     try {
@@ -176,7 +239,6 @@ async function init() {
         });
         
         ['A', 'B'].forEach(g => {
-            // Ordina mettendo in fondo chi ha 0 partite, poi usa Punti, Differenza reti e Gol fatti
             const sorted = Object.values(stats).filter(x => x.grp === g).sort((a, b) => {
                 if (a.p === 0 && b.p > 0) return 1;
                 if (a.p > 0 && b.p === 0) return -1;
@@ -189,8 +251,22 @@ async function init() {
                 return `<tr><td class="t-name"><img src="${TEAM_DATA[t.name].logo}" class="mini-logo">${t.name}</td><td>${t.pts}</td><td>${t.p}</td><td>${t.gf}</td><td>${t.gs}</td><td>${drDisplay}</td></tr>`;
             }).join('');
         });
+
+        // FUNZIONE INTERNA PER COMPILARE AUTOMATICAMENTE I SLOT DELLE SEMIFINALI
+        populateSlot("sf1-t2", "FC Pelados"); // 2° Classificato Girone B
+        populateSlot("sf2-t1", "Armistizio FC"); // 1° Classificato Girone B
+
     } catch (e) { console.error(e); }
 }
+
+function populateSlot(slotId, teamName) {
+    const slot = document.getElementById(slotId);
+    if(TEAM_DATA[teamName]) {
+        slot.querySelector('img').src = TEAM_DATA[teamName].logo;
+        slot.querySelector('.t-name-bracket').innerHTML = `${teamName} <span class="members-bracket">${TEAM_DATA[teamName].members}</span>`;
+    }
+}
+
 init();
 </script>
 </body>
