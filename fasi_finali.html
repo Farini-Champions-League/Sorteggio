@@ -34,19 +34,25 @@
         .t-name { text-align: left; padding-left: 15px; font-size: 14px; width: 180px; }
         .mini-logo { width: 24px; height: 24px; vertical-align: middle; margin-right: 8px; border-radius: 50%; background: white; object-fit: contain; border: 1px solid #d4af37; }
 
-        .semis-row { display: flex; gap: 40px; justify-content: center; width: 100%; }
-        .match-box { width: 260px; background: rgba(0,10,30,0.9); border: 2px dashed #00aaff; border-radius: 10px; padding: 15px; box-shadow: 0 0 20px rgba(0,170,255,0.2); }
+        .semis-row { display: flex; gap: 30px; justify-content: center; width: 100%; }
+        
+        /* MATCH BOX ALLARGATO PER OSPITARE I 3 SCORE */
+        .match-box { width: 310px; background: rgba(0,10,30,0.9); border: 2px dashed #00aaff; border-radius: 10px; padding: 15px; box-shadow: 0 0 20px rgba(0,170,255,0.2); }
         .match-title { font-size: 11px; color: #00aaff; text-align: center; margin-bottom: 12px; font-weight: 900; letter-spacing: 1px; }
         
-        /* NUOVO STILE SUB-INFO PER ROSTER GIOCATORI */
         .team-slot { margin-bottom: 12px; }
         .team-slot:last-child { margin-bottom: 0; }
         .team-line { display: flex; justify-content: space-between; font-size: 12px; font-weight: 900; text-transform: uppercase; align-items: center; }
         .t-info-wrapper { display: flex; align-items: center; gap: 8px; overflow: hidden; }
-        .t-name-bracket { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
+        .t-name-bracket { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
         .members-bracket { font-size: 9px; font-weight: 400; text-transform: none; color: #aaa; display: block; line-height: 1.1; }
         
-        .final-box { width: 320px; border: 3px solid #d4af37; background: rgba(212,175,55,0.1); border-radius: 15px; padding: 20px; box-shadow: 0 0 30px rgba(212,175,55,0.3); }
+        /* BLOCCO AD EX-TRE SCORE BOX AFFIANCATI */
+        .series-scores { display: flex; gap: 4px; }
+        .score-box { background: #d4af37; color: #000; min-width: 22px; height: 22px; line-height: 22px; border-radius: 4px; font-weight: 900; text-align: center; font-size: 11px; }
+        .score-box.empty { background: rgba(255,255,255,0.1); color: #777; }
+        
+        .final-box { width: 360px; border: 3px solid #d4af37; background: rgba(212,175,55,0.1); border-radius: 15px; padding: 20px; box-shadow: 0 0 30px rgba(212,175,55,0.3); }
         .final-box .match-title { color: #d4af37; font-size: 18px; margin-bottom: 15px; text-transform: uppercase; }
 
         /* BOX VINCITORE CON COPPA INTEGRATA */
@@ -83,7 +89,6 @@
         }
 
         @keyframes pulse { 0% { transform: scale(1.2); } 50% { transform: scale(1.3); } 100% { transform: scale(1.2); } }
-        .score-box { background: #d4af37; color: #000; min-width: 25px; padding: 2px 6px; border-radius: 4px; font-weight: 900; text-align: center; }
         .nav-link { position: fixed; top: 20px; left: 20px; z-index: 100; background: #d4af37; color: black; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 14px; }
     </style>
 </head>
@@ -109,19 +114,27 @@
                     <div class="team-slot" id="sf1-t1">
                         <div class="team-line">
                             <div class="t-info-wrapper">
-                                <img src="finalist.png" class="mini-logo">
-                                <span class="t-name-bracket">1° CLAS. GR A</span>
+                                <img src="placeholder-logo.png" class="mini-logo">
+                                <span class="t-name-bracket">Berlusca Dortmund</span>
                             </div>
-                            <span class="score-box">-</span>
+                            <div class="series-scores">
+                                <span class="score-box empty">-</span>
+                                <span class="score-box empty">-</span>
+                                <span class="score-box empty">-</span>
+                            </div>
                         </div>
                     </div>
                     <div class="team-slot" id="sf1-t2">
                         <div class="team-line">
                             <div class="t-info-wrapper">
-                                <img src="finalist.png" class="mini-logo">
-                                <span class="t-name-bracket">2° CLAS. GR B</span>
+                                <img src="placeholder-logo.png" class="mini-logo">
+                                <span class="t-name-bracket">FC Pelados</span>
                             </div>
-                            <span class="score-box">-</span>
+                            <div class="series-scores">
+                                <span class="score-box empty">-</span>
+                                <span class="score-box empty">-</span>
+                                <span class="score-box empty">-</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -131,19 +144,27 @@
                     <div class="team-slot" id="sf2-t1">
                         <div class="team-line">
                             <div class="t-info-wrapper">
-                                <img src="finalist.png" class="mini-logo">
-                                <span class="t-name-bracket">1° CLAS. GR B</span>
+                                <img src="placeholder-logo.png" class="mini-logo">
+                                <span class="t-name-bracket">Armistizio FC</span>
                             </div>
-                            <span class="score-box">-</span>
+                            <div class="series-scores">
+                                <span class="score-box">6</span>
+                                <span class="score-box">6</span>
+                                <span class="score-box empty">-</span>
+                            </div>
                         </div>
                     </div>
                     <div class="team-slot" id="sf2-t2">
                         <div class="team-line">
                             <div class="t-info-wrapper">
-                                <img src="finalist.png" class="mini-logo">
-                                <span class="t-name-bracket">2° CLAS. GR A</span>
+                                <img src="placeholder-logo.png" class="mini-logo">
+                                <span class="t-name-bracket">B.I.B.C.</span>
                             </div>
-                            <span class="score-box">-</span>
+                            <div class="series-scores">
+                                <span class="score-box">3</span>
+                                <span class="score-box">3</span>
+                                <span class="score-box empty">-</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -151,15 +172,39 @@
 
             <div class="final-box">
                 <div class="match-title">FINALISSIMA</div>
-                <div class="team-line"><span>Finalista A</span><span class="score-box">-</span></div><br>
-                <div class="team-line"><span>Finalista B</span><span class="score-box">-</span></div>
+                <div class="team-slot" id="fin-t1" style="margin-bottom: 12px;">
+                    <div class="team-line">
+                        <div class="t-info-wrapper">
+                            <img src="placeholder-logo.png" class="mini-logo">
+                            <span class="t-name-bracket" style="font-size:15px;">Finalista A</span>
+                        </div>
+                        <div class="series-scores">
+                            <span class="score-box empty">-</span>
+                            <span class="score-box empty">-</span>
+                            <span class="score-box empty">-</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-slot" id="fin-t2">
+                    <div class="team-line">
+                        <div class="t-info-wrapper">
+                            <img src="placeholder-logo.png" class="mini-logo">
+                            <span class="t-name-bracket" style="font-size:15px;">Finalista B</span>
+                        </div>
+                        <div class="series-scores">
+                            <span class="score-box empty">-</span>
+                            <span class="score-box empty">-</span>
+                            <span class="score-box empty">-</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="winner-section">
                 <div class="winner-card" id="winner-card">
                     <img src="coppa.png" class="trophy-large">
                     <div class="champion-label">TEAM CAMPIONE FARINI CHAMPIONS LEAGUE</div>
-                    <img src="finalist.png" class="winner-logo-big" id="winner-logo">
+                    <img src="placeholder-logo.png" class="winner-logo-big" id="winner-logo">
                     <div class="winner-name" id="winner-name">TEAM VINCITORE</div>
                     <button class="btn-celebra" id="btn-celebra" onclick="celebrazione()">🏆 Celebra la Vittoria!</button>
                 </div>
@@ -188,7 +233,7 @@ function celebrazione() {
 
     audio.play().catch(e => console.log("Errore audio:", e));
 
-    var duration = 30 * 1000;
+    var duration = 20 * 1000;
     var animationEnd = Date.now() + duration;
     var defaults = { startVelocity: 40, spread: 360, ticks: 100, zIndex: 2000 };
 
@@ -205,7 +250,6 @@ function celebrazione() {
 
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTRHxOqEYcRx0m4UxNzXDm1UrmEJtue7wyBFR7IC4iEIH_2WqrITNuaPA8BJIzWSzN7XcZsspJZOFX3/pub?gid=0&single=true&output=csv';
 
-// INSERITI MEMBRI DEL GRUPPO PER IL RENDERING SUL TABELLONE
 const TEAM_DATA = { 
     "Aston Pinna": { logo: "Aston.png", members: "(Simone Z.;Andrea M.)", grp: "A" }, 
     "I Milanisti": { logo: "Milanisti.png", members: "(Filippo Z.;Roberto V.)", grp: "A" }, 
@@ -252,17 +296,21 @@ async function init() {
             }).join('');
         });
 
-        populateSlot("sf1-t1", "Berlusca Dortmund"); // 1° Classificato Girone A
-        populateSlot("sf1-t2", "FC Pelados");         // 2° Classificato Girone B
-        populateSlot("sf2-t1", "Armistizio FC");     // 1° Classificato Girone B
-        populateSlot("sf2-t2", "B.I.B.C.");           // 2° Classificato Girone A
+        // ASSEGNAZIONE LOGHI E COMPONENTI SULLE SEMIFINALI STATISTICHE
+        populateSlot("sf1-t1", "Berlusca Dortmund");
+        populateSlot("sf1-t2", "FC Pelados");
+        populateSlot("sf2-t1", "Armistizio FC");
+        populateSlot("sf2-t2", "B.I.B.C.");
+
+        // AVANZAMENTO AUTOMATICO DI ARMISTIZIO FC IN FINALISSIMA (SERIE VINTA 2-0)
+        populateSlot("fin-t2", "Armistizio FC");
 
     } catch (e) { console.error(e); }
 }
 
 function populateSlot(slotId, teamName) {
     const slot = document.getElementById(slotId);
-    if(TEAM_DATA[teamName]) {
+    if(slot && TEAM_DATA[teamName]) {
         slot.querySelector('img').src = TEAM_DATA[teamName].logo;
         slot.querySelector('.t-name-bracket').innerHTML = `${teamName} <span class="members-bracket">${TEAM_DATA[teamName].members}</span>`;
     }
