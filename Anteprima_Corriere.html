@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corriere della Sera - Farini Champions League</title>
+    <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            background-color: #faf8f5;
+            color: #111;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .corriere-container {
+            max-width: 1050px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border: 1px solid #dcd6cd;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        
+        /* TESTATA CORRIERE DELLA SERA */
+        .corriere-header {
+            text-align: center;
+            border-bottom: 3px solid #000;
+            padding-bottom: 5px;
+            margin-bottom: 25px;
+        }
+        .corriere-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 58px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin: 0;
+            color: #002e5d;
+            text-transform: uppercase;
+        }
+        .corriere-header .gothic-sub {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            font-style: italic;
+            color: #333;
+            margin-top: -5px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .meta-info-bar {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            padding: 6px 15px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444;
+            background: #fbfbfa;
+        }
+
+        /* STRUTTURA EDITORIALE */
+        .breaking-ribbon {
+            background: #d32f2f;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            font-size: 12px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            display: inline-block;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .headline-section {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e2ded8;
+            padding-bottom: 25px;
+        }
+        .main-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 900;
+            line-height: 1.15;
+            color: #000;
+            margin: 5px 0 15px 0;
+        }
+        .sfumatura-sub {
+            font-size: 16px;
+            line-height: 1.45;
+            color: #3a3a3a;
+            margin: 0;
+            font-style: normal;
+        }
+
+        /* DISPOSIZIONE PAGINA A 2 COLONNE */
+        .grid-layout {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+        .main-column {
+            display: table-cell;
+            width: 65%;
+            vertical-align: top;
+            padding-right: 30px;
+            border-right: 1px solid #e2ded8;
+        }
+        .side-column {
+            display: table-cell;
+            width: 35%;
+            vertical-align: top;
+            padding-left: 30px;
+        }
+
+        /* FOCUS INTERVISTA MINORINI */
+        .photo-container {
+            border: 1px solid #ccc;
+            padding: 5px;
+            background: #fcfcfc;
+            margin-bottom: 15px;
+        }
+        .photo-box {
+            width: 100%;
+            height: auto;
+            max-height: 480px;
+            object-fit: cover;
+            display: block;
+        }
+        .photo-caption {
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #555;
+            margin-top: 8px;
+            padding: 0 5px;
+        }
+        .photo-caption strong {
+            color: #002e5d;
+        }
+        .editorial-body {
+            font-size: 14.5px;
+            line-height: 1.65;
+            color: #222;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        .editorial-body strong {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+        }
+
+        /* FOCUS MATCH SEMIFINALE 1 */
+        .match-analysis-box {
+            background: #fbfaf6;
+            border: 1px solid #dcd6cd;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .section-tag {
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            font-weight: 900;
+            color: #002e5d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .match-title-side {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 900;
+            margin: 0 0 15px 0;
+            line-height: 1.2;
+        }
+        .vs-graphics {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #e2ded8;
+        }
+        .vs-graphics img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+        .vs-text {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            font-size: 14px;
+            color: #777;
+        }
+        .side-text-p {
+            font-size: 13px;
+            line-height: 1.55;
+            color: #333;
+            text-align: justify;
+            margin: 0 0 12px 0;
+        }
+
+        /* QUOTE DELLE FASI FINALI */
+        .quote-corsera-box {
+            border: 1px solid #002e5d;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .quote-header {
+            background: #002e5d;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            padding: 8px 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .quote-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+        }
+        .quote-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2ded8;
+            font-weight: 700;
+        }
+        .team-inline-flex {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .team-inline-flex img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+        .val-quota {
+            text-align: right;
+            color: #d32f2f;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="corriere-container">
+
+    <div class="corriere-header">
+        <h1>CORRIERE DELLA SERA</h1>
+        <div class="gothic-sub">Farini Champions League Chronicles</div>
+        <div class="meta-info-bar">
+            <span>Anno I - Numero 24</span>
+            <span>Milano, Giovedì 28 Maggio 2026</span>
+            <span>Prezzo Edizione Speciale</span>
+        </div>
+    </div>
+
+    <div class="headline-section">
+        <span class="breaking-ribbon">Anteprima Esclusiva</span>
+        <h2 class="main-title">Dichiarazioni shock di Minorini nell'edizione di domani</h2>
+        <p class="sfumatura-sub">
+            Le parole a caldo del noto opinionista scuotono le fondamenta della vigilia. Nel frattempo cresce la tensione per la prima semifinale: 
+            il Berlusca Dortmund affronta l'ostacolo FC Pelados in una serie al meglio delle tre gare.
+        </p>
+    </div>
+
+    <div class="grid-layout">
+        
+        <div class="main-column">
+            <div class="photo-container">
+                <img src="image_178aa9.jpg" class="photo-box" alt="Intervista Minorini A.">
+                <div class="photo-caption">
+                    <strong>Il retroscena / Milano.</strong> L'inviato di Farini TV intercetta Minorini A. nella mixed zone al termine delle sessioni di allenamento ufficiali. Le sue dichiarazioni aprono nuovi scenari geopolitici all'interno del torneo.
+                </div>
+            </div>
+
+            <p class="editorial-body">
+                Le indiscrezioni trapelate nelle ultime ore trovano finalmente una clamorosa conferma. Le dichiarazioni rilasciate da <strong>Minorini A.</strong> ai microfoni della stampa specializzata promettono di sollevare un polverone mediatico senza precedenti, destinato a influenzare pesabilmente l'ambiente alla vigilia dei prossimi incontri ad eliminazione diretta. 
+            </p>
+            <p class="editorial-body">
+                Intercettato a bordo campo, Minorini non si è nascosto dietro i soliti cliché del post-partita, lanciando giudizi taglienti e analisi approfondite sullo stato di forma dei club e sulla gestione organizzativa delle semifinali. "I valori emersi nei gironi potrebbero essere completamente ribaltati dalla pressione psicologica dei playoff", ha sentenziato l'opinionista, agitando lo spettro di clamorosi verdetti a sorpresa.
+            </p>
+        </div>
+        
+        <div class="side-column">
+            
+            <div class="match-analysis-box">
+                <span class="section-tag">Il Big Match</span>
+                <h3 class="match-title-side">Dortmund-Pelados: Caccia alla Finale</h3>
+                
+                <div class="vs-graphics">
+                    <img src="Dortmund.png" alt="Berlusca Dortmund">
+                    <span class="vs-text">VS</span>
+                    <img src="Pelados.png" alt="FC Pelados">
+                </div>
+                
+                <p class="side-text-p">
+                    La tensione è palpabile attorno alla prima semifinale del tabellone. Il <strong>Berlusca Dortmund</strong>, forte di una statistica impressionante accumulata nella fase a gironi (28 gol fatti), sfida lo spirito di rivalsa del collettivo di <strong>FC Pelados</strong>.
+                </p>
+                <p class="side-text-p">
+                    Gli analisti tattici prevedono una contesa ad altissima intensità. Se l'attacco della compagine di Dortmund appare sulla carta incontenibile, la formula della serie al meglio dei tre match darà ai Pelados l'opportunità di registrare la difesa ed effettuare i giusti accorgimenti in Gara 2.
+                </p>
+            </div>
+
+            <div class="quote-corsera-box">
+                <div class="quote-header">Lavagna Quote Antepost</div>
+                <table class="quote-table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="team-inline-flex">
+                                    <img src="Armistizio.png" alt="Armistizio Logo">
+                                    <span>Armistizio FC</span>
+                                </div>
+                            </td>
+                            <td class="val-quota">2.20</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="team-inline-flex">
+                                    <img src="Dortmund.png" alt="Dortmund Logo">
+                                    <span>Berlusca Dortmund</span>
+                                </div>
+                            </td>
+                            <td class="val-quota">2.45</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="team-inline-flex">
+                                    <img src="Pelados.png" alt="Pelados Logo">
+                                    <span>FC Pelados</span>
+                                </div>
+                            </td>
+                            <td class="val-quota">10.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
