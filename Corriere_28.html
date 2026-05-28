@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Corriere dello Sport - Speciale Farini Champions League</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            color: #111111;
+            background-color: #ffffff;
+            line-height: 1.25;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Testata Storica dello Sport */
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+        }
+        .header-meta {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444444;
+            padding: 4px 0;
+            border-bottom: 1px solid #111111;
+        }
+        .header-title-box {
+            text-align: center;
+            padding: 15px 0 10px 0;
+        }
+        .main-title-red {
+            color: #cc0000;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 52pt;
+            font-style: italic;
+            letter-spacing: -1px;
+            margin: 0;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        .sub-header-bar {
+            width: 100%;
+            border-top: 3px double #111111;
+            border-bottom: 3px double #111111;
+            padding: 6px 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 10pt;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* Struttura a Colonne stile Quotidiano tramite Tabelle */
+        .layout-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        .left-col {
+            width: 70%;
+            padding-right: 20px;
+            vertical-align: top;
+            border-right: 1px solid #dddddd;
+        }
+        .right-col {
+            width: 30%;
+            padding-left: 20px;
+            vertical-align: top;
+        }
+
+        /* Apertura shock */
+        .super-titolo {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: bold;
+            color: #cc0000;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+        .titolo-principale {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 30pt;
+            font-weight: 900;
+            line-height: 1.05;
+            text-transform: uppercase;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.5px;
+        }
+        .sotto-titolo {
+            font-size: 12pt;
+            font-style: italic;
+            color: #444444;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            border-bottom: 1px dashed #cccccc;
+            padding-bottom: 12px;
+        }
+
+        /* Risultati Box */
+        .tabellino-box {
+            background-color: #fcfcfc;
+            border: 1px solid #cc0000;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        .tabellino-title {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 10pt;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #cc0000;
+            padding: 4px 8px;
+            margin: -10px -10px 10px -10px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+        .match-score {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 16pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 5px 0;
+        }
+        .set-details {
+            font-size: 10pt;
+            text-align: center;
+            color: #666666;
+            font-weight: bold;
+        }
+
+        /* Testo Articolo */
+        .testo-articolo {
+            font-size: 11pt;
+            text-align: justify;
+            text-indent: 15px;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+        }
+        .testo-articolo::first-letter {
+            font-size: 26pt;
+            font-weight: bold;
+            float: left;
+            line-height: 0.9;
+            margin-right: 4px;
+            color: #cc0000;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        /* Sezione Caso Minorini */
+        .caso-box {
+            background-color: #fff5f5;
+            border-left: 4px solid #cc0000;
+            padding: 12px;
+            margin-top: 20px;
+        }
+        .caso-titolo {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 13pt;
+            font-weight: bold;
+            color: #cc0000;
+            text-transform: uppercase;
+            margin: 0 0 6px 0;
+        }
+        .citazione {
+            font-style: italic;
+            font-size: 10.5pt;
+            color: #333333;
+            background: #ffffff;
+            padding: 8px;
+            border: 1px solid #eeeeee;
+            margin: 8px 0;
+            line-height: 1.3;
+        }
+
+        /* Colonna Destra: Quotazioni e Laterali */
+        .rubrica-titolo {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: bold;
+            background-color: #111111;
+            color: #ffffff;
+            padding: 4px 6px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+        
+        .quota-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+        .quota-table th {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 8.5pt;
+            background-color: #f0f0f0;
+            text-align: left;
+            padding: 5px;
+            border-bottom: 2px solid #111111;
+            text-transform: uppercase;
+        }
+        .quota-table td {
+            font-size: 10pt;
+            padding: 7px 5px;
+            border-bottom: 1px solid #eeeeee;
+        }
+        .quota-val {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            color: #cc0000;
+            text-align: right;
+        }
+
+        .info-flash {
+            font-size: 10pt;
+            border-bottom: 1px solid #dddddd;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .info-flash strong {
+            color: #cc0000;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            display: block;
+            font-size: 9.5pt;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <table class="header-table">
+        <tr>
+            <td class="header-meta" style="text-align: left;">Anno LXXVI - N. 145</td>
+            <td class="header-meta" style="text-align: right;">Giovedì, 28 Maggio 2026</td>
+        </tr>
+    </table>
+    
+    <div class="header-title-box">
+        <h1 class="main-title-red">Corriere dello Sport</h1>
+    </div>
+
+    <div class="sub-header-bar">
+        SPECIALE FARINI CHAMPIONS LEAGUE — IL QUOTIDIANO DEI CAMPIONI
+    </div>
+
+    <table class="layout-table">
+        <tr>
+            <td class="left-col">
+                <div class="super-titolo">Clamoroso alla Finale Armistizio</div>
+                <h2 class="titolo-principale">Pelados Immortali!<br>Battuto l'Armistizio FC</h2>
+                
+                <div class="sotto-titolo">
+                    Incredibile colpo di scena nel match decisivo: l'FC Pelados ribalta ogni pronostico e si consacra sul tetto della Farini Champions League dopo un'altalena folle di emozioni. Finisce 6-3, 2-6, 6-3.
+                </div>
+
+                <div class="tabellino-box">
+                    <div class="tabellino-title">Il Tabellino Storico</div>
+                    <div class="match-score">FC PELADOS &nbsp;<span style="color:#cc0000;">2 — 1</span>&nbsp; ARMISTIZIO FC</div>
+                    <div class="set-details">Successo in tre set: (6-3) / (2-6) / (6-3)</div>
+                </div>
+
+                <p class="testo-articolo">
+                    Una pagina di puro eroismo sportivo è stata scritta ieri sera sul cemento infuocato della Farini Champions League. L'FC Pelados ha compiuto l'impresa che nessuno, alla vigilia, osava nemmeno sussurrare. Sotto la pressione di uno stadio gremito e contro la corazzata favorita dell'Armistizio FC, i Pelados hanno dimostrato una tempra e una coesione tattica senza precedenti, portando a casa un trionfo memorabile.
+                </p>
+                <p class="testo-articolo">
+                    Il primo set è un monologo strategico della squadra in maglia bianca, capace di imporre un ritmo insostenibile e chiudere agilmente sul 6-3. Ma la reazione dell'Armistizio FC non si è fatta attendere: un secondo parziale dominato dai rivali per 2-6 che sembrava aver spento l'entusiasmo e ripristinato le gerarchie stabilite. È nel terzo e decisivo set, tuttavia, che si compie il miracolo, con i Pelados capaci di ritrovare lucidità e grinta, strappando il definitivo 6-3 che vale la coppa e la gloria eterna.
+                </p>
+
+                <div class="caso-box">
+                    <h3 class="caso-titolo">Il Caso: Tempesta Minorini</h3>
+                    <p class="testo-articolo" style="margin-bottom: 5px;">
+                        Non è stata però una vigilia serena per i neo-campioni. A poche ore dal fischio d'inizio, le pesantissime dichiarazioni rilasciate da <strong>Minorini</strong> hanno rischiato di far saltare completamente il banco, destabilizzando l'ambiente e minando lo spirito dello spogliatoio.
+                    </p>
+                    <div class="citazione">
+                        "Parole che hanno rischiato di compromettere mesi di sacrifici. Lo spogliatoio ha vacillato di fronte a certe esternazioni distruttive, ma la risposta sul campo è stata l'unica possibile."
+                    </div>
+                    <p class="testo-articolo">
+                        Fonti vicine alla squadra confermano ore di altissima tensione nel pre-partita. La leadership del club ha dovuto compiere un vero e proprio miracolo diplomatico per ricucire lo strappo e isolare la squadra dalle polemiche esterne prodotte dal ciclone Minorini. Una spaccatura che resterà da valutare nei prossimi giorni, ma che per ora viene sommersa dal fragore dei festeggiamenti.
+                    </p>
+                </div>
+            </td>
+
+            <td class="right-col">
+                
+                <div class="rubrica-titolo">Le Quotazioni Finale</div>
+                <table class="quota-table">
+                    <thead>
+                        <tr>
+                            <th>Esito Finale</th>
+                            <th style="text-align: right;">Quota</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>FC Pelados</strong> (Vincente)</td>
+                            <td class="quota-val">4.50</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Armistizio FC</strong> (Vincente)</td>
+                            <td class="quota-val">1.25</td>
+                        </tr>
+                        <tr>
+                            <td>Risultato Esatto 2-1</td>
+                            <td class="quota-val">8.00</td>
+                        </tr>
+                        <tr>
+                            <td>Over 22.5 Game</td>
+                            <td class="quota-val">1.95</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="rubrica-titolo">Ultimissime</div>
+                
+                <div class="info-flash">
+                    <strong>SPOGLIATOI BOLLENTI</strong>
+                    Retroscena Farini: scontro verbale durissimo nell'intervallo tra lo staff e i senatori dopo il crollo del secondo set.
+                </div>
+
+                <div class="info-flash">
+                    <strong>IL PRESIDENTE PARLA</strong>
+                    "Contro tutto e tutti, dedichiamo questo trionfo a chi ha sempre remato contro la nostra unione."
+                </div>
+
+                <div class="info-flash">
+                    <strong>PREMI INDIVIDUALI</strong>
+                    Miglior giocatore del torneo assegnato all'unanimità per la costanza nei momenti decisivi dei tre set.
+                </div>
+
+                <div style="margin-top: 30px; text-align: center; border: 1px solid #cccccc; padding: 10px; background-color: #fafafa;">
+                    <span style="font-family:'Helvetica Neue', Arial, sans-serif; font-size: 7.5pt; color: #999999; text-transform: uppercase; letter-spacing: 1px;">Spazio Pubblicitario</span>
+                    <div style="font-size: 14pt; font-weight: bold; color: #444444; margin-top: 5px; font-style: italic;">FARINI TV</div>
+                    <div style="font-size: 8pt; color: #777777;">Rivedi la sintesi esclusiva e le interviste a bordo campo</div>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
