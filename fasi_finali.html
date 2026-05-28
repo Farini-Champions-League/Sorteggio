@@ -114,26 +114,26 @@
                     <div class="team-slot" id="sf1-t1">
                         <div class="team-line">
                             <div class="t-info-wrapper">
-                                <img src="finalist.png" class="mini-logo">
+                                <img src="placeholder-logo.png" class="mini-logo">
                                 <span class="t-name-bracket">Berlusca Dortmund</span>
                             </div>
                             <div class="series-scores">
-                                <span class="score-box empty">-</span>
-                                <span class="score-box empty">-</span>
-                                <span class="score-box empty">-</span>
+                                <span class="score-box">3</span>
+                                <span class="score-box">6</span>
+                                <span class="score-box">3</span>
                             </div>
                         </div>
                     </div>
                     <div class="team-slot" id="sf1-t2">
                         <div class="team-line">
                             <div class="t-info-wrapper">
-                                <img src="finalist.png" class="mini-logo">
+                                <img src="placeholder-logo.png" class="mini-logo">
                                 <span class="t-name-bracket">FC Pelados</span>
                             </div>
                             <div class="series-scores">
-                                <span class="score-box empty">-</span>
-                                <span class="score-box empty">-</span>
-                                <span class="score-box empty">-</span>
+                                <span class="score-box">6</span>
+                                <span class="score-box">2</span>
+                                <span class="score-box">6</span>
                             </div>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                     <div class="team-slot" id="sf2-t1">
                         <div class="team-line">
                             <div class="t-info-wrapper">
-                                <img src="finalist.png" class="mini-logo">
+                                <img src="placeholder-logo.png" class="mini-logo">
                                 <span class="t-name-bracket">Armistizio FC</span>
                             </div>
                             <div class="series-scores">
@@ -157,7 +157,7 @@
                     <div class="team-slot" id="sf2-t2">
                         <div class="team-line">
                             <div class="t-info-wrapper">
-                                <img src="finalist.png" class="mini-logo">
+                                <img src="placeholder-logo.png" class="mini-logo">
                                 <span class="t-name-bracket">B.I.B.C.</span>
                             </div>
                             <div class="series-scores">
@@ -175,7 +175,7 @@
                 <div class="team-slot" id="fin-t1" style="margin-bottom: 12px;">
                     <div class="team-line">
                         <div class="t-info-wrapper">
-                            <img src="finalist.png" class="mini-logo">
+                            <img src="placeholder-logo.png" class="mini-logo">
                             <span class="t-name-bracket" style="font-size:15px;">Finalista A</span>
                         </div>
                         <div class="series-scores">
@@ -188,7 +188,7 @@
                 <div class="team-slot" id="fin-t2">
                     <div class="team-line">
                         <div class="t-info-wrapper">
-                            <img src="finalist.png" class="mini-logo">
+                            <img src="placeholder-logo.png" class="mini-logo">
                             <span class="t-name-bracket" style="font-size:15px;">Finalista B</span>
                         </div>
                         <div class="series-scores">
@@ -204,7 +204,7 @@
                 <div class="winner-card" id="winner-card">
                     <img src="coppa.png" class="trophy-large">
                     <div class="champion-label">TEAM CAMPIONE FARINI CHAMPIONS LEAGUE</div>
-                    <img src="finalist.png" class="winner-logo-big" id="winner-logo">
+                    <img src="placeholder-logo.png" class="winner-logo-big" id="winner-logo">
                     <div class="winner-name" id="winner-name">TEAM VINCITORE</div>
                     <button class="btn-celebra" id="btn-celebra" onclick="celebrazione()">🏆 Celebra la Vittoria!</button>
                 </div>
@@ -302,8 +302,9 @@ async function init() {
         populateSlot("sf2-t1", "Armistizio FC");
         populateSlot("sf2-t2", "B.I.B.C.");
 
-        // AVANZAMENTO AUTOMATICO DI ARMISTIZIO FC IN FINALISSIMA (SERIE VINTA 2-0)
-        populateSlot("fin-t2", "Armistizio FC");
+        // AVANZAMENTO DELLE DUE SQUADRE IN FINALISSIMA VISTI I VERDETTI REALI
+        populateSlot("fin-t1", "FC Pelados");      // Vincitore Serie Semifinale 1 (2-1)
+        populateSlot("fin-t2", "Armistizio FC");    // Vincitore Serie Semifinale 2 (2-0)
 
     } catch (e) { console.error(e); }
 }
