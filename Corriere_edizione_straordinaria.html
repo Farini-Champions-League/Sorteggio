@@ -165,6 +165,7 @@
             border-left: 4px solid #cc0000;
             padding: 12px;
             margin-top: 20px;
+            margin-bottom: 20px;
         }
         .pagelle-titolo {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -182,6 +183,56 @@
         .giocatore-elogio strong {
             color: #cc0000;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        /* Box Gadget */
+        .gadget-box {
+            border: 2px dashed #cc0000;
+            background-color: #fffbeb;
+            padding: 12px;
+            margin-top: 15px;
+        }
+        .gadget-titolo {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: bold;
+            color: #b45309;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        .foto-gadget-container {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .foto-gadget-container img {
+            max-width: 120px;
+            border: 1px solid #b45309;
+            background-color: #ffffff;
+            padding: 2px;
+            display: inline-block;
+        }
+
+        /* Immagini dell'articolo */
+        .foto-articolo {
+            width: 100%;
+            border: 1px solid #111111;
+            padding: 4px;
+            margin-bottom: 15px;
+            background-color: #ffffff;
+        }
+        .foto-articolo img {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+        .foto-didascalia {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 8pt;
+            color: #444444;
+            margin-top: 4px;
+            text-align: left;
+            line-height: 1.2;
         }
 
         /* Colonna Destra: Informazioni e Laterali */
@@ -272,14 +323,29 @@
                         <strong>Josef F. (FC Pelados):</strong> Semplicemente monumentale. Se i Pelados sono rimasti in partita fino all'ultimo secondo, il merito è delle sue parate ai limiti della fisica.
                     </div>
                 </div>
+
+                <div class="gadget-box">
+                    <div class="gadget-titolo">⚠️ INSERTO ESCLUSIVO IN EDIZIONE LIMITATA</div>
+                    <div class="foto-gadget-container">
+                        <img src="Dito.jpg" alt="Pezzo di dito di Virdis da Collezione">
+                    </div>
+                    <p class="testo-articolo" style="margin-bottom: 0; font-size: 10pt; text-indent: 0; text-align: center; font-style: italic;">
+                        Trovi in allegato solo con questo numero l'introvabile <strong>"Pezzo di dito di Virdis" da collezione</strong>. Un feticcio e cimelio storico sacrificato sull'altare della gloria e della foga agonistica della Farini League!
+                    </p>
+                </div>
             </td>
 
             <td class="right-col">
                 
+                <div class="foto-articolo">
+                    <img src="image_170e86.jpg" alt="Premiazione Farini Champions League">
+                    <div class="foto-didascalia">Orgoglio e sorrisi alla premiazione della Farini Champions League: un cammino straordinario celebrato sul campo.</div>
+                </div>
+
                 <div class="rubrica-titolo">Il Verdetto</div>
-                <div class="info-flash" style="text-align: center; padding: 15px 0;">
-                    <span style="font-size: 11pt; font-weight: bold; text-transform: uppercase;">Campioni del Torneo</span>
-                    <div style="font-size: 16pt; font-weight: bold; color: #cc0000; margin-top: 5px;">ARMISTIZIO FC</div>
+                <div class="info-flash" style="text-align: center; padding: 5px 0 12px 0;">
+                    <span style="font-size: 10pt; font-weight: bold; text-transform: uppercase;">Campioni del Torneo</span>
+                    <div style="font-size: 14pt; font-weight: bold; color: #cc0000; margin-top: 3px;">ARMISTIZIO FC</div>
                 </div>
 
                 <div class="rubrica-titolo">Cronaca e Flash</div>
@@ -290,8 +356,8 @@
                 </div>
 
                 <div class="info-flash">
-                    <strong>DIFESE EROICHE</strong>
-                    Gli esperti concordano: "Raramente si è vista una tale applicazione difensiva in finale. Interventi che valgono quanto un gol."
+                    <strong>FEBBRE IN EDICOLA</strong>
+                    A ruba il gadget ufficiale inserito nella confezione: il mitico pezzo di dito di Virdis manda in estasi i collezionisti storici del torneo.
                 </div>
 
                 <div class="info-flash">
@@ -299,9 +365,9 @@
                     Abbracci e lunghi applausi tra i quattro protagonisti al termine di Gara 2. Lo sport esce vincitore assoluto da questa serata.
                 </div>
 
-                <div style="margin-top: 40px; text-align: center; border: 1px solid #cccccc; padding: 10px; background-color: #fafafa;">
+                <div style="margin-top: 25px; text-align: center; border: 1px solid #cccccc; padding: 10px; background-color: #fafafa;">
                     <span style="font-family:'Helvetica Neue', Arial, sans-serif; font-size: 7.5pt; color: #999999; text-transform: uppercase; letter-spacing: 1px;">Spazio Pubblicitario</span>
-                    <div style="font-size: 14pt; font-weight: bold; color: #444444; margin-top: 5px; font-style: italic;">FARINI TV</div>
+                    <div style="font-size: 13pt; font-weight: bold; color: #444444; margin-top: 5px; font-style: italic;">FARINI TV</div>
                     <div style="font-size: 8pt; color: #777777;">Rivedi la clip celebrativa dell'Armistizio FC e le interviste post-gara</div>
                 </div>
 
