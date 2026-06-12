@@ -3,39 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UCL Draw - Creazione Squadre Farini</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <title>UCL Draw - Farini Champions League</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: 'Montserrat', sans-serif; background-color: #000; color: white; }
-        .ucl-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('sfondo.png') center/cover no-repeat; z-index: 1; }
-        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 5, 20, 0.85); z-index: 2; }
-        #click-master { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; cursor: pointer; display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; }
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: 'Montserrat', sans-serif; background-color: #020617; color: white; }
         
-        #match-card { display: none; width: 90%; max-width: 900px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); padding: 40px; border-radius: 20px; border: 2px solid #0047e1; animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; box-shadow: 0 0 60px rgba(0,71,225,0.4); }
-        #final-ui { display: none; animation: pop 0.6s ease-out; }
-        .trophy-img { width: 300px; height: auto; filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.6)); margin-bottom: 20px; }
+        /* Background & Overlay stile Champions */
+        .ucl-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #0f172a 0%, #020617 100%); z-index: 1; }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(5,10,35,0.7) 100%); z-index: 2; }
         
-        @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        #click-master { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; cursor: pointer; display: flex; align-items: center; justify-content: center; text-align: center; flex-direction: column; padding: 20px; box-sizing: border-box; }
         
-        /* Intestazione Squadra (senza logo) */
-        .team-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 20px; }
-        .team-name { font-size: 38px; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: 4px; text-shadow: 0 0 15px rgba(212,175,55,0.6); }
+        /* Card di Estrazione */
+        #match-card { display: none; width: 90%; max-width: 900px; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(25px); padding: 40px; border-radius: 24px; border: 2px solid #1e40af; animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; box-shadow: 0 0 60px rgba(30,64,175,0.4); }
         
-        /* Layout Giocatori */
-        .players-container { display: flex; justify-content: space-around; width: 100%; gap: 20px; }
-        .player-box { flex: 1; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 25px 10px; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; }
+        /* Schermata Finale Riepilogo */
+        #final-ui { display: none; width: 95%; max-width: 1100px; max-height: 90vh; overflow-y: auto; background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); padding: 40px; border-radius: 24px; border: 2px solid #d4af37; box-shadow: 0 0 50px rgba(212,175,55,0.2); animation: pop 0.6s ease-out forwards; }
         
-        .role-badge { position: absolute; top: 0; left: 0; width: 100%; padding: 5px 0; font-size: 12px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
-        .role-def { background: #0047e1; color: white; }
-        .role-att { background: #cc0000; color: white; }
+        @keyframes pop { 0% { transform: scale(0.85); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
-        .player-name { font-size: 28px; font-weight: 900; text-transform: uppercase; margin-top: 20px; min-height: 40px; color: #d4af37; text-shadow: 0 0 10px rgba(212,175,55,0.5); transition: color 0.3s; text-align: center; }
-        .player-name.shuffling { color: #fff; text-shadow: none; filter: blur(1px); }
+        .team-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 20px; }
+        .team-name { font-size: 40px; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: 3px; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+        
+        /* Griglia Giocatori nella Card */
+        .players-container { display: flex; justify-content: space-around; width: 100%; gap: 25px; }
+        .player-box { flex: 1; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 35px 15px; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; }
+        
+        .role-badge { position: absolute; top: 0; left: 0; width: 100%; padding: 6px 0; font-size: 11px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
+        .role-def { background: #1d4ed8; color: white; }
+        .role-att { background: #b91c1c; color: white; }
+        
+        .player-name { font-size: 32px; font-weight: 900; text-transform: uppercase; margin-top: 15px; min-height: 45px; color: #d4af37; text-shadow: 0 0 15px rgba(212,175,55,0.4); transition: all 0.2s; text-align: center; }
+        .player-name.shuffling { color: #ffffff; text-shadow: none; filter: blur(1.5px); transform: scale(0.95); }
 
-        .draw-status { margin-top: 25px; font-size: 14px; letter-spacing: 3px; color: #00ffa3; font-weight: bold; text-transform: uppercase; opacity: 0; transition: opacity 0.5s; }
+        .draw-status { margin-top: 30px; font-size: 14px; letter-spacing: 4px; color: #00ffa3; font-weight: bold; text-transform: uppercase; opacity: 0; transition: opacity 0.4s; }
         
-        .ball { width: 60px; height: 60px; background: radial-gradient(circle at 30% 30%, #fff, #999); border-radius: 50%; animation: bounce 0.6s infinite alternate ease-in-out; border: 2px solid #fff; margin: 10px; }
-        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
+        /* Grafica Pallina Champions League con Stelle (SVG) */
+        .starball-container { display: flex; justify-content: center; gap: 20px; margin: 30px 0; min-height: 160px; }
+        .starball { width: 140px; height: 140px; animation: float 3s infinite alternate ease-in-out; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.5)); }
+        .starball.spinning { animation: spin 0.15s infinite linear, bump 0.15s infinite alternate ease-in-out; }
+        
+        @keyframes float { from { transform: translateY(0) rotate(0deg); } to { transform: translateY(-15px) rotate(10deg); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes bump { from { transform: translateY(0) scale(1); } to { transform: translateY(-10px) scale(1.05); } }
+        @keyframes flash { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+        /* Stile Griglia Tabellone Finale */
+        .recap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; text-align: left; }
+        .recap-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 20px; border-top: 4px solid #0047e1; transition: transform 0.3s; }
+        .recap-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.07); }
+        .recap-team-title { font-size: 18px; font-weight: 900; color: #d4af37; margin-bottom: 12px; letter-spacing: 1px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+        .recap-player { font-size: 15px; margin: 6px 0; display: flex; justify-content: space-between; }
+        .recap-role { font-weight: 700; font-size: 12px; opacity: 0.6; text-transform: uppercase; }
+        
+        .panchina-box { margin-top: 35px; background: rgba(185, 28, 28, 0.15); border: 1px solid #b91c1c; border-radius: 12px; padding: 20px; font-size: 18px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -44,19 +65,43 @@
 <div class="overlay"></div>
 
 <div id="click-master" onclick="handleInteraction()">
+    
     <div id="intro-ui">
-        <h1 style="font-size: 50px; margin: 0; text-shadow: 0 0 20px rgba(0,71,225,0.8);">OFFICIAL DRAW</h1>
-        <h2 style="color: #d4af37; letter-spacing: 5px; margin-top: 10px;">FARINI CHAMPIONS LEAGUE</h2>
-        <h3 style="font-weight: 400; opacity: 0.8;">Composizione Nuove Squadre</h3>
-        <div style="display: flex; justify-content: center; margin: 40px 0;">
-            <div class="ball"></div><div class="ball" style="animation-delay: 0.2s"></div>
+        <h1 style="font-size: 55px; margin: 0; text-shadow: 0 0 30px rgba(0,71,225,0.6); letter-spacing: -1px;">OFFICIAL LIVE DRAW</h1>
+        <h2 style="color: #d4af37; letter-spacing: 6px; margin-top: 10px; font-size: 22px;">FARINI CHAMPIONS LEAGUE</h2>
+        <h3 style="font-weight: 400; opacity: 0.7; font-size: 18px; margin-top: 5px;">Generazione Accoppiamenti Torneo</h3>
+        
+        <div class="starball-container">
+            <svg class="starball" id="main-ball-svg" viewBox="0 0 100 100">
+                <defs>
+                    <radialGradient id="ballShade" cx="35%" cy="35%" r="65%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="60%" stop-color="#e2e8f0"/>
+                        <stop offset="100%" stop-color="#94a3b8"/>
+                    </radialGradient>
+                    <g id="ucl-star">
+                        <polygon points="0,-13 3.8,-3.8 13,-3.8 5.5,1.8 8.5,11 0,5.3 -8.5,11 -5.5,1.8 -13,-3.8 -3.8,-3.8" fill="#091540" stroke="#0047e1" stroke-width="0.4"/>
+                    </g>
+                </defs>
+                <circle cx="50" cy="50" r="46" fill="url(#ballShade)" stroke="#cbd5e1" stroke-width="0.8"/>
+                <use href="#ucl-star" x="50" y="50" transform="scale(1.1)" />
+                <use href="#ucl-star" x="50" y="16" transform="rotate(32 50 16)" />
+                <use href="#ucl-star" x="50" y="84" transform="rotate(12 50 84)" />
+                <use href="#ucl-star" x="16" y="50" transform="rotate(40 16 50)" />
+                <use href="#ucl-star" x="84" y="50" transform="rotate(70 84 50)" />
+                <use href="#ucl-star" x="26" y="26" transform="rotate(15 26 26)" />
+                <use href="#ucl-star" x="74" y="26" transform="rotate(55 74 26)" />
+                <use href="#ucl-star" x="26" y="74" transform="rotate(110 26 74)" />
+                <use href="#ucl-star" x="74" y="74" transform="rotate(85 74 74)" />
+            </svg>
         </div>
-        <p id="loading-text" style="text-transform: uppercase; letter-spacing: 2px; color: #d4af37;">⏳ Sincronizzazione giocatori in corso...</p>
+        
+        <p id="loading-text" style="text-transform: uppercase; letter-spacing: 2px; color: #d4af37; font-weight: bold;">⏳ Connessione al database di gioco...</p>
     </div>
 
     <div id="match-card">
         <div class="team-header">
-            <div style="color: #00aaff; font-size: 14px; letter-spacing: 4px; margin-bottom: 5px;" id="draw-number">ESTRAZIONE</div>
+            <div style="color: #00aaff; font-size: 13px; letter-spacing: 5px; margin-bottom: 8px; font-weight: bold;" id="draw-number">ESTRAZIONE</div>
             <div class="team-name" id="t-name">SQUADRA 1</div>
         </div>
         
@@ -71,15 +116,20 @@
             </div>
         </div>
         
-        <div id="status" class="draw-status">COPPIA FORMATA!</div>
+        <div id="status" class="draw-status">SQUADRA COMPLETATA!</div>
     </div>
 
-    <div id="final-ui">
-        <img src="coppa.png" class="trophy-img" alt="Trofeo" onerror="this.style.display='none'">
-        <h1 style="font-size: 40px; color: #d4af37; text-shadow: 0 0 20px rgba(212,175,55,0.5);">TUTTE LE SQUADRE SONO FORMATE!</h1>
-        <div id="panchina-info" style="color: #cc0000; font-size: 22px; margin-top: 15px; font-weight: bold;"></div>
-        <p style="opacity: 0.8; font-size: 20px; margin-top: 10px;">Che il torneo abbia inizio.</p>
-        <p style="opacity: 0.5; margin-top: 40px; font-size: 12px; letter-spacing: 2px;">Ricarica la pagina per effettuare un nuovo sorteggio</p>
+    <div id="final-ui" onclick="event.stopPropagation();">
+        <h1 style="font-size: 38px; color: #d4af37; text-shadow: 0 0 20px rgba(212,175,55,0.4); margin-bottom: 5px;">ESTRAZIONE COMPLETATA</h1>
+        <p style="opacity: 0.7; margin: 0 0 25px 0; font-size: 16px;">Ecco i quadri ufficiali definitivi della Farini Champions League</p>
+        
+        <div id="recap-container" class="recap-grid"></div>
+        
+        <div id="panchina-box" class="panchina-box" style="display:none;"></div>
+        
+        <button onclick="location.reload();" style="margin-top: 35px; background: transparent; border: 2px solid #d4af37; color: #d4af37; padding: 12px 30px; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; border-radius: 50px; cursor: pointer; letter-spacing: 1px; transition: all 0.3s;" onmouseover="this.style.background='#d4af37'; this.style.color='#000'" onmouseout="this.style.background='transparent'; this.style.color='#d4af37'">
+            🔄 Ripeti Sorteggio Casualbooleano
+        </button>
     </div>
 </div>
 
@@ -91,33 +141,30 @@
     let isDrawing = false; 
     let isDataLoaded = false;
     
-    // Dati che verranno popolati dal Google Sheet
     let drawSequence = [];
     let dummyNames = [];
     let panchinari = [];
     
-    // ID del tuo Google Sheet e URL per il download CSV
+    // ID del foglio Google Sheet fornito
     const sheetId = '1gBWNDiPfcUz5-9kwn5xFBhJbSZaMJXfniGq1lCaWjns';
     const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=0`;
 
-    // Funzione che scarica i dati all'apertura della pagina
+    // Download asincrono dei dati reali dal foglio Google
     async function loadPlayers() {
         try {
             const response = await fetch(csvUrl);
             const csvText = await response.text();
             
-            // Processa il CSV
             const rows = csvText.split('\n').map(row => row.trim()).filter(row => row.length > 0);
             const giocatori = [];
             
-            // i=1 per saltare la prima riga di intestazione (Nome, Cognome, Ruolo)
             for(let i = 1; i < rows.length; i++) {
-                const cols = rows[i].split(','); // Usa la virgola come separatore standard
+                const cols = rows[i].split(','); 
                 if(cols.length >= 3) {
                     giocatori.push({
-                        nome: cols[0].trim(),
-                        cognome: cols[1].trim(),
-                        ruolo: cols[2].trim()
+                        nome: cols[0].replace(/^["']|["']$/g, '').trim(),
+                        cognome: cols[1].replace(/^["']|["']$/g, '').trim(),
+                        ruolo: cols[2].replace(/^["']|["']$/g, '').trim()
                     });
                 }
             }
@@ -125,16 +172,15 @@
             dummyNames = giocatori.map(g => g.nome + " " + g.cognome.charAt(0) + ".");
             organizeTeams(giocatori);
             
-            // Abilita l'interazione
             isDataLoaded = true;
             const loadingText = document.getElementById('loading-text');
-            loadingText.innerText = "Tocca per estrarre la prima squadra";
-            loadingText.style.color = "#ffffff";
+            loadingText.innerText = "Tocca lo schermo per avviare il sorteggio";
+            loadingText.style.color = "#00ffa3";
             loadingText.style.animation = "flash 1.5s infinite";
 
         } catch (error) {
-            document.getElementById('loading-text').innerText = "⚠️ ERRORE: Impossibile leggere il Google Sheet. Controlla le autorizzazioni.";
-            document.getElementById('loading-text').style.color = "#cc0000";
+            document.getElementById('loading-text').innerText = "⚠️ Errore di sincronizzazione. Verifica la condivisione pubblica del foglio.";
+            document.getElementById('loading-text').style.color = "#ef4444";
         }
     }
 
@@ -149,7 +195,7 @@
             else if (g.ruolo.toLowerCase() === "jolly") jolly.push(g);
         });
 
-        // Logica di bilanciamento Jolly
+        // Bilanciamento matematico dinamico del Jolly
         jolly.forEach(j => {
             if (attaccanti.length < difensori.length) {
                 attaccanti.push(j);
@@ -160,7 +206,7 @@
             }
         });
 
-        // Mischiamo casualmente i giocatori all'interno dei loro ruoli
+        // Mescolamento casuale degli array (Algoritmo Fisher-Yates ottimizzato)
         attaccanti.sort(() => Math.random() - 0.5);
         difensori.sort(() => Math.random() - 0.5);
 
@@ -168,13 +214,13 @@
 
         for (let i = 0; i < maxSquadre; i++) {
             drawSequence.push({
-                teamName: `SQUADRA ${i + 1}`,
-                defName: difensori[i].nome + " " + difensori[i].cognome.charAt(0) + ".",
-                attName: attaccanti[i].nome + " " + attaccanti[i].cognome.charAt(0) + "."
+                teamLabel: `SQUADRA ${i + 1}`,
+                defName: difensori[i].nome + " " + difensori[i].cognome,
+                attName: attaccanti[i].nome + " " + attaccanti[i].cognome
             });
         }
 
-        // Troviamo chi avanza
+        // Calcolo automatico degli esuberi (panchina)
         if (attaccanti.length > maxSquadre) {
             for(let i = maxSquadre; i < attaccanti.length; i++) {
                 panchinari.push(attaccanti[i].nome + " " + attaccanti[i].cognome);
@@ -187,28 +233,34 @@
         }
     }
 
-    // Carica i dati appena la pagina è pronta
     window.onload = loadPlayers;
 
     function handleInteraction() {
         if (!isDataLoaded || isDrawing) return;
 
-        if (anthem.paused) anthem.play().catch(e => console.log("Audio bloccato dal browser senza interazione"));
+        if (anthem.paused) anthem.play().catch(e => console.log("Audio in riproduzione protetta"));
 
         const intro = document.getElementById('intro-ui');
         const card = document.getElementById('match-card');
         const final = document.getElementById('final-ui');
+        const ballSvg = document.getElementById('main-ball-svg');
 
         if (currentIdx < drawSequence.length) {
             isDrawing = true;
-            intro.style.display = 'none';
-            card.style.display = 'block';
+            
+            // Sposta la pallina all'interno della card attiva per un effetto grafico dinamico
+            if(currentIdx === 0) {
+                intro.style.display = 'none';
+                card.style.display = 'block';
+                card.insertBefore(ballSvg, card.firstChild);
+            }
+            
+            ballSvg.classList.add('spinning');
             document.getElementById('status').style.opacity = '0';
             
             const data = drawSequence[currentIdx];
-            
             document.getElementById('draw-number').innerText = `ESTRAZIONE ${currentIdx + 1} DI ${drawSequence.length}`;
-            document.getElementById('t-name').innerText = data.teamName;
+            document.getElementById('t-name').innerText = data.teamLabel;
 
             const defEl = document.getElementById('p-def');
             const attEl = document.getElementById('p-att');
@@ -216,33 +268,61 @@
             defEl.classList.add('shuffling');
             attEl.classList.add('shuffling');
 
+            // Animazione "Roulette" dei nomi estratti dai bussolotti
             let shuffleInterval = setInterval(() => {
                 defEl.innerText = dummyNames[Math.floor(Math.random() * dummyNames.length)];
                 attEl.innerText = dummyNames[Math.floor(Math.random() * dummyNames.length)];
             }, 60);
 
+            // Rivelazione ed interruzione dopo 2 secondi esatti di suspense
             setTimeout(() => {
                 clearInterval(shuffleInterval);
+                ballSvg.classList.remove('spinning');
                 
                 defEl.classList.remove('shuffling');
                 attEl.classList.remove('shuffling');
                 
-                defEl.innerText = data.defName;
-                attEl.innerText = data.attName;
+                // Formattazione con Iniziale del cognome per la card
+                let dParts = data.defName.split(" ");
+                let aParts = data.attName.split(" ");
+                defEl.innerText = `${dParts[0]} ${dParts[1] ? dParts[1].charAt(0) + '.' : ''}`;
+                attEl.innerText = `${aParts[0]} ${aParts[1] ? aParts[1].charAt(0) + '.' : ''}`;
                 
                 document.getElementById('status').style.opacity = '1';
+                
+                // Popola progressivamente il tabellone di riepilogo in background
+                appendTeamToRecap(data.teamLabel, data.defName, data.attName);
                 
                 currentIdx++;
                 isDrawing = false; 
             }, 2000); 
 
         } else {
+            // Fine estrazione: mostra il tabellone completo
             card.style.display = 'none';
             final.style.display = 'block';
+            
+            const benchBox = document.getElementById('panchina-box');
             if (panchinari.length > 0) {
-                document.getElementById('panchina-info').innerText = `Giocatori a riposo per questo turno: ${panchinari.join(", ")}`;
+                benchBox.innerHTML = `🏃‍♂️ GIOCATORI A RIPOSO PER IL PRIMO TURNO: <span style="color:#ffffff">${panchinari.join(", ")}</span>`;
+                benchBox.style.display = 'block';
+            } else {
+                benchBox.style.display = 'none';
             }
         }
+    }
+
+    // Costruisce dinamicamente i blocchi del tabellone riepilogativo finale
+    function appendTeamToRecap(teamTitle, defender, attacker) {
+        const container = document.getElementById('recap-container');
+        const card = document.createElement('div');
+        card.className = 'recap-card';
+        card.innerHTML = `
+            <div class="recap-team-title">${teamTitle}</div>
+            <div class="recap-player"><span>🛡️ ${defender}</span><span class="recap-role">Difesa</span></div>
+            <div class="recap-player"><span>🎯 ${attacker}</span><span class="recap-role">Attacco</span></div>
+        `;
+        container.appendChild(card);
     }
 </script>
 </body>
