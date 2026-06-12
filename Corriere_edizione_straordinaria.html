@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Corriere dello Sport - Edizione Straordinaria Farini</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            color: #111111;
+            background-color: #ffffff;
+            line-height: 1.25;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Testata Storica dello Sport */
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+        }
+        .header-meta {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444444;
+            padding: 4px 0;
+            border-bottom: 1px solid #111111;
+        }
+        .header-title-box {
+            text-align: center;
+            padding: 15px 0 10px 0;
+        }
+        .main-title-red {
+            color: #cc0000;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 52pt;
+            font-style: italic;
+            letter-spacing: -1px;
+            margin: 0;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        .sub-header-bar {
+            width: 100%;
+            border-top: 3px double #111111;
+            border-bottom: 3px double #111111;
+            padding: 6px 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 10pt;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* Struttura a Colonne stile Quotidiano tramite Tabelle */
+        .layout-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        .left-col {
+            width: 70%;
+            padding-right: 20px;
+            vertical-align: top;
+            border-right: 1px solid #dddddd;
+        }
+        .right-col {
+            width: 30%;
+            padding-left: 20px;
+            vertical-align: top;
+        }
+
+        /* Apertura shock */
+        .super-titolo {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: bold;
+            color: #cc0000;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+        .titolo-principale {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 30pt;
+            font-weight: 900;
+            line-height: 1.05;
+            text-transform: uppercase;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.5px;
+        }
+        .sotto-titolo {
+            font-size: 12pt;
+            font-style: italic;
+            color: #444444;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            border-bottom: 1px dashed #cccccc;
+            padding-bottom: 12px;
+        }
+
+        /* Risultati Box */
+        .tabellino-box {
+            background-color: #fcfcfc;
+            border: 1px solid #cc0000;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        .tabellino-title {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 10pt;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #cc0000;
+            padding: 4px 8px;
+            margin: -10px -10px 10px -10px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+        .match-score {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 15pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 5px 0;
+        }
+        .set-details {
+            font-size: 10pt;
+            text-align: center;
+            color: #666666;
+            font-weight: bold;
+        }
+
+        /* Testo Articolo */
+        .testo-articolo {
+            font-size: 11pt;
+            text-align: justify;
+            text-indent: 15px;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+        }
+        .testo-articolo::first-letter {
+            font-size: 26pt;
+            font-weight: bold;
+            float: left;
+            line-height: 0.9;
+            margin-right: 4px;
+            color: #cc0000;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        /* Sezione Pagelle / Elogi */
+        .pagelle-box {
+            background-color: #fff5f5;
+            border-left: 4px solid #cc0000;
+            padding: 12px;
+            margin-top: 20px;
+        }
+        .pagelle-titolo {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 13pt;
+            font-weight: bold;
+            color: #cc0000;
+            text-transform: uppercase;
+            margin: 0 0 10px 0;
+        }
+        .giocatore-elogio {
+            font-size: 10.5pt;
+            margin-bottom: 8px;
+            line-height: 1.35;
+        }
+        .giocatore-elogio strong {
+            color: #cc0000;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        /* Colonna Destra: Informazioni e Laterali */
+        .rubrica-titolo {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: bold;
+            background-color: #111111;
+            color: #ffffff;
+            padding: 4px 6px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .info-flash {
+            font-size: 10pt;
+            border-bottom: 1px solid #dddddd;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .info-flash strong {
+            color: #cc0000;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            display: block;
+            font-size: 9.5pt;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <table class="header-table">
+        <tr>
+            <td class="header-meta" style="text-align: left;">Anno LXXVI - N. 159</td>
+            <td class="header-meta" style="text-align: right;">Venerdì, 12 Giugno 2026</td>
+        </tr>
+    </table>
+    
+    <div class="header-title-box">
+        <h1 class="main-title-red">Corriere dello Sport</h1>
+    </div>
+
+    <div class="sub-header-bar">
+        EDIZIONE STRAORDINARIA — ARMISTIZIO FC SUL TETTO DELLA FARINI CHAMPIONS
+    </div>
+
+    <table class="layout-table">
+        <tr>
+            <td class="left-col">
+                <div class="super-titolo">Apoteosi Finale alla Farini</div>
+                <h2 class="titolo-principale">Armistizio Campione!<br>Pelados Battuti 6-5, 6-5</h2>
+                
+                <div class="sotto-titolo">
+                    Un atto conclusivo leggendario: l'Armistizio FC piega la fiera resistenza dei Pelados in due partite secche vietate ai deboli di cuore. Stadio al completo e spettacolo memorabile.
+                </div>
+
+                <div class="tabellino-box">
+                    <div class="tabellino-title">Il Tabellino della Finale</div>
+                    <div class="match-score">ARMISTIZIO FC &nbsp;<span style="color:#cc0000;">2 — 0</span>&nbsp; FC PELADOS</div>
+                    <div class="set-details">Gara 1: 6 — 5 &nbsp;|&nbsp; Gara 2: 6 — 5</div>
+                </div>
+
+                <p class="testo-articolo">
+                    L'Armistizio FC scrive la pagina più gloriosa della sua storia conquistando la Farini Champions League al termine di una delle finali più belle, tese e combattute che la memoria sportiva ricordi. In un impianto completamente sold-out, con un pubblico caldissimo a spingere ogni singola azione, le due migliori compagini del torneo si sono affrontate a viso aperto senza esclusione di colpi. 
+                </p>
+                <p class="testo-articolo">
+                    Due partite secche, entrambe terminate con il punteggio speculare di 6-5, che testimoniano l'equilibrio assoluto e il livello stellare visto in campo. Gli attacchi hanno risposto presente fin dai primi scambi con giocate fulminee e letali, ma a fare la differenza nei momenti chiave sono state le difese, capaci di opporsi all'impossibile pur di proteggere il risultato. Una menzione d'onore va all'FC Pelados, che esce sconfitto ma a testa altissima dopo aver lottato su ogni singola pallina.
+                </p>
+
+                <div class="pagelle-box">
+                    <h3 class="pagelle-titolo">Il Trionfo dei Campioni e gli Onori ai Vinti</h3>
+                    
+                    <div class="giocatore-elogio">
+                        <strong>Alessio F. (Armistizio FC):</strong> Autore di una prestazione maiuscola in fase offensiva. Glaciale sotto porta, ha firmato i gol pesanti che hanno spezzato l'equilibrio dei due match.
+                    </div>
+                    
+                    <div class="giocatore-elogio">
+                        <strong>Giovanni C. (Armistizio FC):</strong> Un baluardo invalicabile. La sua difesa ha eretto un muro nei minuti finali, compiendo miracoli prodigiosi sui tentativi avversari.
+                    </div>
+                    
+                    <div class="giocatore-elogio">
+                        <strong>Edoardo A. (FC Pelados):</strong> Trascinatore indomito dei suoi. Ha guidato la manovra con una velocità d'esecuzione impressionante, mettendo costantemente in crisi la retroguardia dei campioni.
+                    </div>
+                    
+                    <div class="giocatore-elogio">
+                        <strong>Josef F. (FC Pelados):</strong> Semplicemente monumentale. Se i Pelados sono rimasti in partita fino all'ultimo secondo, il merito è delle sue parate ai limiti della fisica.
+                    </div>
+                </div>
+            </td>
+
+            <td class="right-col">
+                
+                <div class="rubrica-titolo">Il Verdetto</div>
+                <div class="info-flash" style="text-align: center; padding: 15px 0;">
+                    <span style="font-size: 11pt; font-weight: bold; text-transform: uppercase;">Campioni del Torneo</span>
+                    <div style="font-size: 16pt; font-weight: bold; color: #cc0000; margin-top: 5px;">ARMISTIZIO FC</div>
+                </div>
+
+                <div class="rubrica-titolo">Cronaca e Flash</div>
+                
+                <div class="info-flash">
+                    <strong>STADIO SOLD OUT</strong>
+                    Cornice di pubblico incredibile sui campi della Farini. Atmosfera da grande evento e tifo incessante dal primo all'ultimo minuto.
+                </div>
+
+                <div class="info-flash">
+                    <strong>DIFESE EROICHE</strong>
+                    Gli esperti concordano: "Raramente si è vista una tale applicazione difensiva in finale. Interventi che valgono quanto un gol."
+                </div>
+
+                <div class="info-flash">
+                    <strong>FAIR PLAY</strong>
+                    Abbracci e lunghi applausi tra i quattro protagonisti al termine di Gara 2. Lo sport esce vincitore assoluto da questa serata.
+                </div>
+
+                <div style="margin-top: 40px; text-align: center; border: 1px solid #cccccc; padding: 10px; background-color: #fafafa;">
+                    <span style="font-family:'Helvetica Neue', Arial, sans-serif; font-size: 7.5pt; color: #999999; text-transform: uppercase; letter-spacing: 1px;">Spazio Pubblicitario</span>
+                    <div style="font-size: 14pt; font-weight: bold; color: #444444; margin-top: 5px; font-style: italic;">FARINI TV</div>
+                    <div style="font-size: 8pt; color: #777777;">Rivedi la clip celebrativa dell'Armistizio FC e le interviste post-gara</div>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
