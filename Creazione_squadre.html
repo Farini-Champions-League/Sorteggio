@@ -17,11 +17,9 @@
         
         @keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
-        /* Intestazione Squadra */
+        /* Intestazione Squadra (senza logo) */
         .team-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 20px; }
-        .team-logo { width: 120px; height: 120px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; border: 3px solid #d4af37; overflow: hidden; margin-bottom: 15px; box-shadow: 0 0 20px rgba(212,175,55,0.4); }
-        .team-logo img { width: 85%; height: 85%; object-fit: contain; }
-        .team-name { font-size: 32px; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: 2px; }
+        .team-name { font-size: 38px; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: 4px; text-shadow: 0 0 15px rgba(212,175,55,0.6); }
         
         /* Layout Giocatori */
         .players-container { display: flex; justify-content: space-around; width: 100%; gap: 20px; }
@@ -31,7 +29,7 @@
         .role-def { background: #0047e1; color: white; }
         .role-att { background: #cc0000; color: white; }
         
-        .player-name { font-size: 28px; font-weight: 900; text-transform: uppercase; margin-top: 20px; min-height: 40px; color: #d4af37; text-shadow: 0 0 10px rgba(212,175,55,0.5); transition: color 0.3s; }
+        .player-name { font-size: 28px; font-weight: 900; text-transform: uppercase; margin-top: 20px; min-height: 40px; color: #d4af37; text-shadow: 0 0 10px rgba(212,175,55,0.5); transition: color 0.3s; text-align: center; }
         .player-name.shuffling { color: #fff; text-shadow: none; filter: blur(1px); }
 
         .draw-status { margin-top: 25px; font-size: 14px; letter-spacing: 3px; color: #00ffa3; font-weight: bold; text-transform: uppercase; opacity: 0; transition: opacity 0.5s; }
@@ -40,27 +38,26 @@
         @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
     </style>
 </head>
-<body onclick="handleInteraction()">
+<body>
 
 <div class="ucl-bg"></div>
 <div class="overlay"></div>
 
-<div id="click-master">
+<div id="click-master" onclick="handleInteraction()">
     <div id="intro-ui">
         <h1 style="font-size: 50px; margin: 0; text-shadow: 0 0 20px rgba(0,71,225,0.8);">OFFICIAL DRAW</h1>
         <h2 style="color: #d4af37; letter-spacing: 5px; margin-top: 10px;">FARINI CHAMPIONS LEAGUE</h2>
-        <h3 style="font-weight: 400; opacity: 0.8;">Composizione Squadre</h3>
+        <h3 style="font-weight: 400; opacity: 0.8;">Composizione Nuove Squadre</h3>
         <div style="display: flex; justify-content: center; margin: 40px 0;">
             <div class="ball"></div><div class="ball" style="animation-delay: 0.2s"></div>
         </div>
-        <p style="text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; animation: flash 1.5s infinite;">Tocca per estrarre la prima squadra</p>
+        <p id="loading-text" style="text-transform: uppercase; letter-spacing: 2px; color: #d4af37;">⏳ Sincronizzazione giocatori in corso...</p>
     </div>
 
     <div id="match-card">
         <div class="team-header">
-            <div style="color: #00aaff; font-size: 14px; letter-spacing: 4px; margin-bottom: 15px;" id="draw-number">ESTRAZIONE 1 di X</div>
-            <div class="team-logo"><img id="t-logo" src=""></div>
-            <div class="team-name" id="t-name">NOME SQUADRA</div>
+            <div style="color: #00aaff; font-size: 14px; letter-spacing: 4px; margin-bottom: 5px;" id="draw-number">ESTRAZIONE</div>
+            <div class="team-name" id="t-name">SQUADRA 1</div>
         </div>
         
         <div class="players-container">
@@ -74,7 +71,7 @@
             </div>
         </div>
         
-        <div id="status" class="draw-status">SQUADRA COMPLETATA!</div>
+        <div id="status" class="draw-status">COPPIA FORMATA!</div>
     </div>
 
     <div id="final-ui">
@@ -92,83 +89,111 @@
     const anthem = document.getElementById('anthem');
     let currentIdx = 0;
     let isDrawing = false; 
-
-    // Dati dinamici importati dal Google Sheet
-    const giocatori = [
-        { nome: "Claudio", cognome: "Carnevali", ruolo: "Attaccante" },
-        { nome: "Roby", cognome: "Virdis", ruolo: "Attaccante" },
-        { nome: "Antonio", cognome: "Farano", ruolo: "Difensore" },
-        { nome: "Matteo", cognome: "Caroste", ruolo: "Attaccante" },
-        { nome: "Giovanni", cognome: "Castagno", ruolo: "Difensore" },
-        { nome: "Alessandro", cognome: "Locatelli", ruolo: "Difensore" },
-        { nome: "David", cognome: "Gogat", ruolo: "Attaccante" },
-        { nome: "Edoardo", cognome: "Agnesi", ruolo: "Difensore" },
-        { nome: "Josef", cognome: "Farago", ruolo: "Attaccante" },
-        { nome: "Alessio", cognome: "Failla", ruolo: "Attaccante" },
-        { nome: "Stefano", cognome: "Verdini", ruolo: "Jolly" },
-        { nome: "Pierluigi", cognome: "Perretta", ruolo: "Difensore" },
-        { nome: "Fioravante", cognome: "Elia", ruolo: "Difensore" }
-    ];
-
-    // Nomi dei Club per la generazione casuale
-    const clubNames = ["ARMISTIZIO FC", "FC PELADOS", "BERLUSCA DORTMUND", "I MILANISTI", "ASTON PINNA", "FARINI FIGHTER", "PENNY CHELLAS", "CALCIO BARILLA", "ATTENTI A QUEI DUE"];
+    let isDataLoaded = false;
     
-    // Nomi dummy per l'effetto roulette
-    const dummyNames = giocatori.map(g => g.nome + " " + g.cognome.charAt(0) + ".");
+    // Dati che verranno popolati dal Google Sheet
+    let drawSequence = [];
+    let dummyNames = [];
+    let panchinari = [];
+    
+    // ID del tuo Google Sheet e URL per il download CSV
+    const sheetId = '1gBWNDiPfcUz5-9kwn5xFBhJbSZaMJXfniGq1lCaWjns';
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=0`;
 
-    let attaccanti = [];
-    let difensori = [];
-    let jolly = [];
+    // Funzione che scarica i dati all'apertura della pagina
+    async function loadPlayers() {
+        try {
+            const response = await fetch(csvUrl);
+            const csvText = await response.text();
+            
+            // Processa il CSV
+            const rows = csvText.split('\n').map(row => row.trim()).filter(row => row.length > 0);
+            const giocatori = [];
+            
+            // i=1 per saltare la prima riga di intestazione (Nome, Cognome, Ruolo)
+            for(let i = 1; i < rows.length; i++) {
+                const cols = rows[i].split(','); // Usa la virgola come separatore standard
+                if(cols.length >= 3) {
+                    giocatori.push({
+                        nome: cols[0].trim(),
+                        cognome: cols[1].trim(),
+                        ruolo: cols[2].trim()
+                    });
+                }
+            }
 
-    // Divisione nei ruoli
-    giocatori.forEach(g => {
-        if (g.ruolo === "Attaccante") attaccanti.push(g);
-        else if (g.ruolo === "Difensore") difensori.push(g);
-        else if (g.ruolo === "Jolly") jolly.push(g);
-    });
+            dummyNames = giocatori.map(g => g.nome + " " + g.cognome.charAt(0) + ".");
+            organizeTeams(giocatori);
+            
+            // Abilita l'interazione
+            isDataLoaded = true;
+            const loadingText = document.getElementById('loading-text');
+            loadingText.innerText = "Tocca per estrarre la prima squadra";
+            loadingText.style.color = "#ffffff";
+            loadingText.style.animation = "flash 1.5s infinite";
 
-    // Gestione intelligente del Jolly per pareggiare le squadre
-    jolly.forEach(j => {
-        if (attaccanti.length < difensori.length) {
-            attaccanti.push(j);
-        } else if (difensori.length < attaccanti.length) {
-            difensori.push(j);
-        } else {
-            // Se sono pari, il Jolly va a caso
-            Math.random() > 0.5 ? attaccanti.push(j) : difensori.push(j);
+        } catch (error) {
+            document.getElementById('loading-text').innerText = "⚠️ ERRORE: Impossibile leggere il Google Sheet. Controlla le autorizzazioni.";
+            document.getElementById('loading-text').style.color = "#cc0000";
         }
-    });
+    }
 
-    // Mischiamo i giocatori
-    attaccanti.sort(() => Math.random() - 0.5);
-    difensori.sort(() => Math.random() - 0.5);
-    clubNames.sort(() => Math.random() - 0.5);
+    function organizeTeams(giocatori) {
+        let attaccanti = [];
+        let difensori = [];
+        let jolly = [];
 
-    const drawSequence = [];
-    const maxSquadre = Math.min(attaccanti.length, difensori.length);
-
-    // Creazione delle coppie
-    for (let i = 0; i < maxSquadre; i++) {
-        drawSequence.push({
-            teamName: clubNames[i],
-            teamLogo: clubNames[i].replace(/ /g, '').toLowerCase() + ".png",
-            defName: difensori[i].nome + " " + difensori[i].cognome.charAt(0) + ".",
-            attName: attaccanti[i].nome + " " + attaccanti[i].cognome.charAt(0) + "."
+        giocatori.forEach(g => {
+            if (g.ruolo.toLowerCase() === "attaccante") attaccanti.push(g);
+            else if (g.ruolo.toLowerCase() === "difensore") difensori.push(g);
+            else if (g.ruolo.toLowerCase() === "jolly") jolly.push(g);
         });
+
+        // Logica di bilanciamento Jolly
+        jolly.forEach(j => {
+            if (attaccanti.length < difensori.length) {
+                attaccanti.push(j);
+            } else if (difensori.length < attaccanti.length) {
+                difensori.push(j);
+            } else {
+                Math.random() > 0.5 ? attaccanti.push(j) : difensori.push(j);
+            }
+        });
+
+        // Mischiamo casualmente i giocatori all'interno dei loro ruoli
+        attaccanti.sort(() => Math.random() - 0.5);
+        difensori.sort(() => Math.random() - 0.5);
+
+        const maxSquadre = Math.min(attaccanti.length, difensori.length);
+
+        for (let i = 0; i < maxSquadre; i++) {
+            drawSequence.push({
+                teamName: `SQUADRA ${i + 1}`,
+                defName: difensori[i].nome + " " + difensori[i].cognome.charAt(0) + ".",
+                attName: attaccanti[i].nome + " " + attaccanti[i].cognome.charAt(0) + "."
+            });
+        }
+
+        // Troviamo chi avanza
+        if (attaccanti.length > maxSquadre) {
+            for(let i = maxSquadre; i < attaccanti.length; i++) {
+                panchinari.push(attaccanti[i].nome + " " + attaccanti[i].cognome);
+            }
+        }
+        if (difensori.length > maxSquadre) {
+            for(let i = maxSquadre; i < difensori.length; i++) {
+                panchinari.push(difensori[i].nome + " " + difensori[i].cognome);
+            }
+        }
     }
 
-    // Identificazione del giocatore "in panchina" (essendo dispari, ne avanza 1)
-    let panchinaro = "";
-    if (attaccanti.length > maxSquadre) {
-        panchinaro = attaccanti[attaccanti.length - 1].nome + " " + attaccanti[attaccanti.length - 1].cognome;
-    } else if (difensori.length > maxSquadre) {
-        panchinaro = difensori[difensori.length - 1].nome + " " + difensori[difensori.length - 1].cognome;
-    }
+    // Carica i dati appena la pagina è pronta
+    window.onload = loadPlayers;
 
     function handleInteraction() {
-        if (anthem.paused) anthem.play().catch(e => console.log("Audio play fallito"));
-        
-        if (isDrawing) return;
+        if (!isDataLoaded || isDrawing) return;
+
+        if (anthem.paused) anthem.play().catch(e => console.log("Audio bloccato dal browser senza interazione"));
 
         const intro = document.getElementById('intro-ui');
         const card = document.getElementById('match-card');
@@ -182,13 +207,8 @@
             
             const data = drawSequence[currentIdx];
             
-            document.getElementById('draw-number').innerText = `SQUADRA ${currentIdx + 1} DI ${drawSequence.length}`;
+            document.getElementById('draw-number').innerText = `ESTRAZIONE ${currentIdx + 1} DI ${drawSequence.length}`;
             document.getElementById('t-name').innerText = data.teamName;
-            
-            const imgEl = document.getElementById('t-logo');
-            imgEl.src = data.teamLogo;
-            imgEl.onerror = () => { imgEl.style.display = 'none'; };
-            imgEl.onload = () => { imgEl.style.display = 'block'; };
 
             const defEl = document.getElementById('p-def');
             const attEl = document.getElementById('p-att');
@@ -196,13 +216,11 @@
             defEl.classList.add('shuffling');
             attEl.classList.add('shuffling');
 
-            // Effetto Roulette
             let shuffleInterval = setInterval(() => {
                 defEl.innerText = dummyNames[Math.floor(Math.random() * dummyNames.length)];
                 attEl.innerText = dummyNames[Math.floor(Math.random() * dummyNames.length)];
             }, 60);
 
-            // Rivelazione dopo 2 secondi
             setTimeout(() => {
                 clearInterval(shuffleInterval);
                 
@@ -219,11 +237,10 @@
             }, 2000); 
 
         } else {
-            // Fine dell'estrazione
             card.style.display = 'none';
             final.style.display = 'block';
-            if (panchinaro !== "") {
-                document.getElementById('panchina-info').innerText = `Giocatore a riposo: ${panchinaro}`;
+            if (panchinari.length > 0) {
+                document.getElementById('panchina-info').innerText = `Giocatori a riposo per questo turno: ${panchinari.join(", ")}`;
             }
         }
     }
