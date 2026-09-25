@@ -1,29 +1,365 @@
-<div class="headline-section">
-    <span class="breaking-ribbon">Anteprima Esclusiva</span>
-    <h2 class="main-headline">Minorini rompe il silenzio: "Ho forti dubbi su Castagno"</h2>
-    <p class="sfumatura-sub">
-        Rottura nello spogliatoio alla vigilia dell'inizio di campionato. L'attaccante del team REAL MADRINK non fa sconti al compagno: 
-        "Da quando ha smesso con la droga non sembra più essere il leone di una volta. Sembra moscio e disattento prendendo goal che pure un cieco prenderebbe"
-    </p>
-</div>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corriere dello Sport - Farini Champions League</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Condensed:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            background-color: #faf8f5;
+            color: #111;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .corriere-container {
+            max-width: 1050px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border: 1px solid #dcd6cd;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        
+        /* TESTATA GIORNALE */
+        .corriere-header {
+            text-align: center;
+            border-bottom: 3px solid #000;
+            padding-bottom: 5px;
+            margin-bottom: 25px;
+        }
+        .corriere-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 58px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin: 0;
+            color: #002e5d;
+            text-transform: uppercase;
+        }
+        .corriere-header .gothic-sub {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            font-style: italic;
+            color: #333;
+            margin-top: -5px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .meta-info-bar {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            padding: 6px 15px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444;
+            background: #fbfbfa;
+        }
 
-<div class="grid-layout">
-    
-    <div class="main-column">
-        <div class="photo-container">
-            <img src="castagno.jpg" class="photo-box" alt="Giovanni Castagno al centro delle polemiche">
-            <div class="photo-caption">
-                <strong>Il bersaglio delle critiche / Milano.</strong> Giovanni Castagno, compagno di squadra di Minorini A. nel REAL MADRINK, finito al centro della bufera per le sue recenti decisioni in campo.
+        /* STRUTTURA EDITORIALE */
+        .breaking-ribbon {
+            background: #d32f2f;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            font-size: 12px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            display: inline-block;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .headline-section {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e2ded8;
+            padding-bottom: 25px;
+        }
+        .main-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 900;
+            line-height: 1.15;
+            color: #000;
+            margin: 5px 0 15px 0;
+        }
+        .sfumatura-sub {
+            font-size: 16px;
+            line-height: 1.45;
+            color: #3a3a3a;
+            margin: 0;
+            font-style: normal;
+        }
+
+        /* DISPOSIZIONE PAGINA A 2 COLONNE */
+        .grid-layout {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+        .main-column {
+            display: table-cell;
+            width: 65%;
+            vertical-align: top;
+            padding-right: 30px;
+            border-right: 1px solid #e2ded8;
+        }
+        .side-column {
+            display: table-cell;
+            width: 35%;
+            vertical-align: top;
+            padding-left: 30px;
+        }
+
+        /* FOCUS INTERVISTA MINORINI */
+        .photo-container {
+            border: 1px solid #ccc;
+            padding: 5px;
+            background: #fcfcfc;
+            margin-bottom: 15px;
+        }
+        .photo-box {
+            width: 100%;
+            height: auto;
+            max-height: 480px;
+            object-fit: cover;
+            display: block;
+        }
+        .photo-caption {
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #555;
+            margin-top: 8px;
+            padding: 0 5px;
+        }
+        .photo-caption strong {
+            color: #002e5d;
+        }
+        .editorial-body {
+            font-size: 14.5px;
+            line-height: 1.65;
+            color: #222;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        .editorial-body strong {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+        }
+
+        /* FOCUS MATCH SEMIFINALE / CAMPIONATO */
+        .match-analysis-box {
+            background: #fbfaf6;
+            border: 1px solid #dcd6cd;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .section-tag {
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            font-weight: 900;
+            color: #002e5d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .match-title-side {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 900;
+            margin: 0 0 15px 0;
+            line-height: 1.2;
+        }
+        .vs-graphics {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #e2ded8;
+        }
+        .vs-graphics img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+        .vs-text {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            font-size: 14px;
+            color: #777;
+        }
+        .side-text-p {
+            font-size: 13px;
+            line-height: 1.55;
+            color: #333;
+            text-align: justify;
+            margin: 0 0 12px 0;
+        }
+
+        /* QUOTE DELLE FASI FINALI */
+        .quote-corsera-box {
+            border: 1px solid #002e5d;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .quote-header {
+            background: #002e5d;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            padding: 8px 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .quote-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+        }
+        .quote-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2ded8;
+            font-weight: 700;
+        }
+        .team-inline-flex {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .team-inline-flex img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+        .val-quota {
+            text-align: right;
+            color: #d32f2f;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="corriere-container">
+
+    <div class="newspaper-container">
+        
+        <div class="corriere-header">
+            <h1>Corriere dello Sport</h1>
+            <div class="gothic-sub">Edizione Straordinaria</div>
+            <div class="meta-info-bar">
+                <span>Anno I - Numero 24</span>
+                <span>Milano, Settembre 2026</span>
+                <span>Prezzo Edizione Speciale</span>
             </div>
         </div>
 
-        <p class="editorial-body">
-            Un fulmine a ciel sereno scuote l'ambiente della Farini Champions League proprio nel momento più delicato della stagione. Le anticipazioni dell'intervista rilasciata da <strong>Minorini A.</strong>, destinate a fare molto rumore nell'edizione cartacea di domani, rivelano una profonda frattura interna. E questa volta, a differenza dei bisbigli delle scorse settimane, c'è un bersaglio preciso: <strong>Giovanni Castagno</strong>.
-        </p>
-        <p class="editorial-body">
-            "Sinceramente comincio ad avere qualche forte dubbio sul mio compagno Giovanni," ha spiegato Minorini ai microfoni di Farini TV, con tono severo e senza filtri. "Nel calcio moderno l'intesa e il rispetto della strategia condivisa sono tutto. Prendere un'iniziativa personale così azzardata, ignorando i movimenti concordati in allenamento proprio ad inizio campionato, è stato un errore incomprensibile. Ci è andata bene, ma la fortuna non dura per sempre."
-        </p>
-        <p class="editorial-body">
-            Le dichiarazioni pesanti del giocatore del <strong>REAL MADRINK</strong> aprono ora un caso spinoso sulla gestione dello spogliatoio e sull'affidabilità di Castagno in vista delle prossime battaglie. "Mi chiedo se abbia la lucidità necessaria in questa fase," ha concluso Minorini. "Per vincere la coppa serve un'altra testa. Certe leggerezze, da oggi in poi, non saranno più tollerate."
-        </p>
+        <div class="headline-section">
+            <span class="breaking-ribbon">Anteprima Esclusiva</span>
+            <h2 class="main-headline">Minorini rompe il silenzio: "Ho forti dubbi su Castagno"</h2>
+            <p class="sfumatura-sub">
+                Rottura nello spogliatoio alla vigilia dell'inizio di campionato. L'attaccante del team REAL MADRINK non fa sconti al compagno: 
+                "Da quando ha smesso con la droga non sembra più essere il leone di una volta. Sembra moscio e disattento prendendo goal che pure un cieco prenderebbe"
+            </p>
+        </div>
+
+        <div class="grid-layout">
+            
+            <div class="main-column">
+                <div class="photo-container">
+                    <img src="castagno.jpg" class="photo-box" alt="Giovanni Castagno al centro delle polemiche">
+                    <div class="photo-caption">
+                        <strong>Il bersaglio delle critiche / Milano.</strong> Giovanni Castagno, compagno di squadra di Minorini A. nel REAL MADRINK, finito al centro della bufera per le sue recenti decisioni in campo.
+                    </div>
+                </div>
+
+                <p class="editorial-body">
+                    Un fulmine a ciel sereno scuote l'ambiente della Farini Champions League proprio nel momento più delicato della stagione. Le anticipazioni dell'intervista rilasciata da <strong>Minorini A.</strong>, destinate a fare molto rumore nell'edizione cartacea di domani, rivelano una profonda frattura interna. E questa volta, a differenza dei bisbigli delle scorse settimane, c'è un bersaglio preciso: <strong>Giovanni Castagno</strong>.
+                </p>
+                <p class="editorial-body">
+                    "Sinceramente comincio ad avere qualche forte dubbio sul mio compagno Giovanni," ha spiegato Minorini ai microfoni di Farini TV, con tono severo e senza filtri. "Nel calcio moderno l'intesa e il rispetto della strategia condivisa sono tutto. Prendere un'iniziativa personale così azzardata, ignorando i movimenti concordati in allenamento proprio ad inizio campionato, è stato un errore incomprensibile. Ci è andata bene, ma la fortuna non dura per sempre."
+                </p>
+                <p class="editorial-body">
+                    Le dichiarazioni pesanti del giocatore del <strong>REAL MADRINK</strong> aprono ora un caso spinoso sulla gestione dello spogliatoio e sull'affidabilità di Castagno in vista delle prossime battaglie. "Mi chiedo se abbia la lucidità necessaria in questa fase," ha concluso Minorini. "Per vincere la coppa serve un'altra testa. Certe leggerezze, da oggi in poi, non saranno più tollerate."
+                </p>
+            </div>
+            
+            <div class="side-column">
+                
+                <div class="match-analysis-box">
+                    <span class="section-tag">Il Big Match</span>
+                    <h3 class="match-title-side">Esordio di Fuoco</h3>
+                    
+                    <div class="vs-graphics">
+                        <!-- Immagine aggiornata o placeholder -->
+                        <img src="RealMadrink.png" alt="REAL MADRINK" onerror="this.src='Dortmund.png'">
+                        <span class="vs-text">VS</span>
+                        <img src="Pelados.png" alt="FC Pelados">
+                    </div>
+                    
+                    <p class="side-text-p">
+                        Mentre divampano le polemiche interne, la tensione resta altissima per l'avvio della prima giornata. Il <strong>REAL MADRINK</strong> sfida un collettivo sempre ostico come gli <strong>FC Pelados</strong>.
+                    </p>
+                    <p class="side-text-p">
+                        Gli analisti attendono di vedere come queste tensioni si rifletteranno in campo. Il clima rovente nello spogliatoio rischia di deconcentrare la squadra, vanificando la solidità del precampionato.
+                    </p>
+                </div>
+
+                <div class="quote-corsera-box">
+                    <div class="quote-header">Lavagna Quote Antepost</div>
+                    <table class="quote-table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="team-inline-flex">
+                                        <img src="Armistizio.png" alt="Armistizio Logo">
+                                        <span>Armistizio FC</span>
+                                    </div>
+                                </td>
+                                <td class="val-quota">2.20</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="team-inline-flex">
+                                        <img src="RealMadrink.png" alt="Real Madrink Logo" onerror="this.src='Dortmund.png'">
+                                        <span>REAL MADRINK</span>
+                                    </div>
+                                </td>
+                                <td class="val-quota">2.45</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="team-inline-flex">
+                                        <img src="Pelados.png" alt="Pelados Logo">
+                                        <span>FC Pelados</span>
+                                    </div>
+                                </td>
+                                <td class="val-quota">10.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            
+        </div>
+
     </div>
+
+</div>
+
+</body>
+</html>
