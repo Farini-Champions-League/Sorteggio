@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corriere dello Sport - Farini Champions League</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Condensed:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            background-color: #faf8f5;
+            color: #111;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .corriere-container {
+            max-width: 1050px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border: 1px solid #dcd6cd;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        
+        /* TESTATA GIORNALE */
+        .corriere-header {
+            text-align: center;
+            border-bottom: 3px solid #000;
+            padding-bottom: 5px;
+            margin-bottom: 25px;
+        }
+        .corriere-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 58px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin: 0;
+            color: #002e5d;
+            text-transform: uppercase;
+        }
+        .corriere-header .gothic-sub {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            font-style: italic;
+            color: #333;
+            margin-top: -5px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .meta-info-bar {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            padding: 6px 15px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444;
+            background: #fbfbfa;
+        }
+
+        /* STRUTTURA EDITORIALE */
+        .breaking-ribbon {
+            background: #d32f2f;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            font-size: 12px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            display: inline-block;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .headline-section {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e2ded8;
+            padding-bottom: 25px;
+        }
+        .main-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 900;
+            line-height: 1.15;
+            color: #000;
+            margin: 5px 0 15px 0;
+        }
+        .sfumatura-sub {
+            font-size: 16px;
+            line-height: 1.45;
+            color: #3a3a3a;
+            margin: 0;
+            font-style: normal;
+        }
+
+        /* DISPOSIZIONE PAGINA A 1 COLONNA */
+        .grid-layout {
+            display: block;
+            width: 100%;
+        }
+        .main-column {
+            display: block;
+            width: 100%;
+            vertical-align: top;
+            padding-right: 0;
+            border-right: none;
+        }
+
+        /* FOTO AFFIANCATE */
+        .dual-photo-wrapper {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .photo-container {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 5px;
+            background: #fcfcfc;
+        }
+        .photo-box {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+        }
+        .photo-caption {
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #555;
+            margin-top: 8px;
+            padding: 0 5px;
+        }
+        .photo-caption strong {
+            color: #002e5d;
+        }
+        
+        /* TESTO ARTICOLO */
+        .editorial-body {
+            font-size: 14.5px;
+            line-height: 1.65;
+            color: #222;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        .editorial-body strong {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+        }
+
+        /* RESPONSIVE PER SCHERMI PICCOLI */
+        @media (max-width: 768px) {
+            .dual-photo-wrapper {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="corriere-container">
+
+    <div class="newspaper-container">
+        
+        <div class="corriere-header">
+            <h1>Corriere dello Sport</h1>
+            <div class="gothic-sub">Edizione Straordinaria</div>
+            <div class="meta-info-bar">
+                <span>Anno I - Numero 25</span>
+                <span>Milano, Ottobre 2026</span>
+                <span>Prezzo Edizione Speciale</span>
+            </div>
+        </div>
+
+        <div class="headline-section">
+            <span class="breaking-ribbon">Dichiarazioni Shock</span>
+            <h2 class="main-headline">Nobile spavaldo: "Contro le ragazze giocheranno le nostre controfigure"</h2>
+            <p class="sfumatura-sub">
+                Il difensore del B.I.B.C. si sente già ai quarti di finale e lancia una pesante provocazione alle avversarie del team DUE DI TROPPO in vista dell'ultima, decisiva sfida del girone.
+            </p>
+        </div>
+
+        <div class="grid-layout">
+            
+            <div class="main-column">
+                
+                <!-- ENTRAMBE LE IMMAGINI AFFIANCATE -->
+                <div class="dual-photo-wrapper">
+                    <!-- FOTO NOBILE -->
+                    <div class="photo-container">
+                        <img src="nobile.jpeg" class="photo-box" alt="Davide Nobile intervistato">
+                        <div class="photo-caption">
+                            <strong>Sicurezza ostentata / Milano.</strong> Davide Nobile, difensore del B.I.B.C., ai microfoni di Farini TV, mostra una tranquillità disarmante sul passaggio del turno della sua squadra.
+                        </div>
+                    </div>
+                    
+                    <!-- FOTO AVVERSARIE -->
+                    <div class="photo-container">
+                        <img src="frosi_zanotti.jpeg" class="photo-box" alt="Il team DUE DI TROPPO">
+                        <div class="photo-caption">
+                            <strong>Le avversarie nel mirino.</strong> La squadra femminile "DUE DI TROPPO", pesantemente sottovalutata dalle dichiarazioni di Nobile prima del match.
+                        </div>
+                    </div>
+                </div>
+
+                <p class="editorial-body">
+                    Il cammino del B.I.B.C. nella Farini Champions League sembra ormai in discesa, tanto che all'interno dello spogliatoio la qualificazione alla fase a eliminazione diretta viene data per certa. A confermare questo clima di assoluta — e forse eccessiva — rilassatezza è stato <strong>Davide Nobile</strong>, roccioso difensore della squadra, durante l'ultima intervista rilasciata ai microfoni di Farini TV.
+                </p>
+                <p class="editorial-body">
+                    Alla precisa domanda del giornalista, che gli chiedeva: <em>"Quindi la vostra squadra è già qualificata ai quarti di finale?"</em>, Nobile ha risposto con una spavalderia che sta già facendo infiammare i social del torneo. "Sì, tanto ci manca da giocare solo contro la squadra delle ragazze", ha dichiarato il difensore senza mezzi termini. "Quindi siamo tranquillissimi e probabilmente faremo giocare le nostre controfigure".
+                </p>
+                <p class="editorial-body">
+                    Una provocazione bella e buona indirizzata al team <strong>DUE DI TROPPO</strong>, che affronterà il B.I.B.C. nell'ultimo turno. Resta ora da vedere se questa dichiarazione si ritorcerà contro Nobile e compagni, fornendo alle ragazze la motivazione perfetta per cercare un'impresa in campo. L'attesa per il fischio d'inizio è ormai alle stelle.
+                </p>
+            </div>
+            
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
